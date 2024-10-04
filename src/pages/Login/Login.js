@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { AuthContext } from "../../context/authContext";
+import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import {
   MDBBtn,
@@ -16,18 +16,20 @@ import {
 const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
+  const [err, setError] = useState(null);
+
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const inputs = { email: inputEmail, password: inputPassword };
+    const inputs = { mail: inputEmail, password: inputPassword };
 
     try {
       await login(inputs);
       navigate("/", { replace: true });
     } catch (err) {
-      throw err.response?.data || "An error occurred";
+      setError(err.response?.data?.message);
     }
   };
 
@@ -43,6 +45,8 @@ const Login = () => {
               <p className="text-muted mb-4 text-center">
                 Please enter your login and password!
               </p>
+              {/* Show error message if there's an error */}
+              {err && <div className="text-danger text-center mb-4">{err}</div>}
 
               <form onSubmit={handleSubmit}>
                 <MDBInput

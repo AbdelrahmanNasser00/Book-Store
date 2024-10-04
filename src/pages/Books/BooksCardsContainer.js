@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import BookCard from "./BookCard";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import axios from "axios";
+import Pagination from "../../shared/components/Pagination";
+import ProductCard from "../../shared/components/ProductCard";
+import ProductPage from "./ProductPage";
 
 const BooksCardsContainer = () => {
   const [books, setBooks] = useState(null);
   useEffect(() => {
+    // https://api.itbook.store/1.0/new
     axios
-      .get("https://api.itbook.store/1.0/new")
+      .get("http://localhost:8080/api/books")
       .then((res) => {
         console.log(res.data);
         setBooks(res.data.books);
@@ -22,14 +26,15 @@ const BooksCardsContainer = () => {
   }
 
   return (
-    <MDBContainer fluid className="my-5">
+    <MDBContainer className="my-5 mx-auto max-w-[1200px]">
       <MDBRow className="d-flex justify-content-center">
         {books.map((book) => (
-          <MDBCol md="4" lg="2" className="mb-4" key={book.id}>
+          <MDBCol md="4" lg="3" className="mb-4" key={book.id}>
             <BookCard book={book} />
           </MDBCol>
         ))}
       </MDBRow>
+      <Pagination />
     </MDBContainer>
   );
 };

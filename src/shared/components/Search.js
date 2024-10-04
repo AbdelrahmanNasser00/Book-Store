@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   MDBInput,
   MDBBtn,
@@ -8,10 +8,13 @@ import {
   MDBInputGroup,
 } from "mdb-react-ui-kit";
 import axios from "axios";
+import { StoreManagerContext } from "../../context/StoreManagerContext";
 
-const Search = ({ setAddToCatalog, setAddBookGoogleAPI }) => {
+const Search = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
+  const { setCatalogBook, toggleSearchVisibility } =
+    useContext(StoreManagerContext);
 
   useEffect(() => {
     if (query.trim === "") {
@@ -44,12 +47,12 @@ const Search = ({ setAddToCatalog, setAddBookGoogleAPI }) => {
       isbn: book.volumeInfo.industryIdentifiers?.[0]?.identifier,
       price: book.saleInfo.listPrice?.amount || "N/A",
       genre: book.volumeInfo.categories?.join(", "),
+      pageCount: book.volumeInfo.pageCount,
       description: book.volumeInfo.description,
       imageUrl: book.volumeInfo.imageLinks?.thumbnail || "",
     };
-    console.log(bookDetails);
-    setAddToCatalog(bookDetails);
-    setAddBookGoogleAPI(false);
+    setCatalogBook(bookDetails);
+    toggleSearchVisibility(false);
   };
 
   return (

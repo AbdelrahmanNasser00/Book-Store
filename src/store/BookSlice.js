@@ -10,11 +10,21 @@ export const BookSlice = createSlice({
       state.books = action.payload;
     },
     appendBook: (state, action) => {
-      console.log(action.payload);
-      state.books.push(action.payload);
+      const newOrUpdatedBook = action.payload;
+      const existingBookIndex = state.books.findIndex(
+        (book) => book.bookId === newOrUpdatedBook.bookId
+      );
+      if (existingBookIndex !== -1) {
+        state.books[existingBookIndex] = newOrUpdatedBook;
+      } else {
+        state.books.push(newOrUpdatedBook);
+        console.log(state.books);
+      }
     },
     deleteBook: (state, action) => {
-      state.books = state.books.filter((book) => book.id !== action.payload);
+      state.books = state.books.filter(
+        (book) => book.bookId !== action.payload
+      );
     },
   },
 });

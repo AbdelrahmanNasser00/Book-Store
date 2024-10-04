@@ -1,0 +1,28 @@
+.books-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Center the container */
+    padding: 20px;
+}
+
+.books-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.book-item {
+    flex: 1 1 200px;
+    /* Flex-grow, flex-shrink, and base width */
+    max-width: 200px;
+    /* Max width to ensure consistency */
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .book-item {
+        flex: 1 1 100%;
+        /* Make each item take full width on small screens */
+    }
+}

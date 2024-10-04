@@ -1,21 +1,32 @@
 import { MDBBtn } from "mdb-react-ui-kit";
-import { deleteBook } from "../../store/BookSlice";
-import { useDispatch } from "react-redux";
+// import { deleteBook } from "../../store/BookSlice";
+import { useContext } from "react";
+import { StoreManagerContext } from "../../context/StoreManagerContext";
+import { deleteBook } from "../../api";
 const TableRow = ({ book }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const { setEditBookForm } = useContext(StoreManagerContext);
+
+  const handleEditBook = () => {
+    console.log(book);
+    setEditBookForm(book);
+  };
+  const handleDeleteBook = () => {
+    deleteBook(book._id);
+  };
   return (
     <tr>
-      <td>{book.title}</td>
-      <td>{book.author}</td>
-      <td>{book.genre}</td>
-      <td>{book.isbn}</td>
+      <td>{book.name}</td>
+      <td>{book.authors}</td>
+      <td>{book.category}</td>
+      <td>{book.numberOfPages}</td>
       <td>{book.price}</td>
-      <td>{book.quantity}</td>
+      {/* <td>{book.quantity}</td> */}
       <td>
-        <MDBBtn color="danger" size="sm" onClick={() => dispatch(deleteBook())}>
+        <MDBBtn color="danger" size="sm" onClick={handleDeleteBook}>
           Delete
         </MDBBtn>
-        <MDBBtn color="Primary" size="sm" onClick={() => console.log(book)}>
+        <MDBBtn color="Primary" size="sm" onClick={handleEditBook}>
           Edit
         </MDBBtn>
       </td>

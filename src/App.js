@@ -5,32 +5,25 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import Login from "./pages/login/Login";
-import Register from "./pages/register/Register";
-import Home from "./pages/Home";
-import Dashboard from "./pages/dashboard/Dashboard";
-import { AuthContext } from "./context/authContext";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import Home from "./pages/Home/Home";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import { AuthContext } from "./context/AuthContext";
+import ProductPage from "./pages/Books/ProductPage";
+import CategoryPage from "./pages/Books/CategoryPage";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
-
-  const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
-      return <Navigate to="/login" replace={true} />;
-    }
-    return children;
-  };
-
   const AdminRoute = ({ children }) => {
-    if (currentUser && currentUser.admin) {
+    if (currentUser && currentUser?.userDetails?.role === "admin") {
       return children;
     } else {
       return <Navigate to="/" replace={true} />;
     }
   };
 
-  const PublicRoute = ({ children }) => {
+  const AuthRoute = ({ children }) => {
     if (currentUser) {
       return <Navigate to="/" replace={true} />;
     }
@@ -40,29 +33,20 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/" element={<Home />} />
+        <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="/:category" element={<CategoryPage />} />
         <Route
           path="/login"
           element={
-            <PublicRoute>
+            <AuthRoute>
               <Login />
-            </PublicRoute>
+            </AuthRoute>
           }
         />
         <Route
           path="/register"
-          element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          }
+          element={<AuthRoute>{/* <Register /> */}</AuthRoute>}
         />
         <Route
           path="/dashboard"

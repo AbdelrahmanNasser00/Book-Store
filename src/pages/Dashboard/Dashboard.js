@@ -1,11 +1,14 @@
 import React from "react";
 import "../../shared/CSS/Dashboard.css";
 import StoreManager from "./StoreManager";
+import { StoreManagerContextProvider } from "../../context/StoreManagerContext";
 
 const Dashboard = () => {
   return (
     <div className="dashboard">
-      <StoreManager />
+      <StoreManagerContextProvider>
+        <StoreManager />
+      </StoreManagerContextProvider>
     </div>
   );
 };

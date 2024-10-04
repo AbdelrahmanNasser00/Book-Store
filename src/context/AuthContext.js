@@ -12,11 +12,9 @@ export const AuthContextProvider = ({ children }) => {
     try {
       const res = await axios.post(
         "http://localhost:8080/api/auth/login",
-        inputs,
-        { withCredentials: true } // Ensure cookies are sent with the request
+        inputs
       );
-      console.log(res);
-
+      console.log(res.data);
       setCurrentUser(res.data);
     } catch (err) {
       console.error("Login failed:", err);
@@ -33,13 +31,13 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const logout = async () => {
+  const logout = () => {
     try {
-      await axios.post(
-        "http://localhost:8080/api/auth/logout",
-        {},
-        { withCredentials: true }
-      );
+      // await axios.post(
+      //   "http://localhost:8080/api/auth/logout",
+      //   {},
+      //   { withCredentials: true }
+      // );
       setCurrentUser(null);
       localStorage.removeItem("user");
     } catch (err) {
