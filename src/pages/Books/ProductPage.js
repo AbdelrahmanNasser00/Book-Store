@@ -1,29 +1,27 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Navbar from "../../shared/components/Navbar";
 import { MDBBtn } from "mdb-react-ui-kit";
 import { useLocation } from "react-router-dom";
-import Breadcrump from "../../shared/components/Breadcrump";
+import Breadcrump from "../../shared/components/Breadcrumb";
+import { useSelector } from "react-redux";
+import BookCard from "./BookCard";
 
 const ProductPage = () => {
-  const product = {
-    title: "Biomedical Measurement Systems and Data Science",
-    price: 329,
-    currency: "EGP",
-    sku: "23515",
-    categories: ["Bioinformatics", "Data Science"],
-    image: "https://itbook.store/img/books/9781098104030.png", // Replace with your image URL
-    description: "Biomedical Measurement Systems and Data Science",
-    relatedProducts: [
-      {
-        title: "Numerical Python",
-        price: 469,
-        image: "https://itbook.store/img/books/9781098104030.png",
-      },
-    ],
-  };
+  const books = useSelector((state) => state.books.books);
+  console.log(books);
+
   const location = useLocation();
   const { state: book } = location;
-  console.log(book);
+
+  const relatedProducts = useMemo(() => {
+    if (book) {
+      return books.filter(
+        (b) => b.category === book.category && b._id !== book._id
+      );
+    }
+    return [];
+  }, [book, books]);
+  console.log(relatedProducts);
 
   return (
     <>
@@ -81,27 +79,8 @@ const ProductPage = () => {
             Related books
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {product.relatedProducts.map((relatedProduct, index) => (
-              <div
-                className="p-4 border rounded-lg hover:shadow-md transition-shadow"
-                key={index}>
-                <img
-                  src={relatedProduct.image}
-                  alt={relatedProduct.title}
-                  className="w-full h-auto rounded"
-                />
-                <p className="mt-2 text-sm text-gray-700">
-                  {relatedProduct.title}
-                </p>
-                <p className="text-orange-500 font-semibold">
-                  {relatedProduct.price} {product.currency}
-                </p>
-                <div className="d-flex justify-content-center mb-3 mt-auto">
-                  <MDBBtn className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">
-                    Add to cart
-                  </MDBBtn>
-                </div>
-              </div>
+            {relatedProducts.map((relatedProduct, index) => (
+              <BookCard book={relatedProduct} />
             ))}
           </div>
         </div>
