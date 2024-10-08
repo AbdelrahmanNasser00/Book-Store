@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { fetchBooks } from "../../api";
 import { useParams } from "react-router-dom";
 import BookCard from "./BookCard";
 import Navbar from "../../shared/components/Navbar";
 import Breadcrump from "../../shared/components/Breadcrumb";
+import { useSelector } from "react-redux";
 const CategoryPage = () => {
-  const [books, setBooks] = useState([]);
+  const books = useSelector((state) => state.book.books);
   const { category } = useParams();
-  useEffect(() => {
-    const getBooks = async () => {
-      const response = await fetchBooks();
-      if (response.error) {
-        console.log(response.error);
-      } else {
-        setBooks(response.data.books);
-      }
-    };
-    getBooks();
-  });
-  const filteredBooks = books.filter((book) =>
-    book.category.includes(category)
-  );
+  const filteredBooks = useMemo(() => {
+    if (books) {
+      return books.filter((book) => book.category === category);
+    }
+    return [];
+  }, [books, category]);
+  console.log(filteredBooks);
+  // const filteredBooks = books.filter((book) =>
+  //   book.category.includes(category)
+  // );
   return (
     <>
       <Navbar />

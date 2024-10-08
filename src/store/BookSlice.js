@@ -7,7 +7,7 @@ export const BookSlice = createSlice({
   },
   reducers: {
     loadBooks: (state, action) => {
-      state.books = action.payload;
+      state.books = action.payload || [];
     },
     appendBook: (state, action) => {
       const newOrUpdatedBook = action.payload;

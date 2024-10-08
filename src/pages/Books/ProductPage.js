@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import BookCard from "./BookCard";
 
 const ProductPage = () => {
-  const books = useSelector((state) => state.books.books);
+  const books = useSelector((state) => state.book.books);
   console.log(books);
 
   const location = useLocation();
@@ -80,7 +80,7 @@ const ProductPage = () => {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {relatedProducts.map((relatedProduct, index) => (
-              <BookCard book={relatedProduct} />
+              <BookCard book={relatedProduct} key={relatedProduct._id} />
             ))}
           </div>
         </div>
