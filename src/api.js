@@ -17,13 +17,6 @@ export const fetchBooks = async (data) => {
 };
 
 export const addBook = async (data) => {
-  // const data = {
-  //   name: "Bioinformatics and Functional Genomics",
-  //   category: "Bioinformatics",
-  //   author: "Dr.Ahmed Hosny",
-  //   numberOfPages: 500,
-  //   description: "Bioinformatics and Functional Genomics",
-  // };
   console.log(data);
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user.userDetails.token;
@@ -67,6 +60,33 @@ export const deleteBook = async (bookId) => {
         Authorization: `Bearer ${token}`,
       },
     });
+  } catch (ex) {
+    return {
+      error: true,
+      ex,
+    };
+  }
+};
+
+export const submitReview = async (id, reviewData) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.userDetails.token;
+  console.log(reviewData);
+  console.log(id);
+  try {
+    return await apiClient.post(`/books/${id}/reviews`, reviewData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (ex) {
+    return { error: true, ex };
+  }
+};
+
+export const fetchReviews = async (id) => {
+  try {
+    return await apiClient.get(`/books/${id}/reviews`);
   } catch (ex) {
     return {
       error: true,

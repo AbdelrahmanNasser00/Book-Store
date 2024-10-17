@@ -1,10 +1,12 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import Navbar from "../../shared/components/Navbar";
 import { MDBBtn } from "mdb-react-ui-kit";
 import { useLocation } from "react-router-dom";
 import Breadcrump from "../../shared/components/Breadcrumb";
 import { useSelector } from "react-redux";
 import BookCard from "./BookCard";
+import ReviewsContainer from "./ReviewsContainer";
+import ReviewForm from "./ReviewForm";
 
 const ProductPage = () => {
   const books = useSelector((state) => state.book.books);
@@ -85,6 +87,8 @@ const ProductPage = () => {
           </div>
         </div>
       </div>
+      <ReviewForm />
+      <ReviewsContainer />
     </>
   );
 };

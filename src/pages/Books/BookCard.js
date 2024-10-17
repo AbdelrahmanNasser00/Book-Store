@@ -15,7 +15,8 @@ const BookCard = ({ book }) => {
   return (
     <MDBCard
       className="flex-grow-1 d-flex flex-column"
-      onClick={handleProductpage}>
+      onClick={handleProductpage}
+      style={{ cursor: "pointer" }}>
       <MDBCardImage
         src={book.image}
         onError={(e) => (e.target.src = defaultImage)}

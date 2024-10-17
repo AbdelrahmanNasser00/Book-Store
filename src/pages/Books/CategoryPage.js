@@ -1,5 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { fetchBooks } from "../../api";
+import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import BookCard from "./BookCard";
 import Navbar from "../../shared/components/Navbar";
