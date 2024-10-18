@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import { AuthContext } from "./context/AuthContext";
 import ProductPage from "./pages/Books/ProductPage";
 import CategoryPage from "./pages/Books/CategoryPage";
+import Cart from "./pages/Cart/Cart";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -56,6 +57,7 @@ function App() {
             </AdminRoute>
           }
         />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </Router>
   );

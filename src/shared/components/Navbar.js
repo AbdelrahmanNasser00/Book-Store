@@ -4,10 +4,31 @@ import { AuthContext } from "../../context/AuthContext";
 import "../CSS/Navbar.css";
 import { MDBBtn } from "mdb-react-ui-kit";
 import HomeSearch from "./HomeSearch";
-import Cart from "./Cart";
+import SideCart from "./SideCart";
+import styled from "styled-components";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { Badge } from "@mui/material";
+import { useSelector } from "react-redux";
+
+const CartBtnContainer = styled.div`
+  border: 1px solid gray;
+  border-radius: 30px;
+`;
+const CartBtn = styled.button`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+`;
+const CartText = styled.p`
+  margin: 0;
+`;
 const Navbar = () => {
   const { currentUser, logout } = useContext(AuthContext);
   const [isCartVisible, setIsCartVisible] = useState(false);
+  const productQuantity = useSelector((state) => state.cart.quantity);
+  const totalPrice = useSelector((state) => state.cart.total);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -19,7 +40,8 @@ const Navbar = () => {
     }
   };
   const handleCartVisibilty = () => {
-    setIsCartVisible(!isCartVisible);
+    navigate("/cart");
+    // setIsCartVisible(!isCartVisible);
   };
   return (
     <>
@@ -73,16 +95,20 @@ const Navbar = () => {
             {/* Left links */}
           </div>
 
-          {/* Collapsible wrapper */}
           {/* Right elements */}
           <div className="d-flex align-items-center">
-            {/* Icon */}
-            <a
-              className="text-reset me-3 cursor-pointer"
-              onClick={handleCartVisibilty}>
-              <i className="fas fa-shopping-cart" />
-            </a>
-            {isCartVisible && <Cart />}
+            <CartBtnContainer onClick={handleCartVisibilty}>
+              <CartBtn>
+                <Badge
+                  badgeContent={productQuantity}
+                  color="primary"
+                  style={{ padding: "5px" }}>
+                  <ShoppingCartOutlinedIcon />
+                  <CartText>{parseFloat(totalPrice).toFixed(2)} EGP</CartText>
+                </Badge>
+              </CartBtn>
+            </CartBtnContainer>
+            {isCartVisible && <SideCart isOpen={isCartVisible} />}
 
             {/* Avatar */}
             <div className="dropdown">

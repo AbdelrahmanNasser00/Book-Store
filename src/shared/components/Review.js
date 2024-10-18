@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
+
 const ReviewCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,33 +43,41 @@ const TopOfReview = styled.div`
 const Date = styled.div`
   padding: 10px;
 `;
-const Review = () => {
+
+const Review = ({ review }) => {
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<StarRoundedIcon key={i} style={{ fontSize: "20px" }} />);
+      } else {
+        stars.push(
+          <StarBorderRoundedIcon key={i} style={{ fontSize: "20px" }} />
+        );
+      }
+    }
+    return stars;
+  };
+
   return (
     <ReviewCard>
       <TopOfReview>
         <UserInfo>
           <AccountCircleRoundedIcon style={{ fontSize: "60px" }} />
           <UserName>
-            Abdelrahman{" "}
-            <Stars>
-              <StarRoundedIcon style={{ fontSize: "20px" }} />
-              <StarRoundedIcon style={{ fontSize: "20px" }} />
-              <StarRoundedIcon style={{ fontSize: "20px" }} />
-              <StarRoundedIcon style={{ fontSize: "20px" }} />
-              <StarBorderRoundedIcon style={{ fontSize: "20px" }} />
-            </Stars>
+            {review.firstname + " " + review.lastname}
+            <Stars>{renderStars(review.rating)}</Stars>
           </UserName>
         </UserInfo>
-        <Date>July 11,2020</Date>
+        <Date>
+          {new window.Date(review.createdAt).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          })}
+        </Date>
       </TopOfReview>
-      <ReviewContent>
-        The European languages are members of the same family. Their separate
-        existence is a myth. For science, music, sport, etc, Europe uses the
-        same vocabulary. The languages only differ in their grammar, their
-        pronunciation and their most common words. Everyone realizes why a new
-        common language would be desirable: one could refuse to pay expensive
-        translators.
-      </ReviewContent>
+      <ReviewContent>{review.comment}</ReviewContent>
     </ReviewCard>
   );
 };

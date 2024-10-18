@@ -1,9 +1,13 @@
 import React from "react";
-const Cart = () => {
+
+const Cart = ({ isOpen }) => {
   return (
     <>
       {/* Shopping Cart Container */}
-      <div className="fixed right-0 top-0 w-full sm:w-1/3 md:w-1/4 lg:w-1/4 xl:w-1/5 h-full bg-white shadow-lg z-50 flex flex-col">
+      <div
+        className={`fixed top-0 right-0 h-full w-full sm:w-1/3 md:w-1/4 lg:w-1/4 xl:w-1/5 bg-white shadow-lg z-50 flex flex-col transform transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}>
         {/* Header */}
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-lg font-semibold">Shopping cart</h2>
@@ -23,6 +27,7 @@ const Cart = () => {
             </svg>
           </button>
         </div>
+
         {/* Cart Items */}
         <div className="flex-1 p-4 overflow-y-auto">
           {/* Cart Item 1 */}
@@ -56,39 +61,10 @@ const Cart = () => {
               </svg>
             </button>
           </div>
-          {/* Cart Item 2 */}
-          <div className="flex justify-between items-start mb-4">
-            <img
-              src="path/to/book2.jpg"
-              alt="Head First Learn to Code"
-              className="w-16 h-20 object-cover"
-            />
-            <div className="ml-4">
-              <h3 className="text-sm font-semibold">
-                Head First Learn to Code
-              </h3>
-              <p className="text-sm">
-                1 x <span className="text-orange-600 font-bold">439 EGP</span>
-              </p>
-            </div>
-            <button className="text-gray-500 hover:text-red-600">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="w-5 h-5">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          {/* Add more items as needed */}
+
+          {/* More cart items can be added here... */}
         </div>
+
         {/* Footer */}
         <div className="p-4 border-t">
           <div className="flex justify-between items-center mb-4">
@@ -116,4 +92,5 @@ const Cart = () => {
     </>
   );
 };
+
 export default Cart;

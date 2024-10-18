@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Review from "../../shared/components/Review";
 import { useParams } from "react-router-dom";
@@ -26,29 +26,33 @@ const ReviewsHeader = styled.h2`
 `;
 
 const Reviews = () => {
+  const [reviews, setReviews] = useState([]);
   const { id } = useParams();
   useEffect(() => {
     const getReviews = async () => {
       try {
         const reviews = await fetchReviews(id);
-        if (reviews.err) {
-          console.error(reviews.err);
+        if (reviews) {
+          setReviews(reviews.data.reviews);
         } else {
-          console.log(reviews);
+          console.error("Invalid reviews response", reviews);
+          setReviews([]);
         }
       } catch (error) {
         console.error("Failed to fetch books:", error);
+        setReviews([]);
       }
     };
     getReviews();
-  }, []);
+  }, [id]);
 
   return (
     <Container>
       <ReviewsHeader> Customers Reviews</ReviewsHeader>
       <Wrapper>
-        <Review />
-        <Review />
+        {reviews.map((review) => (
+          <Review key={review._id} review={review} />
+        ))}
       </Wrapper>
     </Container>
   );

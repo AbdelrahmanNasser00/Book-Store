@@ -3,14 +3,15 @@ import Navbar from "../../shared/components/Navbar";
 import { MDBBtn } from "mdb-react-ui-kit";
 import { useLocation } from "react-router-dom";
 import Breadcrump from "../../shared/components/Breadcrumb";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BookCard from "./BookCard";
 import ReviewsContainer from "./ReviewsContainer";
 import ReviewForm from "./ReviewForm";
+import { addProduct } from "../../store/CartSlice";
 
 const ProductPage = () => {
   const books = useSelector((state) => state.book.books);
-  console.log(books);
+  const dispatch = useDispatch();
 
   const location = useLocation();
   const { state: book } = location;
@@ -24,6 +25,9 @@ const ProductPage = () => {
     return [];
   }, [book, books]);
   console.log(relatedProducts);
+  const handleAddToCart = (e) => {
+    dispatch(addProduct({ ...book, quantity: 1 }));
+  };
 
   return (
     <>
@@ -48,7 +52,9 @@ const ProductPage = () => {
 
             {/* CTA Buttons */}
             <div className="space-x-3">
-              <button className="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">
+              <button
+                className="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600"
+                onClick={handleAddToCart}>
                 Add to cart
               </button>
               <button className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800">

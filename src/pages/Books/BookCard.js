@@ -2,21 +2,30 @@ import React from "react";
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage } from "mdb-react-ui-kit";
 import ProductPage from "./ProductPage";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "../../store/CartSlice";
+import AddToCartBtn from "../../shared/components/AddToCartBtn";
 
 const BookCard = ({ book }) => {
   const defaultImage = "https://via.placeholder.com/300x400?text=No+Image";
   const navigate = useNavigate();
-
-  const handleProductpage = () => {
-    console.log(book);
+  const dispatch = useDispatch();
+  const cartProducts = useSelector((state) => state.cart.products);
+  const quantity = useSelector((state) => state.cart.quantity);
+  const totalPrice = useSelector((state) => state.cart.total);
+  const handleProductpage = (e) => {
+    e.stopPropagation();
     navigate(`/product/${book._id}`, { state: book });
+  };
+  const handleAddToCart = (e) => {
+    dispatch(addProduct({ ...book, quantity: 1 }));
   };
 
   return (
     <MDBCard
       className="flex-grow-1 d-flex flex-column"
-      onClick={handleProductpage}
-      style={{ cursor: "pointer" }}>
+      style={{ cursor: "pointer" }}
+      onClick={handleProductpage}>
       <MDBCardImage
         src={book.image}
         onError={(e) => (e.target.src = defaultImage)}
@@ -35,11 +44,7 @@ const BookCard = ({ book }) => {
           </h4>
         </div>
       </MDBCardBody>
-      <div className="d-flex justify-content-center mb-3 mt-auto">
-        <MDBBtn className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">
-          Add to cart
-        </MDBBtn>
-      </div>
+      <AddToCartBtn handleAddToCart={handleAddToCart} />
     </MDBCard>
   );
 };

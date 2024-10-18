@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import BookReducer from "./BookSlice";
+import CartSlice from "./CartSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import {
@@ -17,11 +18,13 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, BookReducer);
+const persistedBookReducer = persistReducer(persistConfig, BookReducer);
+const persistedCartReducer = persistReducer(persistConfig, CartSlice);
 
 export const store = configureStore({
   reducer: {
-    book: persistedReducer,
+    book: persistedBookReducer,
+    cart: persistedCartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
