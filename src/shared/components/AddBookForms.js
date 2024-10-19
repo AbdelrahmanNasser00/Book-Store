@@ -7,7 +7,7 @@ import {
   MDBCol,
 } from "mdb-react-ui-kit";
 import { StoreManagerContext } from "../../context/StoreManagerContext";
-import { addBook } from "../../api";
+import { addBook, updateBook } from "../../api";
 
 const AddBookForm = () => {
   const [name, setName] = useState("");
@@ -16,7 +16,7 @@ const AddBookForm = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [numberOfPages, setNumberOfPages] = useState("");
-  // const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState("");
   const [image, setImage] = useState("");
   const { bookToCatalog, setCatalogBook, editBook, setEditBook } =
     useContext(StoreManagerContext);
@@ -29,7 +29,7 @@ const AddBookForm = () => {
       setDescription(bookToCatalog.description || "");
       setPrice(bookToCatalog.price || "");
       setNumberOfPages(bookToCatalog.pageCount || "");
-      // setQuantity(bookToCatalog.quantity || "");
+      setQuantity(bookToCatalog.quantity || "");
       setImage(bookToCatalog.imageUrl || "");
     }
     if (editBook) {
@@ -39,23 +39,41 @@ const AddBookForm = () => {
       setDescription(editBook.description || "");
       setPrice(editBook.price || "");
       setNumberOfPages(editBook.numberOfPages || "");
-      // setQuantity(editBook.quantity || "");
+      setQuantity(editBook.quantity || "");
       setImage(editBook.image || "");
     }
   }, [bookToCatalog, editBook]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newBook = {
-      name,
-      category,
-      authors,
-      numberOfPages,
-      description,
-      price,
-      image,
-    };
-    await addBook(newBook);
+    if (editBook) {
+      const updatedBook = {
+        name,
+        category,
+        authors,
+        numberOfPages,
+        description,
+        price,
+        quantity,
+        image,
+      };
+      try {
+        await updateBook(editBook._id, updatedBook);
+      } catch (error) {
+        console.error("Failed to update book:", error);
+      }
+    } else {
+      const newBook = {
+        name,
+        category,
+        authors,
+        numberOfPages,
+        description,
+        price,
+        quantity,
+        image,
+      };
+      await addBook(newBook);
+    }
     setEditBook(null);
     setCatalogBook(null);
     resetForm();
@@ -67,6 +85,7 @@ const AddBookForm = () => {
     setCategory("");
     setDescription("");
     setPrice("");
+    setQuantity("");
     setImage("");
   };
 
@@ -101,6 +120,14 @@ const AddBookForm = () => {
             label="Category *"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
+            required
+          />
+        </MDBCol>
+        <MDBCol md="6">
+          <MDBInput
+            label="Quantity *"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
             required
           />
         </MDBCol>

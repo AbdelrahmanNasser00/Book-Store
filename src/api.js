@@ -34,9 +34,10 @@ export const addBook = async (data) => {
   }
 };
 
-export const editBook = async (bookId, updatedBookData) => {
+export const updateBook = async (bookId, updatedBookData) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user.userDetails.token;
+  console.log("updaaaateeeee", bookId, updatedBookData);
   try {
     return await apiClient.put(`/books/${bookId}`, updatedBookData, {
       headers: {

@@ -25,7 +25,7 @@ const ManagerBooksTable = () => {
           <th scope="col">Categories</th>
           <th scope="col">Number Of Pages</th>
           <th scope="col">Price</th>
-          {/* <th scope="col">Quantity</th> */}
+          <th scope="col">Quantity</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>

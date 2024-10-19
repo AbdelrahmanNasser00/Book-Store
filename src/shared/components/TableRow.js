@@ -21,7 +21,7 @@ const TableRow = ({ book }) => {
       <td>{book.category}</td>
       <td>{book.numberOfPages}</td>
       <td>{book.price}</td>
-      {/* <td>{book.quantity}</td> */}
+      <td>{book.quantity}</td>
       <td>
         <MDBBtn color="danger" size="sm" onClick={handleDeleteBook}>
           Delete
