@@ -9,6 +9,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { PersistGate } from "redux-persist/integration/react";
+import { WishlistContextProvider } from "./context/WishlistContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -16,7 +17,9 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <AuthContextProvider>
-          <App />
+          <WishlistContextProvider>
+            <App />
+          </WishlistContextProvider>
         </AuthContextProvider>
       </PersistGate>
     </Provider>

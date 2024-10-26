@@ -14,14 +14,11 @@ const CategoryPage = () => {
     return [];
   }, [books, category]);
   console.log(filteredBooks);
-  // const filteredBooks = books.filter((book) =>
-  //   book.category.includes(category)
-  // );
+
   return (
     <>
       <Navbar />
       <div className="container mx-auto">
-        {/* <h1 className="text-2xl font-bold">{category}</h1> */}
         <Breadcrump category={category} bookName={""} />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {filteredBooks.map((book) => (

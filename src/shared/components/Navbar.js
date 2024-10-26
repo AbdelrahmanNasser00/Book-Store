@@ -6,13 +6,15 @@ import { MDBBtn } from "mdb-react-ui-kit";
 import HomeSearch from "./HomeSearch";
 import SideCart from "./SideCart";
 import styled from "styled-components";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Badge } from "@mui/material";
 import { useSelector } from "react-redux";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const CartBtnContainer = styled.div`
   border: 1px solid gray;
   border-radius: 30px;
+  margin: 0px 5px 0px 5px;
 `;
 const CartBtn = styled.button`
   display: flex;
@@ -23,6 +25,19 @@ const CartBtn = styled.button`
 `;
 const CartText = styled.p`
   margin: 0;
+`;
+
+const FavoriteBtnContainer = styled.div`
+  border: 1px solid gray;
+  border-radius: 50%;
+  margin: 0px 5px 0px 5px;
+`;
+const FavoriteBtn = styled.button`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
 `;
 const Navbar = () => {
   const { currentUser, logout } = useContext(AuthContext);
@@ -42,6 +57,9 @@ const Navbar = () => {
   const handleCartVisibilty = () => {
     navigate("/cart");
     // setIsCartVisible(!isCartVisible);
+  };
+  const handleFavorite = () => {
+    navigate("/wishlist");
   };
   return (
     <>
@@ -97,6 +115,12 @@ const Navbar = () => {
 
           {/* Right elements */}
           <div className="d-flex align-items-center">
+            <FavoriteBtnContainer onClick={handleFavorite}>
+              <FavoriteBtn>
+                <FavoriteBorderIcon />
+              </FavoriteBtn>
+            </FavoriteBtnContainer>
+
             <CartBtnContainer onClick={handleCartVisibilty}>
               <CartBtn>
                 <Badge

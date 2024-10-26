@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
 import BookCard from "./BookCard";
-import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
-import axios from "axios";
 import Pagination from "../../shared/components/Pagination";
-import ProductCard from "../../shared/components/ProductCard";
-import ProductPage from "./ProductPage";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loadBooks } from "../../store/BookSlice";
 import { fetchBooks } from "../../api";
 
 const BooksCardsContainer = () => {
   const [books, setBooks] = useState(null);
   const dispatch = useDispatch();
-  console.log(books);
 
   useEffect(() => {
-    // https://api.itbook.store/1.0/new
     const getBooks = async () => {
       try {
         const res = await fetchBooks();
@@ -37,16 +31,18 @@ const BooksCardsContainer = () => {
   }
 
   return (
-    <MDBContainer className="my-5 mx-auto max-w-[1200px]">
-      <MDBRow className="d-flex justify-content-center">
+    <div className="container">
+      <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {books.map((book) => (
-          <MDBCol md="4" lg="3" className="mb-4" key={book._id}>
+          <div key={book._id} className="flex justify-center">
             <BookCard book={book} />
-          </MDBCol>
+          </div>
         ))}
-      </MDBRow>
-      <Pagination />
-    </MDBContainer>
+      </div>
+      <div className="flex justify-center mt-4">
+        <Pagination />
+      </div>
+    </div>
   );
 };
 

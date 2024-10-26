@@ -13,6 +13,7 @@ import { AuthContext } from "./context/AuthContext";
 import ProductPage from "./pages/Books/ProductPage";
 import CategoryPage from "./pages/Books/CategoryPage";
 import Cart from "./pages/Cart/Cart";
+import Wishlist from "./pages/Favorites/Wishlist";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -58,6 +59,7 @@ function App() {
           }
         />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/favorites" element={<Wishlist />} />
       </Routes>
     </Router>
   );

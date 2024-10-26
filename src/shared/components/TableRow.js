@@ -4,15 +4,17 @@ import { useContext } from "react";
 import { StoreManagerContext } from "../../context/StoreManagerContext";
 import { deleteBook } from "../../api";
 const TableRow = ({ book }) => {
-  // const dispatch = useDispatch();
   const { setEditBookForm } = useContext(StoreManagerContext);
 
   const handleEditBook = () => {
-    console.log(book);
     setEditBookForm(book);
   };
-  const handleDeleteBook = () => {
-    deleteBook(book._id);
+  const handleDeleteBook = async () => {
+    try {
+      await deleteBook(book._id);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <tr>
