@@ -34,7 +34,7 @@ const BookCard = ({ book }) => {
           alt="Book Cover"
         />
         <div
-          className="absolute right-3 top-3 rounded-full bg-white p-2 text-sky-800 transition-all duration-300 ease-in-out hover:!bg-sky-800 hover:text-sky-50"
+          className="absolute right-3 top-3 rounded-full bg-sky-50 bg-opacity-50 p-2 text-sky-800 transition-all duration-300 ease-in-out hover:!bg-sky-800 hover:text-sky-50"
           onClick={(e) => e.stopPropagation()}
         >
           <FavoriteBorderOutlinedIcon />

@@ -4,6 +4,7 @@ import Pagination from "../../shared/components/Pagination";
 import { useDispatch } from "react-redux";
 import { loadBooks } from "../../store/BookSlice";
 import { fetchBooks } from "../../api";
+import BookCardSkeleton from "../../shared/components/BookCardSkeleton";
 
 const BooksCardsContainer = () => {
   const [books, setBooks] = useState(null);
@@ -27,7 +28,7 @@ const BooksCardsContainer = () => {
   }, []);
 
   if (!books) {
-    return <p>Loading...</p>;
+    return <BookCardSkeleton />;
   }
 
   return (
@@ -39,7 +40,7 @@ const BooksCardsContainer = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-4">
+      <div className="mt-4 flex justify-center">
         <Pagination />
       </div>
     </div>
