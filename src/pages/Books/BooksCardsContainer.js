@@ -32,7 +32,7 @@ const BooksCardsContainer = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container my-5">
       <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {books.map((book) => (
           <div key={book._id} className="flex justify-center">
