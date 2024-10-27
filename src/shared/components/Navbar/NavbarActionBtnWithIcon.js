@@ -1,8 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const NavbarIcon = ({ icon, text, badge, onClick }) => {
+const NavbarActionBtnWithIcon = ({ icon, text, purpose, badge, onClick }) => {
   return (
-    <div className="relative mx-2 cursor-pointer rounded-full border bg-sky-50 bg-opacity-50 p-2 text-sky-800 transition-all duration-300 ease-in-out hover:bg-sky-800 hover:text-sky-50">
+    <button className="relative mx-2 cursor-pointer rounded-full border bg-sky-50 bg-opacity-50 p-2 text-sm text-sky-800 transition-all duration-300 ease-in-out hover:bg-sky-800 hover:text-sky-50">
       {/* Icon and text */}
       <div
         onClick={(e) => {
@@ -20,8 +21,8 @@ const NavbarIcon = ({ icon, text, badge, onClick }) => {
           {badge}
         </span>
       )}
-    </div>
+    </button>
   );
 };
 
-export default NavbarIcon;
+export default NavbarActionBtnWithIcon;

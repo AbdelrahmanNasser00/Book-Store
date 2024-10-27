@@ -1,8 +1,8 @@
 import { MDBBtn } from "mdb-react-ui-kit";
 // import { deleteBook } from "../../store/BookSlice";
 import { useContext } from "react";
-import { StoreManagerContext } from "../../context/StoreManagerContext";
-import { deleteBook } from "../../api";
+import { StoreManagerContext } from "../../../context/StoreManagerContext";
+import { deleteBook } from "../../../api";
 const TableRow = ({ book }) => {
   const { setEditBookForm } = useContext(StoreManagerContext);
 

@@ -8,7 +8,7 @@ import {
   MDBInputGroup,
 } from "mdb-react-ui-kit";
 import axios from "axios";
-import { StoreManagerContext } from "../../context/StoreManagerContext";
+import { StoreManagerContext } from "../../../context/StoreManagerContext";
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -24,7 +24,7 @@ const Search = () => {
     const fetchBooks = async () => {
       try {
         const res = await axios.get(
-          `https://www.googleapis.com/books/v1/volumes?q=${query}&key=AIzaSyDBEJnZltzsEDF9gO_wJSbrxpwNcTzmlVw`
+          `https://www.googleapis.com/books/v1/volumes?q=${query}&key=AIzaSyDBEJnZltzsEDF9gO_wJSbrxpwNcTzmlVw`,
         );
         setResults(res.data.items || []);
       } catch (error) {
@@ -70,7 +70,8 @@ const Search = () => {
           {results.map((book) => (
             <MDBListGroupItem
               key={book.id}
-              className="d-flex justify-content-between align-items-center">
+              className="d-flex justify-content-between align-items-center"
+            >
               <div className="d-flex">
                 <MDBCardImage
                   src={

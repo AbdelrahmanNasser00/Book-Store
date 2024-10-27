@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "../../shared/components/Navbar";
 import WishlistContainer from "./WishlistContainer";
+import Navbar from "../../shared/components/Navbar/Navbar";
 
-const Favorites = () => {
+const Wishlist = () => {
   return (
     <>
       <Navbar />
@@ -11,4 +11,4 @@ const Favorites = () => {
   );
 };
 
-export default Favorites;
+export default Wishlist;

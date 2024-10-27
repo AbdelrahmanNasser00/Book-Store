@@ -2,10 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../store/CartSlice";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 const BookCard = ({ book }) => {
   const defaultImage = "https://via.placeholder.com/300x400?text=No+Image";
   const navigate = useNavigate();

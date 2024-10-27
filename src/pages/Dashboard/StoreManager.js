@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import ManagerBooksTable from "../../shared/components/ManagerBooksTable";
-import Search from "../../shared/components/Search";
-import AddBookForm from "../../shared/components/AddBookForms";
 import { MDBBtn } from "mdb-react-ui-kit";
 import { StoreManagerContext } from "../../context/StoreManagerContext";
+import ManagerBooksTable from "../../shared/components/Admin/ManagerBooksTable";
+import Search from "../../shared/components/Admin/Search";
+import AddBookForm from "../../shared/components/Admin/AddBookForms";
 
 const StoreManager = () => {
   const {

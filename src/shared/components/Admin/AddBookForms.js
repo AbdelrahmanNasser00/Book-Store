@@ -6,8 +6,8 @@ import {
   MDBRow,
   MDBCol,
 } from "mdb-react-ui-kit";
-import { StoreManagerContext } from "../../context/StoreManagerContext";
-import { addBook, updateBook } from "../../api";
+import { StoreManagerContext } from "../../../context/StoreManagerContext";
+import { addBook, updateBook } from "../../../api";
 
 const AddBookForm = () => {
   const [name, setName] = useState("");
@@ -92,7 +92,8 @@ const AddBookForm = () => {
   return (
     <form
       style={{ backgroundColor: "#eee", marginTop: "10px" }}
-      onSubmit={handleSubmit}>
+      onSubmit={handleSubmit}
+    >
       <h3>Add Book</h3>
 
       <MDBRow className="mb-3">

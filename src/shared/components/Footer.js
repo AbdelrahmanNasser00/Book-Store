@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import SocialLinks from "./SocialLinks";
+import SocialLinks from "./Navbar/SocialLinks";
 
 const FooterContainer = styled.div`
   background-color: #2c4755;

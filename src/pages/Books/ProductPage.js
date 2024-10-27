@@ -1,6 +1,4 @@
 import React, { useMemo } from "react";
-import Navbar from "../../shared/components/Navbar";
-import { MDBBtn } from "mdb-react-ui-kit";
 import { useLocation } from "react-router-dom";
 import Breadcrump from "../../shared/components/Breadcrumb";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +6,7 @@ import BookCard from "./BookCard";
 import ReviewsContainer from "./ReviewsContainer";
 import ReviewForm from "./ReviewForm";
 import { addProduct } from "../../store/CartSlice";
+import Navbar from "../../shared/components/Navbar/Navbar";
 
 const ProductPage = () => {
   const books = useSelector((state) => state.book.books);
@@ -19,7 +18,7 @@ const ProductPage = () => {
   const relatedProducts = useMemo(() => {
     if (book) {
       return books.filter(
-        (b) => b.category === book.category && b._id !== book._id
+        (b) => b.category === book.category && b._id !== book._id,
       );
     }
     return [];
@@ -36,12 +35,12 @@ const ProductPage = () => {
         <Breadcrump category={book.category} bookName={book.name} />
 
         {/* Product Detail */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="w-full">
             <img
               src={book.image}
               alt={book.name}
-              className="w-full h-auto rounded-lg shadow-md"
+              className="h-auto w-full rounded-lg shadow-md"
             />
           </div>
           <div className="space-y-4">
@@ -53,14 +52,15 @@ const ProductPage = () => {
             {/* CTA Buttons */}
             <div className="space-x-3">
               <button
-                className="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600"
-                onClick={handleAddToCart}>
+                className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-orange-600"
+                onClick={handleAddToCart}
+              >
                 Add to cart
               </button>
-              <button className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800">
+              <button className="rounded bg-black px-4 py-2 text-white hover:bg-gray-800">
                 Buy now
               </button>
-              <button className="px-4 py-2 text-orange-500 border border-orange-500 rounded hover:bg-orange-500 hover:text-white">
+              <button className="rounded border border-orange-500 px-4 py-2 text-orange-500 hover:bg-orange-500 hover:text-white">
                 Add to wishlist
               </button>
             </div>
@@ -83,10 +83,10 @@ const ProductPage = () => {
 
         {/* Related books */}
         <div className="mt-12">
-          <h2 className="text-lg font-bold text-gray-800 mb-4">
+          <h2 className="mb-4 text-lg font-bold text-gray-800">
             Related books
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
             {relatedProducts.map((relatedProduct, index) => (
               <BookCard book={relatedProduct} key={relatedProduct._id} />
             ))}
