@@ -16,6 +16,7 @@ const NavbarActionsButtons = (props) => {
   const handleLogout = async () => {
     try {
       await logout();
+      navigate("/");
       window.location.reload();
     } catch (err) {
       console.error("Logout failed:", err);

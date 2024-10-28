@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { IconButton } from "@mui/material";
@@ -10,23 +10,26 @@ const Table = styled.table`
   border-collapse: collapse;
   margin-top: 20px;
   padding: 20px;
+  height: fit-content;
   /* width: 66.6%; */
 `;
 const TableHead = styled.thead`
   border-bottom: 1px solid rgba(0, 0, 0, 0.075);
   background-color: white;
   color: black;
+  height: fit-content;
 `;
 const TableBody = styled.tbody``;
 const TableRow = styled.tr`
   border-bottom: 1px solid rgba(0, 0, 0, 0.105);
+  height: fit-content;
 `;
 const TableData = styled.td`
   align-items: center;
 `;
 
 const CartTable = () => {
-  const { products, quantity, total } = useSelector((state) => state.cart);
+  const { products } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const handleDelete = (product) => {
     dispatch(removeProduct(product));
@@ -36,7 +39,6 @@ const CartTable = () => {
       ...product,
       quantity: product.quantity + 1,
     };
-    console.log(product);
     dispatch(updateQuantity(updatedProduct));
   };
   const handleDecreaseQuantity = (product) => {
@@ -65,7 +67,8 @@ const CartTable = () => {
         {products.map((product) => (
           <TableRow
             key={product._id}
-            style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.105)" }}>
+            style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.105)" }}
+          >
             <TableData>
               <IconButton color="error" onClick={() => handleDelete(product)}>
                 <DeleteRoundedIcon />
@@ -88,7 +91,8 @@ const CartTable = () => {
                 size="small"
                 sx={{
                   backgroundColor: "rgb(0, 0, 0, 0.1)",
-                }}>
+                }}
+              >
                 <RemoveRoundedIcon fontSize="15" />
               </IconButton>
               <input
@@ -108,7 +112,8 @@ const CartTable = () => {
                 size="small"
                 sx={{
                   backgroundColor: "rgb(0, 0, 0, 0.1)",
-                }}>
+                }}
+              >
                 <AddRoundedIcon fontSize="15" />
               </IconButton>
             </TableData>

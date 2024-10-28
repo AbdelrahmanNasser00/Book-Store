@@ -3,20 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../store/CartSlice";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AddToCartBtn from "../../shared/components/AddToCartBtn";
 const BookCard = ({ book }) => {
   const defaultImage = "https://via.placeholder.com/300x400?text=No+Image";
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleProductpage = (e) => {
     e.stopPropagation();
     navigate(`/product/${book._id}`, { state: book });
-  };
-  const handleAddToCart = (e) => {
-    e.stopPropagation();
-
-    dispatch(addProduct({ ...book, quantity: 1 }));
   };
 
   return (
@@ -53,13 +47,9 @@ const BookCard = ({ book }) => {
               <s>{350}</s>
             </span> */}
           </div>
-          <div
-            className="flex h-12 w-12 items-center justify-center rounded-full border border-sky-800 text-sky-800 transition-all duration-300 hover:scale-95 hover:bg-sky-800 hover:text-sky-50"
-            onClick={handleAddToCart}
-          >
-            <ShoppingCartIcon />
-          </div>
+          <AddToCartBtn book={book} />
         </div>
+        {/* <Button /> */}
       </div>
     </div>
   );

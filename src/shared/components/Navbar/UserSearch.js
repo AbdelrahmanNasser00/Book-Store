@@ -1,15 +1,46 @@
-import React from "react";
-import SearchIcon from "@mui/icons-material/Search";
+import React, { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import debounce from "lodash.debounce";
+import "../../CSS/Navbar.css";
+import SearchedItems from "./SearchedItems";
+import SearchInput from "./SearchInput";
+
 const UserSearch = () => {
+  const { books } = useSelector((state) => state.book);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const debouncedSetSearchTerm = useMemo(
+    () =>
+      debounce((value) => {
+        setDebouncedSearchTerm(value);
+      }, 500),
+    [],
+  );
+
+  useEffect(() => {
+    debouncedSetSearchTerm(searchTerm);
+    return () => {
+      debouncedSetSearchTerm.cancel();
+    };
+  }, [searchTerm, debouncedSetSearchTerm]);
+
+  const filteredBooks = useMemo(() => {
+    return books.filter((book) =>
+      book.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
+    );
+  }, [books, debouncedSearchTerm]);
+
   return (
-    <div className="relative mx-3 w-full max-w-md">
-      <input
-        type="text"
-        placeholder="Search for products"
-        className="w-full rounded-full border border-gray-300 bg-white px-4 py-2 pl-4 pr-10 text-gray-700 placeholder-gray-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
-        aria-label="Search"
-      />
-      <SearchIcon className="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-500" />
+    <div className="relative mx-3 w-full max-w-screen-sm">
+      <SearchInput handleSearch={handleSearch} />
+      {filteredBooks.length > 0 && searchTerm && (
+        <SearchedItems filteredBooks={filteredBooks} />
+      )}
     </div>
   );
 };

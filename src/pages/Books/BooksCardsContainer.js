@@ -19,6 +19,7 @@ const BooksCardsContainer = () => {
         } else {
           dispatch(loadBooks(res.data.books));
           setBooks(res.data.books);
+          console.log(books);
         }
       } catch (error) {
         console.error("Failed to fetch books:", error);
