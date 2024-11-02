@@ -2,7 +2,6 @@ import React from "react";
 import CartTable from "./CartTable";
 import CartTotals from "./CartTotals";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -11,8 +10,6 @@ const Wrapper = styled.div`
 `;
 
 const CartContainer = () => {
-  const cart = useSelector((state) => state.cart.products);
-  console.log(cart);
   return (
     <div className="container" style={{ paddingTop: "40px" }}>
       <Wrapper>

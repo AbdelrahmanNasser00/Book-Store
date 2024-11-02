@@ -14,6 +14,8 @@ import ProductPage from "./pages/Books/ProductPage";
 import CategoryPage from "./pages/Books/CategoryPage";
 import Cart from "./pages/Cart/Cart";
 import Wishlist from "./pages/Favorites/Wishlist";
+import Checkout from "./pages/Cart/Checkout";
+import CheckoutSuccess from "./pages/Cart/CheckoutSuccess";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -59,6 +61,8 @@ function App() {
           }
         />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout-success" element={<CheckoutSuccess />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/favorites" element={<Wishlist />} />
       </Routes>
     </Router>

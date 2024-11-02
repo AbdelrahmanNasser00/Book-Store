@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import PayButton from "./PayButton";
 
 const CartTotalsContainer = styled.div`
   background-color: #f8f8f8;
@@ -64,9 +66,13 @@ const InfoText = styled.p`
 
 const CartTotals = () => {
   const { products, quantity, total } = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart.products);
   const shipping = 80;
   const finalAmount = total > 0 ? (parseFloat(total) + shipping).toFixed(2) : 0;
-
+  const navigate = useNavigate();
+  const handleCheckout = () => {
+    navigate("/checkout");
+  };
   return (
     <CartTotalsContainer>
       <CartTitle>Cart Totals</CartTitle>
@@ -94,7 +100,10 @@ const CartTotals = () => {
         <TotalAmount>{total > 0 ? finalAmount : 0} EGP</TotalAmount>
       </CartRow>
 
-      <ProceedButton variant="contained">Proceed to checkout</ProceedButton>
+      <PayButton cart={cart} />
+      {/* <ProceedButton onClick={handleCheckout} variant="contained">
+        Proceed to checkout
+      </ProceedButton> */}
 
       <InfoText>
         <strong>Payment methods:</strong>
