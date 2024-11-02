@@ -69,13 +69,13 @@ export const deleteBook = async (bookId) => {
   }
 };
 
-export const submitReview = async (id, reviewData) => {
+export const submitReview = async (bookId, reviewData) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user.userDetails.token;
   console.log(reviewData);
-  console.log(id);
+  console.log(bookId);
   try {
-    return await apiClient.post(`/books/${id}/reviews`, reviewData, {
+    return await apiClient.post(`/books/${bookId}/reviews`, reviewData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -85,9 +85,42 @@ export const submitReview = async (id, reviewData) => {
   }
 };
 
-export const fetchReviews = async (id) => {
+export const fetchReviews = async (bookId) => {
   try {
-    return await apiClient.get(`/books/${id}/reviews`);
+    return await apiClient.get(`/books/${bookId}/reviews`);
+  } catch (ex) {
+    return {
+      error: true,
+      ex,
+    };
+  }
+};
+
+export const deleteReview = async (bookId) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.userDetails.token;
+  try {
+    return await apiClient.delete(`/books/${bookId}/reviews`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (ex) {
+    return {
+      error: true,
+      ex,
+    };
+  }
+};
+export const editReview = async (bookId) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.userDetails.token;
+  try {
+    return await apiClient.put(`/books/${bookId}/reviews`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   } catch (ex) {
     return {
       error: true,

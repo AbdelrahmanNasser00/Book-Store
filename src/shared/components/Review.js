@@ -3,7 +3,10 @@ import styled from "styled-components";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
-
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import { deleteReview, editReview } from "../../api";
+import { useParams } from "react-router-dom";
 const ReviewCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -45,6 +48,8 @@ const Date = styled.div`
 `;
 
 const Review = ({ review }) => {
+  const { id } = useParams();
+  console.log(review);
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -52,11 +57,26 @@ const Review = ({ review }) => {
         stars.push(<StarRoundedIcon key={i} style={{ fontSize: "20px" }} />);
       } else {
         stars.push(
-          <StarBorderRoundedIcon key={i} style={{ fontSize: "20px" }} />
+          <StarBorderRoundedIcon key={i} style={{ fontSize: "20px" }} />,
         );
       }
     }
     return stars;
+  };
+
+  const handleDeleteReview = async () => {
+    try {
+      await deleteReview(id);
+    } catch (err) {
+      console.error("Can't delete review", err);
+    }
+  };
+  const handleEditReview = async () => {
+    try {
+      await editReview(id);
+    } catch (err) {
+      console.error("Can't Edit review", err);
+    }
   };
 
   return (
@@ -65,7 +85,7 @@ const Review = ({ review }) => {
         <UserInfo>
           <AccountCircleRoundedIcon style={{ fontSize: "60px" }} />
           <UserName>
-            {review.firstname + " " + review.lastname}
+            {review.user.firstname + " " + review.user.lastname}
             <Stars>{renderStars(review.rating)}</Stars>
           </UserName>
         </UserInfo>
@@ -78,6 +98,21 @@ const Review = ({ review }) => {
         </Date>
       </TopOfReview>
       <ReviewContent>{review.comment}</ReviewContent>
+      <div className="flex w-full justify-end">
+        <button
+          className="mx-1 flex items-center rounded-md border border-transparent bg-red-700 text-xs text-gray-200 transition-all duration-300 hover:border hover:!border-red-700 hover:bg-white hover:text-red-700"
+          onClick={handleDeleteReview}
+        >
+          <DeleteRoundedIcon style={{ fontSize: "1rem" }} />
+          Remove
+        </button>
+        <button
+          className="mx-1 flex items-center rounded-md border border-transparent bg-sky-800 text-xs text-gray-200 transition-all duration-300 hover:!border-sky-800 hover:bg-white hover:text-sky-800"
+          onClick={handleEditReview}
+        >
+          <EditRoundedIcon style={{ fontSize: "1rem" }} /> Edit
+        </button>
+      </div>
     </ReviewCard>
   );
 };
