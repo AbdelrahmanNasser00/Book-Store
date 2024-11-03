@@ -1,7 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addProduct } from "../../store/CartSlice";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddToCartBtn from "../../shared/components/AddToCartBtn";
 const BookCard = ({ book }) => {

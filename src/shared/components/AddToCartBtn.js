@@ -2,12 +2,19 @@ import React from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { addProduct } from "../../store/CartSlice";
 import { useDispatch } from "react-redux";
+import { addToCart } from "../../api";
 
-const AddToCartBtn = ({ onClick, book }) => {
+const AddToCartBtn = ({ book }) => {
   const dispatch = useDispatch();
-  const handleAddToCart = (e) => {
+  const handleAddToCart = async (e) => {
     e.stopPropagation();
-    dispatch(addProduct({ ...book, quantity: 1 }));
+    try {
+      const res = await addToCart({ bookId: book._id, quantity: 1 });
+      console.log(res);
+      dispatch(addProduct({ ...book, quantity: 1 }));
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <div

@@ -8,10 +8,20 @@ export const CartSlice = createSlice({
     total: 0,
   },
   reducers: {
+    updateCart(state, action) {
+      state.products = action.payload;
+      state.quantity = 0;
+      state.total = 0;
+      const books = state.products;
+      books.forEach((book) => {
+        state.quantity += book.quantity;
+        state.total += book.book.price * book.quantity;
+      });
+    },
     addProduct(state, action) {
       const product = action.payload;
       const existingProduct = state.products.find(
-        (item) => item._id === product._id
+        (item) => item._id === product._id,
       );
       if (existingProduct) {
         existingProduct.quantity += product.quantity;
@@ -23,16 +33,19 @@ export const CartSlice = createSlice({
     },
     removeProduct(state, action) {
       const product = action.payload;
+      console.log(product);
       const existingProduct = state.products.find(
-        (item) => item._id === product._id
+        (item) => item._id === product._id,
       );
       if (existingProduct) {
         state.products = state.products.filter(
-          (item) => item._id !== product._id
+          (item) => item._id !== product._id,
         );
       }
       state.quantity -= product.quantity;
-      state.total = state.total - product.price * product.quantity;
+      state.total = state.total - product.book.price * product.quantity;
+      console.log("After", state.total);
+
       if (state.quantity === 0) {
         state.total = 0;
       }
@@ -42,23 +55,26 @@ export const CartSlice = createSlice({
       state.quantity = 0;
       state.total = 0;
     },
-    updateQuantity(state, action) {
-      const product = action.payload;
-      const existingProduct = state.products.find(
-        (item) => item._id === product._id
-      );
-      if (existingProduct) {
-        const quantityDifference = product.quantity - existingProduct.quantity;
-        existingProduct.quantity = product.quantity;
-        state.quantity += quantityDifference;
-        state.total += existingProduct.price * quantityDifference;
-      }
-      if (state.quantity === 0) {
-        state.total = 0;
+    updateQuantity: (state, action) => {
+      const { bookId, quantity } = action.payload;
+      const product = state.products.find((item) => item.book._id === bookId);
+      if (product) {
+        product.quantity = quantity;
+        state.quantity = state.products.reduce(
+          (total, item) => total + item.quantity,
+          0,
+        );
+        state.total = state.products.reduce(
+          (total, item) => total + item.quantity * item.book.price,
+          0,
+        );
+      } else {
+        console.error("Product not found in the cart.");
       }
     },
   },
 });
 
-export const { addProduct, removeProduct, updateQuantity } = CartSlice.actions;
+export const { updateCart, addProduct, removeProduct, updateQuantity } =
+  CartSlice.actions;
 export default CartSlice.reducer;

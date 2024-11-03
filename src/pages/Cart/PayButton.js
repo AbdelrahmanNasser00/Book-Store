@@ -7,18 +7,15 @@ import { useSelector } from "react-redux";
 const PayButton = () => {
   const { currentUser } = useContext(AuthContext);
   const userId = currentUser.userDetails.id;
-  const { products, quantity, total } = useSelector((state) => state.cart);
-  const cart = {
-    products,
-    quantity,
-    total,
-  };
-  console.log(cart);
+  const { products } = useSelector((state) => state.cart);
 
-  console.log(currentUser);
   const handleCheckout = () => {
+    const cart = products.map((item) => ({
+      ...item.book,
+      quantity: item.quantity,
+    }));
     axios
-      .post(`${apiClient}/stripe/create-checkout-session`, {
+      .post(`http://localhost:8080/api/stripe/create-checkout-session`, {
         cart,
         userId,
       })

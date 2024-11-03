@@ -128,3 +128,72 @@ export const editReview = async (bookId) => {
     };
   }
 };
+
+export const addToCart = async (book) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.userDetails.token;
+  console.log(book);
+  try {
+    return await apiClient.post(`/cart`, book, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (ex) {
+    return {
+      error: true,
+      ex,
+    };
+  }
+};
+export const fetchCart = async () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.userDetails.token;
+  try {
+    return await apiClient.get(`/cart`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (ex) {
+    return {
+      error: true,
+      ex,
+    };
+  }
+};
+export const removeCartItem = async (bookId) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.userDetails.token;
+  try {
+    return await apiClient.request({
+      method: "DELETE",
+      url: `/cart`,
+      data: { bookId },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (ex) {
+    return {
+      error: true,
+      ex,
+    };
+  }
+};
+export const updateCartItem = async (bookId) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.userDetails.token;
+  try {
+    return await apiClient.put(`/cart`, bookId, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (ex) {
+    return {
+      error: true,
+      ex,
+    };
+  }
+};

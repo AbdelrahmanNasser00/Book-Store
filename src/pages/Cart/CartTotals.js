@@ -65,7 +65,7 @@ const InfoText = styled.p`
 `;
 
 const CartTotals = () => {
-  const { products, quantity, total } = useSelector((state) => state.cart);
+  const { total } = useSelector((state) => state.cart);
   const cart = useSelector((state) => state.cart.products);
   const shipping = 80;
   const finalAmount = total > 0 ? (parseFloat(total) + shipping).toFixed(2) : 0;

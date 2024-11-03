@@ -3,8 +3,9 @@ import BookCard from "./BookCard";
 import Pagination from "../../shared/components/Pagination";
 import { useDispatch } from "react-redux";
 import { loadBooks } from "../../store/BookSlice";
-import { fetchBooks } from "../../api";
+import { fetchBooks, fetchCart } from "../../api";
 import BookCardSkeleton from "../../shared/components/BookCardSkeleton";
+import { updateCart } from "../../store/CartSlice";
 
 const BooksCardsContainer = () => {
   const [books, setBooks] = useState(null);
@@ -14,12 +15,14 @@ const BooksCardsContainer = () => {
     const getBooks = async () => {
       try {
         const res = await fetchBooks();
-        if (res.err) {
+        const res2 = await fetchCart();
+        if (res.err || res2.err) {
           console.error(res.err);
+          console.error(res2.err);
         } else {
           dispatch(loadBooks(res.data.books));
+          dispatch(updateCart(res2.data.cart.items));
           setBooks(res.data.books);
-          console.log(books);
         }
       } catch (error) {
         console.error("Failed to fetch books:", error);
