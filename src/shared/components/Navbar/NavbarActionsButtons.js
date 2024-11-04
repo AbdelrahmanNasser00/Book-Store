@@ -29,14 +29,15 @@ const NavbarActionsButtons = (props) => {
         icon={<FavoriteBorderIcon />}
         onClick={() => handleNavigate("wishlist")}
       />
-      {!currentUser && (
-        <NavbarActionBtnWithIcon
-          icon={<PersonOutlineOutlinedIcon />}
-          text={"Login/Register"}
-          onClick={() => handleNavigate("login")}
-        />
-      )}
-      {currentUser && (
+      {!currentUser ||
+        (currentUser === "guest" && (
+          <NavbarActionBtnWithIcon
+            icon={<PersonOutlineOutlinedIcon />}
+            text={"Login/Register"}
+            onClick={() => handleNavigate("login")}
+          />
+        ))}
+      {currentUser && currentUser !== "guest" && (
         <NavbarActionBtnWithIcon
           icon={<PersonOutlineOutlinedIcon />}
           text={"Logout"}

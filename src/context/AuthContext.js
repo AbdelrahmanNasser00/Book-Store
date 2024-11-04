@@ -1,24 +1,39 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { addToCart } from "../api";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
+    JSON.parse(localStorage.getItem("user")) || "guest",
   );
-
   const login = async (inputs) => {
     try {
       const res = await axios.post(
         "http://localhost:8080/api/auth/login",
-        inputs
+        inputs,
       );
-      console.log(res.data);
-      setCurrentUser(res.data);
+      const userDetails = res.data;
+      setCurrentUser(userDetails);
+      await processGuestCart(userDetails);
     } catch (err) {
       console.error("Login failed:", err);
       throw err;
+    }
+  };
+  const processGuestCart = async (userDetails) => {
+    const guestCart = JSON.parse(localStorage.getItem("guestCart"));
+    if (guestCart && guestCart.quantity > 0) {
+      const promises = guestCart.products.map((product) =>
+        addToCart(
+          { bookId: product.bookId, quantity: product.quantity },
+          userDetails,
+        ),
+      );
+      await Promise.all(promises);
+      console.log("Guest cart items added to user's cart:", guestCart.products);
+      localStorage.removeItem("guestCart");
     }
   };
 
@@ -33,12 +48,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const logout = () => {
     try {
-      // await axios.post(
-      //   "http://localhost:8080/api/auth/logout",
-      //   {},
-      //   { withCredentials: true }
-      // );
-      setCurrentUser(null);
+      setCurrentUser("guest");
       localStorage.removeItem("user");
     } catch (err) {
       console.error("Logout failed:", err);

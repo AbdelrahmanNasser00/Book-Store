@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 
 const NavigationLinks = () => {
-  const { currentUser, logout } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleNavigate = (endpoint) => navigate(`/${endpoint}`);
 
@@ -28,12 +28,14 @@ const NavigationLinks = () => {
           purpose={link.path}
         />
       ))}
-      {currentUser && currentUser.userDetails.role === "admin" && (
-        <NavLinksBtn
-          text={"Dashboard"}
-          onClick={() => handleNavigate("dashboard")}
-        />
-      )}
+      {currentUser &&
+        currentUser !== "guest" &&
+        currentUser.userDetails.role === "admin" && (
+          <NavLinksBtn
+            text={"Dashboard"}
+            onClick={() => handleNavigate("dashboard")}
+          />
+        )}
     </div>
   );
 };

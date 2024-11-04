@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import PayButton from "./PayButton";
+import ProceedButton from "./ProceedButton";
+import { AuthContext } from "../../context/AuthContext";
 
 const CartTotalsContainer = styled.div`
   background-color: #f8f8f8;
@@ -43,21 +44,6 @@ const ChangeAddress = styled.a`
   cursor: pointer;
 `;
 
-const ProceedButton = styled(Button)`
-  && {
-    background-color: #f97316;
-    color: white;
-    width: 100%;
-    padding: 10px 0;
-    border-radius: 30px;
-    font-size: 0.7rem;
-    margin-top: 20px;
-    &:hover {
-      background-color: #f57c00;
-    }
-  }
-`;
-
 const InfoText = styled.p`
   margin-top: 15px;
   font-size: 0.7rem;
@@ -65,6 +51,7 @@ const InfoText = styled.p`
 `;
 
 const CartTotals = () => {
+  const { currentUser } = useContext(AuthContext);
   const { total } = useSelector((state) => state.cart);
   const cart = useSelector((state) => state.cart.products);
   const shipping = 80;
@@ -100,10 +87,7 @@ const CartTotals = () => {
         <TotalAmount>{total > 0 ? finalAmount : 0} EGP</TotalAmount>
       </CartRow>
 
-      <PayButton cart={cart} />
-      {/* <ProceedButton onClick={handleCheckout} variant="contained">
-        Proceed to checkout
-      </ProceedButton> */}
+      <ProceedButton cart={cart} />
 
       <InfoText>
         <strong>Payment methods:</strong>

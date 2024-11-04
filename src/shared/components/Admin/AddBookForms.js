@@ -57,7 +57,7 @@ const AddBookForm = () => {
         image,
       };
       try {
-        await updateBook(editBook._id, updatedBook);
+        await updateBook(editBook.bookId, updatedBook);
       } catch (error) {
         console.error("Failed to update book:", error);
       }

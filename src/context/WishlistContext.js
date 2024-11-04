@@ -9,12 +9,13 @@ export const WishlistContextProvider = ({ children }) => {
   };
   const removeBookFromFavorites = (book) => {
     setWishlist = (prevBook) =>
-      prevBook.filter((book) => book._id !== prevBook._id);
+      prevBook.filter((book) => book.bookId !== prevBook.bookId);
   };
 
   return (
     <WishlistContext.Provider
-      value={{ wishlist, addBookToFavorites, removeBookFromFavorites }}>
+      value={{ wishlist, addBookToFavorites, removeBookFromFavorites }}
+    >
       {children}
     </WishlistContext.Provider>
   );

@@ -11,7 +11,7 @@ const TableRow = ({ book }) => {
   };
   const handleDeleteBook = async () => {
     try {
-      await deleteBook(book._id);
+      await deleteBook(book.bookId);
     } catch (error) {
       console.log(error);
     }

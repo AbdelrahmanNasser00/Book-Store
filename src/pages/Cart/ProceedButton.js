@@ -1,17 +1,21 @@
 import axios from "axios";
-import { apiClient } from "../../api";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const PayButton = () => {
+const ProceedButton = () => {
   const { currentUser } = useContext(AuthContext);
-  const userId = currentUser.userDetails.id;
+  const userId = currentUser?.userDetails?.id;
   const { products } = useSelector((state) => state.cart);
+  const navigate = useNavigate();
 
   const handleCheckout = () => {
+    if (currentUser === "guest") {
+      return navigate("/login");
+    }
     const cart = products.map((item) => ({
-      ...item.book,
+      ...item,
       quantity: item.quantity,
     }));
     axios
@@ -38,4 +42,4 @@ const PayButton = () => {
   );
 };
 
-export default PayButton;
+export default ProceedButton;

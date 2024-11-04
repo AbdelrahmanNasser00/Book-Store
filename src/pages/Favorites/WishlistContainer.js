@@ -7,10 +7,10 @@ import { WishlistContext } from "../../context/WishlistContext";
 const WishlistContainer = () => {
   const { favoriteBooks } = useContext(WishlistContext);
   return (
-    <MDBContainer className="my-5 mx-auto max-w-[1200px]">
-      <MDBRow className="flex justify-content-center">
+    <MDBContainer className="mx-auto my-5 max-w-[1200px]">
+      <MDBRow className="justify-content-center flex">
         {favoriteBooks.map((book) => (
-          <BookCard book={book} key={book._id} />
+          <BookCard book={book} key={book.bookId} />
         ))}
       </MDBRow>
       <Pagination />

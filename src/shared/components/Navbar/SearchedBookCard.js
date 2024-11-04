@@ -5,7 +5,7 @@ const SearchedBookCard = ({ book }) => {
 
   const handleProductpage = (e) => {
     e.stopPropagation();
-    navigate(`/product/${book._id}`, { state: book });
+    navigate(`/product/${book.bookId}`, { state: book });
   };
   return (
     <div

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { IconButton } from "@mui/material";
@@ -11,7 +11,7 @@ import {
   updateQuantity,
 } from "../../store/CartSlice";
 import { fetchCart, removeCartItem, updateCartItem } from "../../api";
-import defaultImage from "../../shared/imgs/GitBook - Dark.png";
+import { AuthContext } from "../../context/AuthContext";
 const Table = styled.table`
   border-collapse: collapse;
   margin-top: 20px;
@@ -35,31 +35,40 @@ const TableData = styled.td`
 `;
 
 const CartTable = () => {
+  const { currentUser } = useContext(AuthContext);
   const { products } = useSelector((state) => state.cart);
+  console.log("cart table products", products);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getCart = async () => {
-      const res = await fetchCart();
-      if (!res.error && res.status >= 200 && res.status < 300) {
-        dispatch(updateCart(res.data.cart.items));
-      } else {
-        alert("Failed to update cart");
-        console.error(res.ex);
+      if (currentUser !== "guest") {
+        const res = await fetchCart();
+        if (!res.error && res.status >= 200 && res.status < 300) {
+          dispatch(updateCart(res.data.cart));
+        } else {
+          alert("Failed to update cart");
+          console.error(res.ex);
+        }
       }
     };
     getCart();
   }, [dispatch]);
 
   const handleDelete = async (product) => {
+    console.log(product);
+
     try {
-      const res = await removeCartItem(product.book._id);
-      console.log(res);
-      if (!res.error && res.status >= 200 && res.status < 300) {
-        dispatch(removeProduct(product));
+      if (currentUser !== "guest") {
+        const res = await removeCartItem(product.bookId);
+        if (!res.error && res.status >= 200 && res.status < 300) {
+          dispatch(removeProduct(product));
+        } else {
+          alert("Failed to delete product");
+          console.error(res.ex);
+        }
       } else {
-        alert("Failed to delete product");
-        console.error(res.ex);
+        dispatch(removeProduct(product));
       }
     } catch (err) {
       console.log(err);
@@ -68,22 +77,25 @@ const CartTable = () => {
 
   const handleQuantity = async (product, boolean) => {
     const updatedProduct = {
-      bookId: product.book._id,
+      bookId: product.bookId,
       quantity: boolean ? product.quantity + 1 : product.quantity - 1,
     };
-    const res = await updateCartItem(updatedProduct);
-    if (!res.error && res.status >= 200 && res.status < 300) {
-      // console.log()
-      dispatch(updateQuantity(updatedProduct));
+    if (currentUser !== "guest") {
+      const res = await updateCartItem(updatedProduct);
+      if (!res.error && res.status >= 200 && res.status < 300) {
+        dispatch(updateQuantity(updatedProduct));
+      } else {
+        alert("Failed to update quantity");
+      }
     } else {
-      alert("Failed to update quantity");
+      dispatch(updateQuantity(updatedProduct));
     }
   };
 
   return (
     <Table>
       <TableHead>
-        <tr key="">
+        <tr>
           <th></th>
           <th>Product Name</th>
           <th style={{ fontWeight: "bold" }}>Price</th>
@@ -94,7 +106,7 @@ const CartTable = () => {
       <TableBody>
         {products.map((product) => (
           <TableRow
-            key={product._id}
+            key={product.bookId}
             style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.105)" }}
           >
             <TableData>
@@ -106,13 +118,13 @@ const CartTable = () => {
               {" "}
               <img
                 className="product-img"
-                src={product.book.image || defaultImage}
-                alt={product.book.name}
+                src={product.image}
+                alt={product.name}
                 style={{ width: "50px", marginRight: "15px" }}
               />
-              {product.book.name}
+              {product.name}
             </TableData>
-            <TableData>{product.book.price}</TableData>
+            <TableData>{product.price}</TableData>
             <TableData style={{ textAlign: "center" }}>
               <IconButton
                 onClick={() => handleQuantity(product, false)}
@@ -146,7 +158,7 @@ const CartTable = () => {
               </IconButton>
             </TableData>
             <TableData style={{ textAlign: "center" }}>
-              {product.quantity * product.book.price}
+              {product.quantity * product.price}
             </TableData>
           </TableRow>
         ))}

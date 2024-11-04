@@ -20,7 +20,11 @@ import CheckoutSuccess from "./pages/Cart/CheckoutSuccess";
 function App() {
   const { currentUser } = useContext(AuthContext);
   const AdminRoute = ({ children }) => {
-    if (currentUser && currentUser?.userDetails?.role === "admin") {
+    if (
+      currentUser &&
+      currentUser !== "guest" &&
+      currentUser?.userDetails?.role === "admin"
+    ) {
       return children;
     } else {
       return <Navigate to="/" replace={true} />;
@@ -28,7 +32,7 @@ function App() {
   };
 
   const AuthRoute = ({ children }) => {
-    if (currentUser) {
+    if (currentUser !== "guest") {
       return <Navigate to="/" replace={true} />;
     }
     return children;

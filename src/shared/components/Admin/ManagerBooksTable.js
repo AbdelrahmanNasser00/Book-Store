@@ -31,7 +31,7 @@ const ManagerBooksTable = () => {
       </thead>
       <tbody className="table-group-divider table-divider-color">
         {books.map((book) => (
-          <TableRow key={book._id} book={book} />
+          <TableRow key={book.bookId} book={book} />
         ))}
       </tbody>
     </table>

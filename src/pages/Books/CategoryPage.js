@@ -22,7 +22,7 @@ const CategoryPage = () => {
         <Breadcrump category={category} bookName={""} />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {filteredBooks.map((book) => (
-            <BookCard key={book._id} book={book} />
+            <BookCard key={book.bookId} book={book} />
           ))}
         </div>
       </div>

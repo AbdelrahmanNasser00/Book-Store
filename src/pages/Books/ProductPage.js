@@ -18,7 +18,7 @@ const ProductPage = () => {
   const relatedProducts = useMemo(() => {
     if (book) {
       return books.filter(
-        (b) => b.category === book.category && b._id !== book._id,
+        (b) => b.category === book.category && b.bookId !== book.bookId,
       );
     }
     return [];
@@ -88,7 +88,7 @@ const ProductPage = () => {
           </h2>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
             {relatedProducts.map((relatedProduct, index) => (
-              <BookCard book={relatedProduct} key={relatedProduct._id} />
+              <BookCard book={relatedProduct} key={relatedProduct.bookId} />
             ))}
           </div>
         </div>

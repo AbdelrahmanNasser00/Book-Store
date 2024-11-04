@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { addProduct } from "../../store/CartSlice";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../api";
+import { AuthContext } from "../../context/AuthContext";
 
 const AddToCartBtn = ({ book }) => {
+  const { currentUser } = useContext(AuthContext);
   const dispatch = useDispatch();
   const handleAddToCart = async (e) => {
     e.stopPropagation();
     try {
-      const res = await addToCart({ bookId: book._id, quantity: 1 });
-      console.log(res);
+      if (currentUser !== "guest") {
+        await addToCart({ bookId: book.bookId, quantity: 1 }, currentUser);
+      }
       dispatch(addProduct({ ...book, quantity: 1 }));
     } catch (err) {
       console.error(err);

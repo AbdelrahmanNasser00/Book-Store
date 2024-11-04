@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 export const apiClient = axios.create({
   baseURL: "http://localhost:8080/api",
@@ -37,7 +39,6 @@ export const addBook = async (data) => {
 export const updateBook = async (bookId, updatedBookData) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user.userDetails.token;
-  console.log("updaaaateeeee", bookId, updatedBookData);
   try {
     return await apiClient.put(`/books/${bookId}`, updatedBookData, {
       headers: {
@@ -129,9 +130,9 @@ export const editReview = async (bookId) => {
   }
 };
 
-export const addToCart = async (book) => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const token = user.userDetails.token;
+export const addToCart = async (book, currentUser) => {
+  const token = currentUser?.userDetails?.token;
+  if (!token) throw new Error("User token not found");
   console.log(book);
   try {
     return await apiClient.post(`/cart`, book, {
