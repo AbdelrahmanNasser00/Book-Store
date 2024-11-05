@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddToCartBtn from "../../shared/components/AddToCartBtn";
+import { addBookToWishlist } from "../../api";
 const BookCard = ({ book }) => {
   const defaultImage = "https://via.placeholder.com/300x400?text=No+Image";
   const navigate = useNavigate();
@@ -9,6 +10,11 @@ const BookCard = ({ book }) => {
   const handleProductpage = (e) => {
     e.stopPropagation();
     navigate(`/product/${book.bookId}`, { state: book });
+  };
+  const handleWishlist = async (bookId) => {
+    console.log(bookId);
+    const res = await addBookToWishlist({ bookId: bookId });
+    console.log(res);
   };
 
   return (
@@ -25,7 +31,10 @@ const BookCard = ({ book }) => {
         />
         <div
           className="absolute right-3 top-3 rounded-full bg-sky-50 bg-opacity-50 p-2 text-sky-800 transition-all duration-300 ease-in-out hover:!bg-sky-800 hover:text-sky-50"
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleWishlist(book.bookId);
+          }}
         >
           <FavoriteBorderOutlinedIcon />
         </div>

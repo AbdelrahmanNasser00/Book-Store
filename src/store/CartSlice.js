@@ -15,11 +15,9 @@ export const CartSlice = createSlice({
   reducers: {
     updateCart(state, action) {
       state.products = action.payload;
-      console.log(action.payload);
       state.quantity = 0;
       state.total = 0;
       const books = state.products;
-      console.log(books);
       books.forEach((book) => {
         state.quantity += book.quantity;
         state.total += book.price * book.quantity;
@@ -37,7 +35,6 @@ export const CartSlice = createSlice({
       }
       state.quantity += 1;
       state.total += product.price * product.quantity;
-      console.log(user);
       if (user && user === "guest") {
         saveCartToLocalStorage(state);
       }

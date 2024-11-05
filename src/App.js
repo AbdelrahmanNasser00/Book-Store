@@ -67,7 +67,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout-success" element={<CheckoutSuccess />} />
         <Route path="/checkout" element={<Checkout />} />
-        <Route path="/favorites" element={<Wishlist />} />
+        <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
     </Router>
   );

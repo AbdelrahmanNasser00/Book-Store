@@ -198,3 +198,35 @@ export const updateCartItem = async (bookId) => {
     };
   }
 };
+export const fetchWishlist = async () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.userDetails.token;
+  try {
+    return await apiClient.get(`/wishlist`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (ex) {
+    return {
+      error: true,
+      ex,
+    };
+  }
+};
+export const addBookToWishlist = async (bookId) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user.userDetails.token;
+  try {
+    return await apiClient.post(`/wishlist`, bookId, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (ex) {
+    return {
+      error: true,
+      ex,
+    };
+  }
+};
