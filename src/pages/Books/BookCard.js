@@ -2,19 +2,25 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddToCartBtn from "../../shared/components/AddToCartBtn";
-import { addBookToWishlist } from "../../api";
+import { addBookToWishlist, fetchBookDetails } from "../../api";
 const BookCard = ({ book }) => {
   const defaultImage = "https://via.placeholder.com/300x400?text=No+Image";
   const navigate = useNavigate();
 
-  const handleProductpage = (e) => {
+  const handleProductpage = async (e) => {
     e.stopPropagation();
-    navigate(`/product/${book.bookId}`, { state: book });
+    const response = await fetchBookDetails(book.bookId);
+    if (response.err) {
+      console.log(response.err);
+    } else {
+      navigate(`/product/${book.bookId}`, { state: response.data.book });
+    }
   };
   const handleWishlist = async (bookId) => {
-    console.log(bookId);
-    const res = await addBookToWishlist({ bookId: bookId });
-    console.log(res);
+    const response = await addBookToWishlist({ bookId: bookId });
+    if (response.err) {
+      console.log(response.err);
+    }
   };
 
   return (

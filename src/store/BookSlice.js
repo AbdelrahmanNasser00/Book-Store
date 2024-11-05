@@ -12,18 +12,17 @@ export const BookSlice = createSlice({
     appendBook: (state, action) => {
       const newOrUpdatedBook = action.payload;
       const existingBookIndex = state.books.findIndex(
-        (book) => book.bookId === newOrUpdatedBook.bookId
+        (book) => book.bookId === newOrUpdatedBook.bookId,
       );
       if (existingBookIndex !== -1) {
         state.books[existingBookIndex] = newOrUpdatedBook;
       } else {
         state.books.push(newOrUpdatedBook);
-        console.log(state.books);
       }
     },
     deleteBook: (state, action) => {
       state.books = state.books.filter(
-        (book) => book.bookId !== action.payload
+        (book) => book.bookId !== action.payload,
       );
     },
   },

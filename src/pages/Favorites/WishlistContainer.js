@@ -6,7 +6,6 @@ const WishlistContainer = () => {
   useEffect(() => {
     const getWishlist = async () => {
       const res = await fetchWishlist();
-      console.log(res);
       if (!res.error && res.status >= 200 && res.status < 300) {
         setWishlist(res.data.wishlist);
       } else {

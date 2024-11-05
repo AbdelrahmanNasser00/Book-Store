@@ -11,7 +11,6 @@ import Navbar from "../../shared/components/Navbar/Navbar";
 const ProductPage = () => {
   const books = useSelector((state) => state.book.books);
   const dispatch = useDispatch();
-
   const location = useLocation();
   const { state: book } = location;
 
@@ -23,7 +22,6 @@ const ProductPage = () => {
     }
     return [];
   }, [book, books]);
-  console.log(relatedProducts);
   const handleAddToCart = (e) => {
     dispatch(addProduct({ ...book, quantity: 1 }));
   };

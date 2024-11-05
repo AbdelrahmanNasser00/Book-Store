@@ -1,6 +1,4 @@
 import axios from "axios";
-import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
 
 export const apiClient = axios.create({
   baseURL: "http://localhost:8080/api",
@@ -10,6 +8,16 @@ export const apiClient = axios.create({
 export const fetchBooks = async (data) => {
   try {
     return await apiClient.get("/books", data);
+  } catch (ex) {
+    return {
+      error: true,
+      ex,
+    };
+  }
+};
+export const fetchBookDetails = async (bookId) => {
+  try {
+    return await apiClient.get(`/books/${bookId}`);
   } catch (ex) {
     return {
       error: true,

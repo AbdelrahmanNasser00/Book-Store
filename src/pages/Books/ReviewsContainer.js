@@ -34,7 +34,6 @@ const Reviews = () => {
         const reviews = await fetchReviews(id);
         if (reviews) {
           setReviews(reviews.data.reviews);
-          console.log(reviews);
         } else {
           console.error("Invalid reviews response", reviews);
           setReviews([]);
