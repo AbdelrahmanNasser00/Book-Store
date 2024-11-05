@@ -50,6 +50,7 @@ export const AuthContextProvider = ({ children }) => {
     try {
       setCurrentUser("guest");
       localStorage.removeItem("user");
+      localStorage.removeItem("guestCart");
     } catch (err) {
       console.error("Logout failed:", err);
       throw err;

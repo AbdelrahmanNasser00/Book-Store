@@ -25,6 +25,7 @@ const BooksCardsContainer = () => {
           setBooks(res.data.books);
           if (currentUser !== "guest") {
             const res2 = await fetchCart();
+            console.log(res2);
             if (res2.err) {
               console.error(res2.err);
             } else {
