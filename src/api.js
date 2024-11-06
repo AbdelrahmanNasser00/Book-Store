@@ -27,7 +27,6 @@ export const fetchBookDetails = async (bookId) => {
 };
 
 export const addBook = async (data) => {
-  console.log(data);
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user.userDetails.token;
   try {
@@ -81,8 +80,6 @@ export const deleteBook = async (bookId) => {
 export const submitReview = async (bookId, reviewData) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user.userDetails.token;
-  console.log(reviewData);
-  console.log(bookId);
   try {
     return await apiClient.post(`/books/${bookId}/reviews`, reviewData, {
       headers: {
@@ -141,7 +138,6 @@ export const editReview = async (bookId) => {
 export const addToCart = async (book, currentUser) => {
   const token = currentUser?.userDetails?.token;
   if (!token) throw new Error("User token not found");
-  console.log(book);
   try {
     return await apiClient.post(`/cart`, book, {
       headers: {

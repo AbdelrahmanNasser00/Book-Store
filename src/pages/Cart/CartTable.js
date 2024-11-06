@@ -37,7 +37,6 @@ const TableData = styled.td`
 const CartTable = () => {
   const { currentUser } = useContext(AuthContext);
   const { products } = useSelector((state) => state.cart);
-  console.log("cart table products", products);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -56,8 +55,6 @@ const CartTable = () => {
   }, [dispatch]);
 
   const handleDelete = async (product) => {
-    console.log(product);
-
     try {
       if (currentUser !== "guest") {
         const res = await removeCartItem(product.bookId);

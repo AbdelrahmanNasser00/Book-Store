@@ -40,7 +40,6 @@ const Search = () => {
   }, [query]);
 
   const handleAddToCatalog = (book) => {
-    console.log(book);
     const bookDetails = {
       title: book.volumeInfo.title,
       authors: book.volumeInfo.authors?.join(", "),

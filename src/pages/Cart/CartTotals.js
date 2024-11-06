@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ProceedButton from "./ProceedButton";
-import { AuthContext } from "../../context/AuthContext";
+import ProceedButton from "../../Checkout/ProceedButton";
 
 const CartTotalsContainer = styled.div`
   background-color: #f8f8f8;
@@ -51,7 +49,6 @@ const InfoText = styled.p`
 `;
 
 const CartTotals = () => {
-  const { currentUser } = useContext(AuthContext);
   const { total } = useSelector((state) => state.cart);
   const cart = useSelector((state) => state.cart.products);
   const shipping = 80;

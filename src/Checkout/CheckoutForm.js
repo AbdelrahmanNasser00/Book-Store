@@ -1,5 +1,5 @@
 import React from "react";
-import CheckoutInputField from "../../shared/components/CheckoutInputField";
+import CheckoutInputField from "../shared/components/CheckoutInputField";
 
 const CheckoutForm = () => {
   return (

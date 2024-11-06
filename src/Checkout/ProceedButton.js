@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const ProceedButton = () => {
   const { currentUser } = useContext(AuthContext);

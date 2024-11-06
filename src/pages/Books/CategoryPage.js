@@ -13,7 +13,6 @@ const CategoryPage = () => {
     }
     return [];
   }, [books, category]);
-  console.log(filteredBooks);
 
   return (
     <>

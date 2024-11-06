@@ -77,7 +77,6 @@ const UserReview = () => {
       rating,
     };
     const response = await submitReview(id, reviewData);
-    console.log(response);
     setRating(0);
     setComment("");
   };

@@ -49,7 +49,6 @@ const Date = styled.div`
 
 const Review = ({ review }) => {
   const { id } = useParams();
-  console.log(review);
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
