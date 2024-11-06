@@ -30,7 +30,7 @@ const useFetchCart = () => {
       }
     };
     getCart();
-  });
+  }, [dispatch]);
   return { cart, loading, error };
 };
 

@@ -1,17 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { IconButton } from "@mui/material";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  removeProduct,
-  updateCart,
-  updateQuantity,
-} from "../../store/CartSlice";
-import { fetchCart, removeCartItem, updateCartItem } from "../../api";
 import { AuthContext } from "../../context/AuthContext";
+import useFetchCart from "../../hooks/useFetchCart";
+import UseDeleteCartItem from "../../hooks/useDeleteCartItem";
+import useUpdateCartQuantity from "../../hooks/useUpdateCartQuantity";
+import { useSelector } from "react-redux";
 const Table = styled.table`
   border-collapse: collapse;
   margin-top: 20px;
@@ -36,58 +33,10 @@ const TableData = styled.td`
 
 const CartTable = () => {
   const { currentUser } = useContext(AuthContext);
+  const { cart, loading, error } = useFetchCart();
+  const { deleteCartItem } = UseDeleteCartItem(currentUser);
+  const { updateProductQuantity } = useUpdateCartQuantity(currentUser);
   const { products } = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const getCart = async () => {
-      if (currentUser !== "guest") {
-        const res = await fetchCart();
-        if (!res.error && res.status >= 200 && res.status < 300) {
-          dispatch(updateCart(res.data.cart));
-        } else {
-          alert("Failed to update cart");
-          console.error(res.ex);
-        }
-      }
-    };
-    getCart();
-  }, [dispatch]);
-
-  const handleDelete = async (product) => {
-    try {
-      if (currentUser !== "guest") {
-        const res = await removeCartItem(product.bookId);
-        if (!res.error && res.status >= 200 && res.status < 300) {
-          dispatch(removeProduct(product));
-        } else {
-          alert("Failed to delete product");
-          console.error(res.ex);
-        }
-      } else {
-        dispatch(removeProduct(product));
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleQuantity = async (product, boolean) => {
-    const updatedProduct = {
-      bookId: product.bookId,
-      quantity: boolean ? product.quantity + 1 : product.quantity - 1,
-    };
-    if (currentUser !== "guest") {
-      const res = await updateCartItem(updatedProduct);
-      if (!res.error && res.status >= 200 && res.status < 300) {
-        dispatch(updateQuantity(updatedProduct));
-      } else {
-        alert("Failed to update quantity");
-      }
-    } else {
-      dispatch(updateQuantity(updatedProduct));
-    }
-  };
 
   return (
     <Table>
@@ -107,7 +56,7 @@ const CartTable = () => {
             style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.105)" }}
           >
             <TableData>
-              <IconButton color="error" onClick={() => handleDelete(product)}>
+              <IconButton color="error" onClick={() => deleteCartItem(product)}>
                 <DeleteRoundedIcon />
               </IconButton>
             </TableData>
@@ -124,7 +73,7 @@ const CartTable = () => {
             <TableData>{product.price}</TableData>
             <TableData style={{ textAlign: "center" }}>
               <IconButton
-                onClick={() => handleQuantity(product, false)}
+                onClick={() => updateProductQuantity(product, false)}
                 size="small"
                 sx={{
                   backgroundColor: "rgb(0, 0, 0, 0.1)",
@@ -145,7 +94,7 @@ const CartTable = () => {
                 }}
               />
               <IconButton
-                onClick={() => handleQuantity(product, true)}
+                onClick={() => updateProductQuantity(product, true)}
                 size="small"
                 sx={{
                   backgroundColor: "rgb(0, 0, 0, 0.1)",

@@ -3,7 +3,7 @@ import { fetchBooks } from "../api";
 import { useDispatch } from "react-redux";
 import { loadBooks } from "../store/BookSlice";
 
-const UseFetchBooks = () => {
+const useFetchBooks = () => {
   const [books, setbooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -26,4 +26,4 @@ const UseFetchBooks = () => {
   return { books, loading, error };
 };
 
-export default UseFetchBooks;
+export default useFetchBooks;
