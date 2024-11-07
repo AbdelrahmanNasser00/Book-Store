@@ -40,19 +40,28 @@ const useCheckoutForm = () => {
       return navigate("/login");
     }
     let response;
+
     if (paymentOption === "cashOnDelivery") {
-      response = await cashOnDeliveryPayment(formData);
-      if (response.err) {
-        console.error("Cash on delivery Error:", response.err);
-      } else {
-        navigate("/checkout-success");
+      try {
+        response = await cashOnDeliveryPayment(formData);
+        if (response.err) {
+          throw new Error("Error in completing order");
+        } else {
+          navigate("/checkout-success");
+        }
+      } catch (error) {
+        console.error("Error during cash on delivery payment:", error);
       }
     } else if (paymentOption === "debitCreditCard") {
-      response = await debitCreditPayment(formData);
-      if (response.data.url) {
-        window.location.href = response.data.url;
-      } else {
-        throw new Error("Failed to redirect to payment gateway.");
+      try {
+        response = await debitCreditPayment(formData);
+        if (response.data.url) {
+          window.location.href = response.data.url;
+        } else {
+          throw new Error("Failed to redirect to payment gateway.");
+        }
+      } catch (error) {
+        console.error("Error during debit/credit payment:", error);
       }
     }
 
