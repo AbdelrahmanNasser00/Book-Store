@@ -51,7 +51,7 @@ const Reviews = () => {
       <ReviewsHeader> Customers Reviews</ReviewsHeader>
       <Wrapper>
         {reviews.map((review) => (
-          <Review key={review.bookId} review={review} />
+          <Review key={review._id} review={review} />
         ))}
       </Wrapper>
     </Container>

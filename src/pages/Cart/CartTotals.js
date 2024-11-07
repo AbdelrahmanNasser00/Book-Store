@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ProceedButton from "../../Checkout/ProceedButton";
+import ProceedToCheckoutButton from "../../Checkout/ProceedToCheckoutButton";
 
 const CartTotalsContainer = styled.div`
   background-color: #f8f8f8;
@@ -84,7 +84,7 @@ const CartTotals = () => {
         <TotalAmount>{total > 0 ? finalAmount : 0} EGP</TotalAmount>
       </CartRow>
 
-      <ProceedButton cart={cart} />
+      <ProceedToCheckoutButton cart={cart} />
 
       <InfoText>
         <strong>Payment methods:</strong>

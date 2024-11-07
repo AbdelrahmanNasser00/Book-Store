@@ -16,8 +16,10 @@ const ProductPage = () => {
 
   const relatedProducts = useMemo(() => {
     if (book) {
+      console.log(book);
+      console.log(books);
       return books.filter(
-        (b) => b.category === book.category && b.bookId !== book.bookId,
+        (b) => b.category === book.category && b.bookId !== book._id,
       );
     }
     return [];

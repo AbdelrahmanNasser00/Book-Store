@@ -10,12 +10,12 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <Navbar />
       {/* <HomePageBackground /> */}
       <BooksCardsContainer />
       <Footer />
-    </div>
+    </>
   );
 };
 

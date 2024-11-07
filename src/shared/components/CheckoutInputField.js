@@ -1,6 +1,6 @@
 import React from "react";
 
-const CheckoutInputField = ({ label, type, placeholder }) => {
+const CheckoutInputField = ({ label, type, placeholder, value, onChange }) => {
   return (
     <div className="mb-3">
       <label
@@ -14,6 +14,8 @@ const CheckoutInputField = ({ label, type, placeholder }) => {
         id="name"
         placeholder={placeholder}
         className="w-full rounded-md border border-gray-300 p-2 focus:border-sky-500 focus:outline-none"
+        onChange={onChange}
+        value={value}
       />
     </div>
   );
