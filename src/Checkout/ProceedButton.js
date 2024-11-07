@@ -15,7 +15,7 @@ const ProceedButton = () => {
       return navigate("/login");
     }
     const cart = products.map((item) => ({
-      ...item,
+      bookId: item.bookId,
       quantity: item.quantity,
     }));
     axios
