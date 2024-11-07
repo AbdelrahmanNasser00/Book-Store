@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import PlaceOrderButton from "./PlaceOrderButton";
 import CheckoutContext from "../context/CheckoutContext";
+import useFetchCart from "../hooks/useFetchCart";
 
 const YourOrder = () => {
   const { products, total } = useSelector((state) => state.cart);
   const { paymentOption, handlePaymentChange } = useContext(CheckoutContext);
-
+  const { cart, loading, error } = useFetchCart();
   return (
     <div className="flex w-full max-w-lg flex-col items-center">
       <div className="flex w-full flex-col">
