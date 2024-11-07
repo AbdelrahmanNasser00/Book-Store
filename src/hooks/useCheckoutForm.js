@@ -44,10 +44,14 @@ const useCheckoutForm = () => {
     if (paymentOption === "cashOnDelivery") {
       try {
         response = await cashOnDeliveryPayment(formData);
-        if (response.err) {
-          throw new Error("Error in completing order");
-        } else {
+        if (
+          !response.error &&
+          response.status >= 200 &&
+          response.status < 300
+        ) {
           navigate("/checkout-success");
+        } else {
+          throw new Error("Error in completing order");
         }
       } catch (error) {
         console.error("Error during cash on delivery payment:", error);
