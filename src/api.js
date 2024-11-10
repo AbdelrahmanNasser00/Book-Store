@@ -237,7 +237,6 @@ export const addBookToWishlist = async (bookId) => {
 export const cashOnDeliveryPayment = async (order) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user.userDetails.token;
-  console.log(order);
   try {
     return await apiClient.post(`/orders/cash-on-delivery`, order, {
       headers: {
@@ -254,7 +253,6 @@ export const cashOnDeliveryPayment = async (order) => {
 export const debitCreditPayment = async (order) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user.userDetails.token;
-  console.log(order);
   try {
     return await apiClient.post(`/orders/credit-card`, order, {
       headers: {

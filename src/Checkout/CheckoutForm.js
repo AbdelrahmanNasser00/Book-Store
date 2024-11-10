@@ -24,7 +24,7 @@ const CheckoutForm = () => {
         />
         <CheckoutInputField
           label={"Email Address"}
-          type={"email"}
+          type="email"
           placeholder={"Email"}
           value={formData.email}
           onChange={(e) => handleInputChange("email", e.target.value)}

@@ -19,7 +19,7 @@ const ManagerBooksTable = () => {
   return (
     <table className="table">
       <thead>
-        <tr>
+        <tr className="bg-gray-100 text-gray-700">
           <th scope="col">Title</th>
           <th scope="col">Authors</th>
           <th scope="col">Categories</th>
@@ -29,7 +29,7 @@ const ManagerBooksTable = () => {
           <th scope="col">Actions</th>
         </tr>
       </thead>
-      <tbody className="table-group-divider table-divider-color">
+      <tbody className="table-group-divider table-divider-color overflow-x-auto">
         {books.map((book) => (
           <TableRow key={book.bookId} book={book} />
         ))}

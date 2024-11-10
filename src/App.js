@@ -8,7 +8,7 @@ import {
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import Dashboard from "./pages/AdminDashboard/Dashboard";
 import { AuthContext } from "./context/AuthContext";
 import ProductPage from "./pages/Books/ProductPage";
 import CategoryPage from "./pages/Books/CategoryPage";

@@ -23,7 +23,7 @@ root.render(
         </AuthContextProvider>
       </PersistGate>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 reportWebVitals();

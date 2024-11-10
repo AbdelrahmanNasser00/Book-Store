@@ -51,7 +51,7 @@ const useCheckoutForm = () => {
         ) {
           navigate("/checkout-success");
         } else {
-          throw new Error("Error in completing order");
+          throw new Error(response.ex);
         }
       } catch (error) {
         console.error("Error during cash on delivery payment:", error);
@@ -62,14 +62,12 @@ const useCheckoutForm = () => {
         if (response.data.url) {
           window.location.href = response.data.url;
         } else {
-          throw new Error("Failed to redirect to payment gateway.");
+          throw new Error(response.ex);
         }
       } catch (error) {
         console.error("Error during debit/credit payment:", error);
       }
     }
-
-    console.log("Form data submitted:", formData);
   };
   return {
     formData,
