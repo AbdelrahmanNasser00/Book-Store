@@ -1,18 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-
-const Container = styled.div`
-  height: 30px;
-  background-color: teal;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-`;
-
 const Announcement = () => {
-  return <Container>Super Deals! Free Shipping on Orders Over 599LE</Container>;
+  return (
+    <div className="mb-2 hidden h-8 animate-pulse bg-gray-400 text-center font-medium text-white duration-1000 lg:flex lg:items-start lg:justify-center">
+      <spanc className="flex h-full items-center">
+        Super Deals! Free Shipping on Orders Over 599LE
+      </spanc>
+    </div>
+  );
 };
 
 export default Announcement;

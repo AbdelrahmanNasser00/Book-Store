@@ -1,13 +1,11 @@
 import React from "react";
 import darkLogo from "../../imgs/GitBook - Dark.svg";
 
-const Logo = () => {
+const Logo = ({ width }) => {
   return (
-    <div className="max-w-[190px] lg:max-w-[190px]">
-      <a href="/">
-        <div className="flex items-center">
-          <img src={darkLogo} alt="" />
-        </div>
+    <div className="my-2 flex items-center justify-center">
+      <a href="/" style={{ width: `${width}rem` }}>
+        <img src={darkLogo} alt="Logo" />
       </a>
     </div>
   );

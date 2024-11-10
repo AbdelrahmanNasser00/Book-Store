@@ -1,28 +1,19 @@
 import React from "react";
-import styled from "styled-components";
 import SocialLinks from "./Navbar/SocialLinks";
 
-const FooterContainer = styled.div`
-  background-color: #2c4755;
-  color: white;
-  text-align: center;
-  padding: 30px 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const RightAndName = styled.div``;
 const Footer = () => {
   return (
-    <FooterContainer>
-      <RightAndName>
-        © 2023
-        <span style={{ color: "#10cab7" }}> Abdelrahman </span>
-        All Right Reserved
-      </RightAndName>
-
-      <SocialLinks />
-    </FooterContainer>
+    <footer>
+      <div className="relative flex flex-col items-center justify-center bg-gray-900 text-white lg:flex-row">
+        <span>© 2023</span>
+        <span style={{ color: "#10cab7", paddingInline: "4px" }}>
+          {" "}
+          Abdelrahman{" "}
+        </span>
+        <span>All Right Reserved</span>
+        <SocialLinks />
+      </div>
+    </footer>
   );
 };
 

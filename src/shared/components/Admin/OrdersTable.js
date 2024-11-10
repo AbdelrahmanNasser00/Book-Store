@@ -1,8 +1,18 @@
 import React, { useState } from "react";
 import { orders } from "../../../pages/AdminDashboard/ordersData";
 import { MDBBtn } from "mdb-react-ui-kit";
+import OrderDetailsModal from "./OrderDetailsModal";
 
 const OrdersTable = () => {
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
+  const handleViewDetails = (order) => {
+    setSelectedOrder(order);
+  };
+
+  const closeModal = () => {
+    setSelectedOrder(null);
+  };
   return (
     <>
       <table className="min-w-full rounded-lg border border-gray-200 bg-white">
@@ -60,7 +70,11 @@ const OrdersTable = () => {
                 <MDBBtn color="danger" size="sm">
                   Delete
                 </MDBBtn>
-                <MDBBtn color="Primary" size="sm">
+                <MDBBtn
+                  color="Primary"
+                  size="sm"
+                  onClick={() => handleViewDetails(order)}
+                >
                   View Details
                 </MDBBtn>
               </td>
@@ -68,9 +82,9 @@ const OrdersTable = () => {
           ))}
         </tbody>
       </table>
-      {/* {selectedOrder && (
+      {selectedOrder && (
         <OrderDetailsModal order={selectedOrder} onClose={closeModal} />
-      )} */}
+      )}
     </>
   );
 };

@@ -24,7 +24,7 @@ const NavbarActionsButtons = (props) => {
   };
 
   return (
-    <div className="flex items-start">
+    <div className="hidden lg:flex lg:items-center">
       <NavbarActionBtnWithIcon
         icon={<FavoriteBorderIcon />}
         onClick={() => handleNavigate("wishlist")}

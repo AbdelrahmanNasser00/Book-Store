@@ -2,7 +2,12 @@ const Pagination = () => {
   return (
     <nav
       aria-label="Page navigation example"
-      style={{ display: "flex", justifyContent: "center" }}>
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "row",
+      }}
+    >
       <ul className="pagination">
         <li className="page-item">
           <a className="page-link" href="#" aria-label="Previous">

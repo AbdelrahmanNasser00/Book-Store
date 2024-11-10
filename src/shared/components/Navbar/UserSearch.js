@@ -36,11 +36,13 @@ const UserSearch = () => {
   }, [books, debouncedSearchTerm]);
 
   return (
-    <div className="relative mx-3 w-full max-w-screen-sm">
-      <SearchInput handleSearch={handleSearch} />
-      {filteredBooks.length > 0 && searchTerm && (
-        <SearchedItems filteredBooks={filteredBooks} />
-      )}
+    <div className="mb-2 flex w-full items-center justify-center lg:mx-3 lg:mb-0 lg:max-w-md">
+      <div className="relative w-full">
+        <SearchInput handleSearch={handleSearch} />
+        {filteredBooks.length > 0 && searchTerm && (
+          <SearchedItems filteredBooks={filteredBooks} />
+        )}
+      </div>
     </div>
   );
 };

@@ -1,21 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import BooksCardsContainer from "../Books/BooksCardsContainer";
-import { Dropdown, Collapse, initMDB } from "mdb-ui-kit";
 import Footer from "../../shared/components/Footer";
 import Navbar from "../../shared/components/Navbar/Navbar";
 
 const Home = () => {
-  useEffect(() => {
-    initMDB({ Dropdown, Collapse });
-  }, []);
-
   return (
-    <>
+    <div className="min-h-screen w-full">
       <Navbar />
-      {/* <HomePageBackground /> */}
       <BooksCardsContainer />
       <Footer />
-    </>
+    </div>
   );
 };
 
