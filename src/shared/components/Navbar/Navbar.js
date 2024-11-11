@@ -21,10 +21,10 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex w-full flex-col justify-center">
+    <header className="flex w-full flex-col justify-center bg-navbar-color shadow-sm">
       <NavContextProvider>
         <Announcement />
-        <div className="flex flex-col items-center bg-navbar-color transition-all ease-in">
+        <div className="flex flex-col items-center transition-all ease-in">
           <div className="flex w-full flex-col justify-center px-4 lg:flex-row">
             {/* Logo and Hamburger Icon in mobile mode */}
             <div className="my-3 flex items-center justify-between lg:hidden">
@@ -40,7 +40,12 @@ const Navbar = () => {
                     style={{ padding: "5px" }}
                   ></Badge>
                 }
-                text={parseInt(totalPrice) + "EGP"}
+                text={
+                  <>
+                    {parseInt(totalPrice)}{" "}
+                    <span className="text-[10px]">EGP</span>
+                  </>
+                }
               />
             </div>
             <div className="hidden lg:block">

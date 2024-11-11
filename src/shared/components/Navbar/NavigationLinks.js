@@ -31,7 +31,7 @@ const NavigationLinks = () => {
 
   return (
     <>
-      <div className="my-3 hidden lg:flex lg:justify-center">
+      <div className="mt-3 hidden lg:flex lg:justify-center">
         {navigationLinks.map((link, index) => (
           <NavLinksBtn
             key={index}

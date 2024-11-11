@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddToCartBtn from "../../shared/components/AddToCartBtn";
 import { addBookToWishlist, fetchBookDetails } from "../../api";
+import TestBtn from "../../shared/components/TestBtn";
 const BookCard = ({ book }) => {
   const defaultImage = "https://via.placeholder.com/300x400?text=No+Image";
   const navigate = useNavigate();
@@ -25,18 +26,18 @@ const BookCard = ({ book }) => {
 
   return (
     <div
-      className="w-full max-w-64 cursor-pointer rounded-lg border-solid shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg"
+      className="relative w-full max-w-64 cursor-pointer rounded-lg border border-solid border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg"
       onClick={handleProductpage}
     >
       {/* Book Image */}
-      <div className="relative p-2">
+      <div className="relative overflow-hidden rounded-t-lg">
         <img
-          className="max-h-80 w-full object-cover"
+          className="h-64 w-full rounded-t-lg object-cover transition-all duration-300 hover:scale-105"
           src={book.image || defaultImage}
           alt="Book Cover"
         />
         <div
-          className="absolute right-3 top-3 rounded-full bg-sky-50 bg-opacity-50 p-2 text-sky-800 transition-all duration-300 ease-in-out hover:!bg-sky-800 hover:text-sky-50"
+          className="hover:!bg-logo-color absolute right-3 top-3 rounded-full bg-gray-200 bg-opacity-50 p-2 text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-50"
           onClick={(e) => {
             e.stopPropagation();
             handleWishlist(book.bookId);
@@ -47,22 +48,16 @@ const BookCard = ({ book }) => {
       </div>
 
       {/* book details */}
-      <div className="p-2">
-        <p className="truncate p-1 text-sm font-semibold text-sky-800">
-          {book.name}
-        </p>
-        <div className="flex justify-between p-2">
-          <div className="mt-1 flex items-center p-2">
-            <span className="mb-0 text-xl font-medium text-gray-700">
-              {book.price} <span className="text-sm">LE</span>
-            </span>
-            {/* <span className="mb-0 ml-1 text-xs text-red-600">
-              <s>{350}</s>
-            </span> */}
-          </div>
-          <AddToCartBtn book={book} />
+      <div className="flex h-1/3 flex-1 flex-col justify-around rounded-lg bg-white p-4 pb-2">
+        <p className="mb-2 font-sans text-sm text-gray-700">{book.name}</p>
+
+        <div className="mt-4 flex items-center justify-between">
+          <span className="font-sans text-base font-medium text-orange-500">
+            {book.price} <span className="text-xs">LE</span>
+          </span>
+          <TestBtn book={book} />
+          {/* <AddToCartBtn book={book} /> */}
         </div>
-        {/* <Button /> */}
       </div>
     </div>
   );

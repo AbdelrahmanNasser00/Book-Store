@@ -4,7 +4,7 @@ import { addProduct } from "../../store/CartSlice";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../api";
 import { AuthContext } from "../../context/AuthContext";
-
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 const AddToCartBtn = ({ book }) => {
   const { currentUser } = useContext(AuthContext);
   const dispatch = useDispatch();
@@ -21,10 +21,10 @@ const AddToCartBtn = ({ book }) => {
   };
   return (
     <div
-      className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-sky-800 text-sky-800 transition-all duration-300 hover:scale-95 hover:bg-sky-800 hover:text-sky-50"
+      className="hover:bg-highlight-color flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gray-200 text-green-500 transition-all duration-300 hover:scale-95 hover:text-gray-200"
       onClick={handleAddToCart}
     >
-      <ShoppingCartIcon />
+      <AddShoppingCartOutlinedIcon style={{ fontSize: "1.2rem" }} />
     </div>
   );
 };

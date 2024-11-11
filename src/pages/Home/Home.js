@@ -5,7 +5,7 @@ import Navbar from "../../shared/components/Navbar/Navbar";
 
 const Home = () => {
   return (
-    <div className="min-h-screen w-full">
+    <div className="bg-home-color min-h-screen w-full">
       <Navbar />
       <BooksCardsContainer />
       <Footer />

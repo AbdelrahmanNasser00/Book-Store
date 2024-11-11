@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@mui/material";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import NavbarActionBtnWithIcon from "./NavbarActionBtnWithIcon";
 import SideCart from "../SideCart";
 import { AuthContext } from "../../../context/AuthContext";
-
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 const NavbarActionsButtons = (props) => {
   const { currentUser, logout } = useContext(AuthContext);
   const { productQuantity, totalPrice, isCartVisible } = props;
@@ -46,7 +45,7 @@ const NavbarActionsButtons = (props) => {
       )}
 
       <NavbarActionBtnWithIcon
-        icon={<ShoppingCartOutlinedIcon />}
+        icon={<ShoppingBagOutlinedIcon />}
         badge={
           <Badge
             badgeContent={productQuantity}
@@ -54,7 +53,11 @@ const NavbarActionsButtons = (props) => {
             style={{ padding: "5px" }}
           ></Badge>
         }
-        text={parseInt(totalPrice) + "EGP"}
+        text={
+          <>
+            {parseInt(totalPrice)} <span className="text-[10px]">EGP</span>
+          </>
+        }
         onClick={() => handleNavigate("cart")}
       />
       {isCartVisible && <SideCart isOpen={isCartVisible} />}
