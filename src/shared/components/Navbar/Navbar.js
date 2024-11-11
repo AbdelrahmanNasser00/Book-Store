@@ -10,10 +10,15 @@ import NavbarActionBtnWithIcon from "./NavbarActionBtnWithIcon";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Badge } from "@mui/material";
 import { NavContextProvider } from "../../../context/NavContext";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const productQuantity = useSelector((state) => state.cart.quantity);
   const totalPrice = useSelector((state) => state.cart.total);
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate(`/cart`);
+  };
 
   return (
     <header className="flex w-full flex-col justify-center">
@@ -27,6 +32,7 @@ const Navbar = () => {
               <Logo width={9} />
               <NavbarActionBtnWithIcon
                 icon={<ShoppingCartOutlinedIcon />}
+                onClick={() => handleNavigate()}
                 badge={
                   <Badge
                     badgeContent={productQuantity || 0}

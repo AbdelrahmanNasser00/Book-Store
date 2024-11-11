@@ -52,7 +52,7 @@ const NavigationLinks = () => {
       </div>
 
       <div
-        className={`absolute left-0 top-0 z-10 min-h-screen w-1/2 transform transition-transform duration-300 ease-in-out ${
+        className={`absolute left-0 top-0 z-10 min-h-screen w-1/2 transform shadow-md transition-transform duration-300 ease-in-out ${
           openMenu ? "translate-x-0" : "-translate-x-full"
         } lg:hidden`}
       >

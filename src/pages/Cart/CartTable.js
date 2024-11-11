@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import styled from "styled-components";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { IconButton } from "@mui/material";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
@@ -9,6 +8,7 @@ import useFetchCart from "../../hooks/useFetchCart";
 import UseDeleteCartItem from "../../hooks/useDeleteCartItem";
 import useUpdateCartQuantity from "../../hooks/useUpdateCartQuantity";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
 const Table = styled.table`
   border-collapse: collapse;
   margin-top: 20px;
@@ -21,8 +21,15 @@ const TableHead = styled.thead`
   background-color: white;
   color: black;
   height: fit-content;
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
 `;
-const TableBody = styled.tbody``;
+const TableBody = styled.tbody`
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+`;
 const TableRow = styled.tr`
   border-bottom: 1px solid rgba(0, 0, 0, 0.105);
   height: fit-content;
