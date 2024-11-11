@@ -59,7 +59,9 @@ const BookCard = ({ book }) => {
         </div>
       </div>
       <div className="flex h-36 flex-col items-center justify-between rounded-lg bg-white p-4 pb-2 lg:hidden">
-        <p className="font-sans text-sm text-gray-700">{book.name}</p>
+        <p className="font-sans text-[0.9em] text-gray-700 sm:text-sm">
+          {book.name}
+        </p>
         <div className="mt-2 flex items-center justify-between">
           <span className="font-sans text-base font-medium text-orange-500">
             {book.price} <span className="text-xs">LE</span>
