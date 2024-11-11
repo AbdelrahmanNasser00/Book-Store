@@ -26,7 +26,7 @@ const BookCard = ({ book }) => {
 
   return (
     <div
-      className="relative w-full max-w-64 cursor-pointer rounded-lg border border-solid border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg"
+      className="relative h-full w-full max-w-64 cursor-pointer rounded-lg border border-solid border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg"
       onClick={handleProductpage}
     >
       {/* Book Image */}
@@ -47,17 +47,26 @@ const BookCard = ({ book }) => {
         </div>
       </div>
 
-      {/* book details */}
-      <div className="flex h-1/3 flex-1 flex-col justify-around rounded-lg bg-white p-4 pb-2">
-        <p className="mb-2 font-sans text-sm text-gray-700">{book.name}</p>
-
-        <div className="mt-4 flex items-center justify-between">
+      {/* Book Details */}
+      <div className="hidden h-28 flex-col justify-between rounded-lg bg-white p-4 pb-2 lg:flex">
+        <p className="font-sans text-sm text-gray-700">{book.name}</p>
+        <div className="mt-2 flex items-center justify-between">
           <span className="font-sans text-base font-medium text-orange-500">
             {book.price} <span className="text-xs">LE</span>
           </span>
           <TestBtn book={book} />
           {/* <AddToCartBtn book={book} /> */}
         </div>
+      </div>
+      <div className="flex h-36 flex-col items-center justify-between rounded-lg bg-white p-4 pb-2 lg:hidden">
+        <p className="font-sans text-sm text-gray-700">{book.name}</p>
+        <div className="mt-2 flex items-center justify-between">
+          <span className="font-sans text-base font-medium text-orange-500">
+            {book.price} <span className="text-xs">LE</span>
+          </span>
+          {/* <AddToCartBtn book={book} /> */}
+        </div>
+        <TestBtn book={book} />
       </div>
     </div>
   );

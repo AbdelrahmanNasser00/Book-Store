@@ -16,20 +16,18 @@ const BooksCardsContainer = () => {
   };
   const renderBooks = () =>
     books.map((book) => (
-      <div key={book.bookId} className="flex w-52 justify-center">
+      <div key={book.bookId} className="flex justify-center lg:w-52">
         <BookCard book={book} />
       </div>
     ));
 
   return (
-    <div className="my-5 flex min-h-screen flex-col items-center justify-start">
-      <div className="rounded-lg bg-white p-4">
-        <div className="grid max-w-[1200px] grid-cols-2 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {booksError || booksLoading ? renderSkeletons(12) : renderBooks()}
-        </div>
-        <div className="mt-4 flex justify-center">
-          <Pagination />
-        </div>
+    <div className="my-5 flex min-h-screen flex-col items-center justify-center">
+      <div className="grid max-w-[1200px] grid-cols-2 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {booksError || booksLoading ? renderSkeletons(12) : renderBooks()}
+      </div>
+      <div className="mt-4 flex justify-center">
+        <Pagination />
       </div>
     </div>
   );

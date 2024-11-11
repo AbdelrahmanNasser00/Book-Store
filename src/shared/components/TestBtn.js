@@ -54,6 +54,9 @@ const StyledWrapper = styled.div`
     overflow: hidden;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.103);
     position: relative;
+    @media (max-width: 1023px) {
+      width: 130px;
+    }
   }
 
   .IconContainer {
@@ -92,6 +95,9 @@ const StyledWrapper = styled.div`
     transform: translateX(47px);
     border-radius: 40px;
     transition-duration: 0.5s;
+    @media (max-width: 1023px) {
+      transform: translateX(60px);
+    }
   }
 
   .CartBtn:hover .text {
