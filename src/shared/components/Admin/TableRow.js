@@ -3,6 +3,7 @@ import { MDBBtn } from "mdb-react-ui-kit";
 import { useContext } from "react";
 import { StoreManagerContext } from "../../../context/StoreManagerContext";
 import { deleteBook } from "../../../api";
+import styled from "styled-components";
 const TableRow = ({ book }) => {
   const { setEditBookForm } = useContext(StoreManagerContext);
 
@@ -25,12 +26,18 @@ const TableRow = ({ book }) => {
       <td>{book.price}</td>
       <td>{book.quantity}</td>
       <td>
-        <MDBBtn color="danger" size="sm" onClick={handleDeleteBook}>
+        <button
+          className="rounded-lg bg-red-600 text-sm text-white shadow-md hover:bg-red-700"
+          onClick={handleDeleteBook}
+        >
           Delete
-        </MDBBtn>
-        <MDBBtn color="Primary" size="sm" onClick={handleEditBook}>
+        </button>
+        <button
+          className="rounded-lg bg-cyan-500 text-sm text-white shadow-md hover:bg-cyan-700"
+          onClick={handleEditBook}
+        >
           Edit
-        </MDBBtn>
+        </button>
       </td>
     </tr>
   );

@@ -15,7 +15,7 @@ module.exports = {
         "home-color": "#f3f4f6",
         "home-bookscards-container-color": "#333",
         "logo-color": "#ff8e2b", // Orange color from logo
-        "accent-color": "#ff8e2b", // You can use this as a secondary accent if needed
+        "accent-color": "#fa8603", // You can use this as a secondary accent if needed
         "highlight-color": "#3390ec", // Blue color can also serve as a highlight accent
         "footer-color": "#333", // Dark color for footer sections
       },

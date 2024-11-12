@@ -67,16 +67,15 @@ const OrdersTable = () => {
               </td>
 
               <td className="border-b border-gray-200 px-4 py-2">
-                <MDBBtn color="danger" size="sm">
+                <button className="rounded-lg bg-red-600 text-sm text-white shadow-md hover:bg-red-700">
                   Delete
-                </MDBBtn>
-                <MDBBtn
-                  color="Primary"
-                  size="sm"
+                </button>
+                <button
+                  className="rounded-lg bg-cyan-500 text-sm text-white shadow-md hover:bg-cyan-700"
                   onClick={() => handleViewDetails(order)}
                 >
                   View Details
-                </MDBBtn>
+                </button>
               </td>
             </tr>
           ))}

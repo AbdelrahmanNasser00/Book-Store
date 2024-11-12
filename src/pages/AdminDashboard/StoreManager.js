@@ -16,12 +16,20 @@ const StoreManager = () => {
 
   return (
     <div className="StoreManager">
-      <MDBBtn onClick={toggleAddBookVisibility} style={{ margin: "10px" }}>
+      <button
+        className="rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white shadow-lg transition-all duration-300 hover:bg-blue-600 hover:shadow-xl"
+        onClick={toggleAddBookVisibility}
+        style={{ margin: "10px" }}
+      >
         Add Book
-      </MDBBtn>
-      <MDBBtn onClick={toggleSearchVisibility} style={{ margin: "10px" }}>
+      </button>
+      <button
+        className="rounded-lg bg-green-500 px-4 py-2 font-semibold text-white shadow-lg transition-all duration-300 hover:bg-green-600 hover:shadow-xl"
+        onClick={toggleSearchVisibility}
+        style={{ margin: "10px" }}
+      >
         Add Book (Google Books API)
-      </MDBBtn>
+      </button>
 
       {isSearchVisible && <Search />}
 
