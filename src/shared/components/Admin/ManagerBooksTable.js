@@ -17,16 +17,18 @@ const ManagerBooksTable = () => {
   }, []);
 
   return (
-    <table className="table">
+    <table className="min-w-full rounded-lg border border-gray-200 bg-white">
       <thead>
         <tr className="bg-gray-100 text-gray-700">
-          <th scope="col">Title</th>
-          <th scope="col">Authors</th>
-          <th scope="col">Categories</th>
-          <th scope="col">Number Of Pages</th>
-          <th scope="col">Price</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Actions</th>
+          <th className="border-b border-gray-200 px-4 py-2">Title</th>
+          <th className="border-b border-gray-200 px-4 py-2">Authors</th>
+          <th className="border-b border-gray-200 px-4 py-2">Categories</th>
+          <th className="border-b border-gray-200 px-4 py-2">
+            Number Of Pages
+          </th>
+          <th className="border-b border-gray-200 px-4 py-2">Price</th>
+          <th className="border-b border-gray-200 px-4 py-2">Quantity</th>
+          <th className="border-b border-gray-200 px-4 py-2">Actions</th>
         </tr>
       </thead>
       <tbody className="table-group-divider table-divider-color overflow-x-auto">

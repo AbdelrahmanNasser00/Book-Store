@@ -50,7 +50,7 @@ const NavbarActionsButtons = (props) => {
           <Badge
             badgeContent={productQuantity}
             color="primary"
-            style={{ padding: "5px" }}
+            style={{ padding: "5px", fontSize: "1px" }}
           ></Badge>
         }
         text={

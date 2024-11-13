@@ -7,11 +7,15 @@ const Wrapper = styled.div`
   flex-direction: row;
   min-height: 50vh;
   gap: 30px;
+  max-width: 1200px;
+  @media (max-width: 1023px) {
+    flex-direction: column;
+  }
 `;
 
 const CartContainer = () => {
   return (
-    <div className="container" style={{ paddingTop: "40px" }}>
+    <div className="my-5 flex w-full items-center justify-center">
       <Wrapper>
         <CartTable />
         <CartTotals />

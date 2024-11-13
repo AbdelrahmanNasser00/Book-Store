@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
+import CloseIcon from "@mui/icons-material/Close";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { AuthContext } from "../../context/AuthContext";
 import useFetchCart from "../../hooks/useFetchCart";
@@ -9,11 +10,13 @@ import UseDeleteCartItem from "../../hooks/useDeleteCartItem";
 import useUpdateCartQuantity from "../../hooks/useUpdateCartQuantity";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { truncate } from "lodash";
 const Table = styled.table`
   border-collapse: collapse;
   margin-top: 20px;
   padding: 20px;
   height: fit-content;
+  width: 100%;
   /* width: 66.6%; */
 `;
 const TableHead = styled.thead`
@@ -63,9 +66,15 @@ const CartTable = () => {
             style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.105)" }}
           >
             <TableData>
-              <IconButton color="error" onClick={() => deleteCartItem(product)}>
-                <DeleteRoundedIcon />
-              </IconButton>
+              <Tooltip title="Remove">
+                <IconButton
+                  color="default"
+                  size="small"
+                  onClick={() => deleteCartItem(product)}
+                >
+                  <CloseIcon sx={{ fontSize: "1rem" }} />
+                </IconButton>
+              </Tooltip>
             </TableData>
             <TableData style={{ display: "flex" }}>
               {" "}
@@ -75,7 +84,7 @@ const CartTable = () => {
                 alt={product.name}
                 style={{ width: "50px", marginRight: "15px" }}
               />
-              {product.name}
+              {truncate(product.name, { length: 20 })}
             </TableData>
             <TableData>{product.price}</TableData>
             <TableData style={{ textAlign: "center" }}>

@@ -11,6 +11,9 @@ const CartTotalsContainer = styled.div`
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
   border: 1px solid rgba(0, 0, 0, 0.105);
   max-width: 33%;
+  @media (max-width: 1023px) {
+    max-width: 100%;
+  }
 `;
 
 const CartTitle = styled.h3`
@@ -58,37 +61,25 @@ const CartTotals = () => {
     navigate("/checkout");
   };
   return (
-    <CartTotalsContainer>
-      <CartTitle>Cart Totals</CartTitle>
-
-      <SubtotalRow>
-        <span>Subtotal</span>
-        <span>{parseFloat(total).toFixed(2)} EGP</span>
-      </SubtotalRow>
-
-      <CartRow style={{ justifyContent: "end" }}>
-        <span>Upper Egypt Shipping: 80 EGP</span>
-      </CartRow>
-
-      <CartRow>
-        <span>Shipping</span>
-        <span>
-          Shipping to <strong>asyut, Assuit.</strong>
-        </span>
-      </CartRow>
-
-      <ChangeAddress>Change address</ChangeAddress>
-
-      <CartRow>
-        <TotalAmount>Total</TotalAmount>
-        <TotalAmount>{total > 0 ? finalAmount : 0} EGP</TotalAmount>
-      </CartRow>
-
-      <ProceedToCheckoutButton cart={cart} />
-
-      <InfoText>
-        <strong>Payment methods:</strong>
-      </InfoText>
+    <div className="rounded-lg bg-gray-100 p-8 text-lg font-medium leading-7 text-gray-900">
+      <h5>Order summary</h5>
+      <div className="mt-8">
+        <div className="flex flex-row items-center justify-between">
+          <span className="text-sm leading-5 text-gray-600">Subtotal</span>
+          <span className="text-sm leading-5 text-gray-600">
+            {total + " EGP"}
+          </span>
+        </div>
+        <div className="mt-4 flex flex-row items-center justify-between border-t border-gray-200 pt-4">
+          <span className="text-sm leading-5 text-gray-600">Flat Shipping</span>
+          <span className="text-sm leading-5 text-gray-600">100 EGP</span>
+        </div>
+        <div className="mt-4 flex flex-row items-center justify-between border-t border-gray-200 pt-4">
+          <span className="text-base leading-6">Order total</span>
+          <span className="text-base leading-6">{total + 100 + " EGP"}</span>
+        </div>
+        <ProceedToCheckoutButton />
+      </div>
       <InfoText>
         <strong>Delivery information:</strong> We deliver through a shipping
         company. Duration is 2-4 working days.
@@ -97,7 +88,7 @@ const CartTotals = () => {
         <strong>Quality Guarantee:</strong> We provide full replacement of
         defective items.
       </InfoText>
-    </CartTotalsContainer>
+    </div>
   );
 };
 

@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { StoreManagerContext } from "../../../context/StoreManagerContext";
 import { deleteBook } from "../../../api";
 import styled from "styled-components";
+import { Tooltip } from "@mui/material";
 const TableRow = ({ book }) => {
   const { setEditBookForm } = useContext(StoreManagerContext);
 
@@ -19,25 +20,31 @@ const TableRow = ({ book }) => {
   };
   return (
     <tr>
-      <td>{book.name}</td>
-      <td>{book.authors}</td>
-      <td>{book.category}</td>
-      <td>{book.numberOfPages}</td>
-      <td>{book.price}</td>
-      <td>{book.quantity}</td>
-      <td>
-        <button
-          className="rounded-lg bg-red-600 text-sm text-white shadow-md hover:bg-red-700"
-          onClick={handleDeleteBook}
-        >
-          Delete
-        </button>
-        <button
-          className="rounded-lg bg-cyan-500 text-sm text-white shadow-md hover:bg-cyan-700"
-          onClick={handleEditBook}
-        >
-          Edit
-        </button>
+      <td className="border-b border-gray-200 px-4 py-2">{book.name}</td>
+      <td className="border-b border-gray-200 px-4 py-2">{book.authors}</td>
+      <td className="border-b border-gray-200 px-4 py-2">{book.category}</td>
+      <td className="border-b border-gray-200 px-4 py-2">
+        {book.numberOfPages}
+      </td>
+      <td className="border-b border-gray-200 px-4 py-2">{book.price}</td>
+      <td className="border-b border-gray-200 px-4 py-2">{book.quantity}</td>
+      <td className="border-b border-gray-200 px-4 py-2">
+        <Tooltip title="Delete">
+          <button
+            className="m-1 w-12 rounded-lg bg-red-600 p-1 text-sm text-white shadow-md hover:bg-red-700"
+            onClick={handleDeleteBook}
+          >
+            Delete
+          </button>
+        </Tooltip>
+        <Tooltip title="Edit">
+          <button
+            className="m-1 w-12 rounded-lg bg-cyan-500 p-1 text-sm text-white shadow-md hover:bg-cyan-700"
+            onClick={handleEditBook}
+          >
+            Edit
+          </button>
+        </Tooltip>
       </td>
     </tr>
   );

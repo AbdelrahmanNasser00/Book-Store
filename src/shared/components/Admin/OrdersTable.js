@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { orders } from "../../../pages/AdminDashboard/ordersData";
 import { MDBBtn } from "mdb-react-ui-kit";
 import OrderDetailsModal from "./OrderDetailsModal";
+import { Tooltip } from "@mui/material";
 
 const OrdersTable = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -66,16 +67,20 @@ const OrdersTable = () => {
                 </div>
               </td>
 
-              <td className="border-b border-gray-200 px-4 py-2">
-                <button className="rounded-lg bg-red-600 text-sm text-white shadow-md hover:bg-red-700">
-                  Delete
-                </button>
-                <button
-                  className="rounded-lg bg-cyan-500 text-sm text-white shadow-md hover:bg-cyan-700"
-                  onClick={() => handleViewDetails(order)}
-                >
-                  View Details
-                </button>
+              <td className="border-b border-gray-200">
+                <Tooltip title="Delete">
+                  <button className="rounded-lg bg-red-600 p-1 text-sm text-white shadow-md hover:bg-red-700">
+                    Delete
+                  </button>
+                </Tooltip>
+                <Tooltip title="View Details">
+                  <button
+                    className="mx-1 rounded-lg bg-cyan-500 p-1 text-sm text-white shadow-md hover:bg-cyan-700"
+                    onClick={() => handleViewDetails(order)}
+                  >
+                    View Details
+                  </button>
+                </Tooltip>
               </td>
             </tr>
           ))}
