@@ -4,11 +4,11 @@ import { updateQuantity } from "../store/CartSlice";
 
 const useUpdateCartQuantity = (currentUser) => {
   const dispatch = useDispatch();
-  const updateProductQuantity = async (product, increament) => {
+  const updateProductQuantity = async (product, newQuantity) => {
     try {
       const updatedProduct = {
         bookId: product.bookId,
-        quantity: increament ? product.quantity + 1 : product.quantity - 1,
+        quantity: newQuantity,
       };
       if (currentUser !== "guest") {
         const res = await updateCartItem(updatedProduct);

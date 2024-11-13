@@ -4,47 +4,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ProceedToCheckoutButton from "../../Checkout/ProceedToCheckoutButton";
 
-const CartTotalsContainer = styled.div`
-  background-color: #f8f8f8;
-  padding: 20px;
-  border-radius: 8px;
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-  border: 1px solid rgba(0, 0, 0, 0.105);
-  max-width: 33%;
-  @media (max-width: 1023px) {
-    max-width: 100%;
-  }
-`;
-
-const CartTitle = styled.h3`
-  font-size: 1rem;
-  font-weight: bold;
-`;
-
-const CartRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  font-size: 0.7rem;
-`;
-
-const SubtotalRow = styled(CartRow)`
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-`;
-
-const TotalAmount = styled.h2`
-  font-size: 1rem;
-  color: #f97316;
-  font-weight: bold;
-`;
-
-const ChangeAddress = styled.a`
-  color: #f97316;
-  text-decoration: none;
-  cursor: pointer;
-`;
-
 const InfoText = styled.p`
   margin-top: 15px;
   font-size: 0.7rem;
@@ -61,7 +20,7 @@ const CartTotals = () => {
     navigate("/checkout");
   };
   return (
-    <div className="rounded-lg bg-gray-100 p-8 text-lg font-medium leading-7 text-gray-900">
+    <div className="max-h-fit rounded-lg bg-gray-100 p-8 text-lg font-medium leading-7 text-gray-900">
       <h5>Order summary</h5>
       <div className="mt-8">
         <div className="flex flex-row items-center justify-between">
