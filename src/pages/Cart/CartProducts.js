@@ -57,7 +57,7 @@ const CartProducts = () => {
             <span>{product.quantity * product.price} EGP</span>
           </CartTotals>
           <div className="flex h-full justify-center lg:justify-start">
-            <Tooltip title="Remove" placement="right-start">
+            <Tooltip arrow title="Remove" placement="right-start">
               <IconButton
                 color="default"
                 size="small"
@@ -80,6 +80,7 @@ const CartContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  border-top: 1px solid rgb(0 0 0 / 0.1);
 `;
 const CartItemCard = styled.div`
   display: flex;

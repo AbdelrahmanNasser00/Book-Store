@@ -8,8 +8,9 @@ export const WishlistContextProvider = ({ children }) => {
     setWishlist((prevBook) => [...prevBook, book]);
   };
   const removeBookFromFavorites = (book) => {
-    setWishlist = (prevBook) =>
-      prevBook.filter((book) => book.bookId !== prevBook.bookId);
+    setWishlist((prevBook) =>
+      prevBook.filter((book) => book.bookId !== prevBook.bookId),
+    );
   };
 
   return (

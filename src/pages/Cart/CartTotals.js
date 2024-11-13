@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import ProceedToCheckoutButton from "../../Checkout/ProceedToCheckoutButton";
 
 const InfoText = styled.p`
@@ -13,12 +12,6 @@ const InfoText = styled.p`
 const CartTotals = () => {
   const { total } = useSelector((state) => state.cart);
   const cart = useSelector((state) => state.cart.products);
-  const shipping = 80;
-  const finalAmount = total > 0 ? (parseFloat(total) + shipping).toFixed(2) : 0;
-  const navigate = useNavigate();
-  const handleCheckout = () => {
-    navigate("/checkout");
-  };
   return (
     <div className="max-h-fit rounded-lg bg-gray-100 p-8 text-lg font-medium leading-7 text-gray-900">
       <h5>Order summary</h5>

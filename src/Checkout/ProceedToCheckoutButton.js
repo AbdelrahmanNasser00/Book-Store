@@ -4,8 +4,6 @@ import { AuthContext } from "../context/AuthContext";
 
 const ProceedToCheckoutButton = () => {
   const { currentUser } = useContext(AuthContext);
-  // const userId = currentUser?.userDetails?.id;
-  // const { products } = useSelector((state) => state.cart);
   const navigate = useNavigate();
 
   const handleCheckout = () => {

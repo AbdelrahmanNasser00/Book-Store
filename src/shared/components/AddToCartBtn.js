@@ -21,7 +21,7 @@ const AddToCartBtn = ({ book }) => {
   };
   return (
     <div
-      className="hover:bg-highlight-color flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gray-200 text-green-500 transition-all duration-300 hover:scale-95 hover:text-gray-200"
+      className="flex h-10 w-14 cursor-pointer items-center justify-center rounded-md border border-gray-200 text-green-500 transition-all duration-300 hover:bg-green-500 hover:text-gray-200"
       onClick={handleAddToCart}
     >
       <AddShoppingCartOutlinedIcon style={{ fontSize: "1.2rem" }} />

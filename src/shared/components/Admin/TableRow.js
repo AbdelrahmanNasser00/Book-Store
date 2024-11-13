@@ -1,9 +1,6 @@
-import { MDBBtn } from "mdb-react-ui-kit";
-// import { deleteBook } from "../../store/BookSlice";
 import { useContext } from "react";
 import { StoreManagerContext } from "../../../context/StoreManagerContext";
 import { deleteBook } from "../../../api";
-import styled from "styled-components";
 import { Tooltip } from "@mui/material";
 const TableRow = ({ book }) => {
   const { setEditBookForm } = useContext(StoreManagerContext);
@@ -29,7 +26,7 @@ const TableRow = ({ book }) => {
       <td className="border-b border-gray-200 px-4 py-2">{book.price}</td>
       <td className="border-b border-gray-200 px-4 py-2">{book.quantity}</td>
       <td className="border-b border-gray-200 px-4 py-2">
-        <Tooltip title="Delete">
+        <Tooltip arrow title="Delete">
           <button
             className="m-1 w-12 rounded-lg bg-red-600 p-1 text-sm text-white shadow-md hover:bg-red-700"
             onClick={handleDeleteBook}
@@ -37,7 +34,7 @@ const TableRow = ({ book }) => {
             Delete
           </button>
         </Tooltip>
-        <Tooltip title="Edit">
+        <Tooltip arrow title="Edit">
           <button
             className="m-1 w-12 rounded-lg bg-cyan-500 p-1 text-sm text-white shadow-md hover:bg-cyan-700"
             onClick={handleEditBook}

@@ -37,7 +37,7 @@ const BookCard = ({ book }) => {
           alt="Book Cover"
         />
         <div
-          className="hover:!bg-logo-color absolute right-3 top-3 rounded-full bg-gray-200 bg-opacity-50 p-2 text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-50"
+          className="absolute right-3 top-3 rounded-full bg-gray-200 bg-opacity-50 p-2 text-gray-700 transition-all duration-300 ease-in-out hover:!bg-logo-color hover:text-sky-50"
           onClick={(e) => {
             e.stopPropagation();
             handleWishlist(book.bookId);
@@ -68,6 +68,7 @@ const BookCard = ({ book }) => {
           </span>
           {/* <AddToCartBtn book={book} /> */}
         </div>
+        {/* <AddToCartBtn /> */}
         <TestBtn book={book} />
       </div>
     </div>
