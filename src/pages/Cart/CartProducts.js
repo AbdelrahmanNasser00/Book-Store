@@ -54,7 +54,9 @@ const CartProducts = () => {
           </div>
           <CartTotals>
             <span>Subtotal:</span>
-            <span>{product.quantity * product.price} EGP</span>
+            <span className="lg:ml-1">
+              {product.quantity * product.price} EGP
+            </span>
           </CartTotals>
           <div className="flex h-full justify-center lg:justify-start">
             <Tooltip arrow title="Remove" placement="right-start">
@@ -93,10 +95,8 @@ const CartItemCard = styled.div`
   /* box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1); */
   gap: 12px;
   @media (min-width: 768px) {
-    @media (min-width: 768px) {
-      flex-direction: row;
-      align-items: center;
-    }
+    flex-direction: row;
+    align-items: center;
   }
 `;
 const ProductImage = styled.img`

@@ -13,26 +13,26 @@ const CheckoutForm = () => {
           type={"text"}
           value={formData.name}
           onChange={(e) => handleInputChange("name", e.target.value)}
-          placeholder={"Name"}
+          placeholder={"name"}
         />
         <CheckoutInputField
           label={"Full Address"}
           type={"text"}
-          placeholder={"Address"}
+          placeholder={"address"}
           value={formData.fullAddress}
           onChange={(e) => handleInputChange("fullAddress", e.target.value)}
         />
         <CheckoutInputField
           label={"Email Address"}
           type="email"
-          placeholder={"Email"}
+          placeholder={"email"}
           value={formData.email}
           onChange={(e) => handleInputChange("email", e.target.value)}
         />
         <CheckoutInputField
           label={"Phone number"}
           type={"tel"}
-          placeholder={"Phone number"}
+          placeholder={"phone number"}
           value={formData.phoneNumber}
           onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
         />
@@ -46,10 +46,13 @@ const CheckoutForm = () => {
           </label>
           <select
             id="governorate"
-            className="w-full rounded-md border border-gray-300 p-2 focus:border-sky-500 focus:outline-none"
+            className="max-h-24 w-full rounded-md border border-gray-300 p-2 focus:border-sky-500 focus:outline-none"
           >
-            <option>Cairo</option>
-            <option>Assiut</option>
+            {egyptGovernorates.map((governorate) => (
+              <option key={governorate} value={governorate}>
+                {governorate}
+              </option>
+            ))}
           </select>
         </div>
         <div className="mb-4 flex flex-col">
@@ -77,3 +80,34 @@ const CheckoutForm = () => {
 };
 
 export default CheckoutForm;
+
+const egyptGovernorates = [
+  "Cairo",
+  "Alexandria",
+  "Giza",
+  "Qalyubia",
+  "Port Said",
+  "Suez",
+  "Sharqia",
+  "Dakahlia",
+  "Beheira",
+  "Minya",
+  "Helwan",
+  "Assiut",
+  "Sohag",
+  "Beni Suef",
+  "Faiyum",
+  "Aswan",
+  "Damietta",
+  "Luxor",
+  "Qena",
+  "Gharbia",
+  "Ismailia",
+  "Matruh",
+  "Red Sea",
+  "New Valley",
+  "North Sinai",
+  "South Sinai",
+  "Monufia",
+  "Kafr el-Sheikh",
+];
