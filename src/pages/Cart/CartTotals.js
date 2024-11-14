@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import ProceedToCheckoutButton from "../../Checkout/ProceedToCheckoutButton";
+import ProceedToCheckoutButton from "../Checkout/ProceedToCheckoutButton";
 
 const InfoText = styled.p`
   margin-top: 15px;

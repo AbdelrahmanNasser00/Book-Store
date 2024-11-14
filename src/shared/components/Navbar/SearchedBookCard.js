@@ -11,7 +11,7 @@ const SearchedBookCard = ({ book }) => {
   return (
     <div
       key={book.id}
-      className="flex max-h-24 cursor-pointer justify-between border-r border-t border-gray-300 p-2 transition-all duration-300 ease-in hover:bg-gray-100"
+      className="flex max-h-24 cursor-pointer justify-between border-b border-r border-gray-300 p-2 transition-all duration-300 ease-in hover:bg-gray-100"
       onClick={handleProductpage}
     >
       <div className="flex">
@@ -21,7 +21,7 @@ const SearchedBookCard = ({ book }) => {
           className="mr-3 max-h-28 max-w-16"
         />
         <div>
-          <h7 className="text-sm text-gray-800">{book.name}</h7>
+          <h3 className="text-sm text-gray-800">{book.name}</h3>
           <p className="text-sm text-gray-600">price: {book.price}LE</p>
         </div>
       </div>

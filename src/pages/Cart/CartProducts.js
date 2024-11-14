@@ -7,7 +7,7 @@ import UseDeleteCartItem from "../../hooks/useDeleteCartItem";
 import useUpdateCartQuantity from "../../hooks/useUpdateCartQuantity";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 const CartProducts = () => {
   const { currentUser } = useContext(AuthContext);
   const { cart, loading, error } = useFetchCart();
@@ -24,7 +24,7 @@ const CartProducts = () => {
             <ProductName>{product.name}</ProductName>
             <ProductPrice>Price:{product.price} EGP</ProductPrice>
           </Productdetails>
-          <div className="relative min-w-16">
+          <div className="relative min-w-10">
             <QuantitySelector
               value={product.quantity}
               onChange={(e) =>
@@ -37,20 +37,7 @@ const CartProducts = () => {
                 </option>
               ))}
             </QuantitySelector>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.2"
-              stroke="currentColor"
-              class="pointer-events-none absolute right-2.5 top-2.5 ml-1 h-5 w-5 text-slate-700"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-              />
-            </svg>
+            <ArrowDropDownIcon className="pointer-events-none absolute right-2 top-2" />
           </div>
           <CartTotals>
             <span>Subtotal:</span>

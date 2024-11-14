@@ -14,8 +14,8 @@ import ProductPage from "./pages/Books/ProductPage";
 import CategoryPage from "./pages/Books/CategoryPage";
 import Cart from "./pages/Cart/Cart";
 import Wishlist from "./pages/Favorites/Wishlist";
-import Checkout from "./Checkout/Checkout";
-import CheckoutSuccess from "./Checkout/CheckoutSuccess";
+import Checkout from "./pages/Checkout/Checkout";
+import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
