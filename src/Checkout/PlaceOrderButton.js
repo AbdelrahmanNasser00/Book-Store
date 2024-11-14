@@ -9,7 +9,7 @@ const PlaceOrderButton = () => {
         className="w-full rounded-md border border-indigo-600 bg-indigo-600 p-4 text-base font-medium text-white transition-all duration-300 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
         onClick={handleSubmit}
       >
-        Proceed to checkout
+        Place order
       </button>
     </div>
   );

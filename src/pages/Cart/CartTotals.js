@@ -30,7 +30,7 @@ const CartTotals = () => {
           <span className="text-base leading-6">Order total</span>
           <span className="text-base leading-6">{total + 100 + " EGP"}</span>
         </div>
-        <ProceedToCheckoutButton />
+        <ProceedToCheckoutButton text={"Proceed to checkout"} />
       </div>
       <InfoText>
         <strong>Delivery information:</strong> We deliver through a shipping
