@@ -1,8 +1,8 @@
 import React from "react";
-import CheckoutForm from "./CheckoutForm";
 import Navbar from "../../shared/components/Navbar/Navbar";
 import { CheckoutContextProvider } from "../../context/CheckoutContext";
 import OrderSummery from "./OrderSummery";
+import CheckoutForm from "./CheckoutForm";
 
 const Checkout = () => {
   return (

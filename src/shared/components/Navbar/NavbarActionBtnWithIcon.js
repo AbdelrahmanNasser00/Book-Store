@@ -9,8 +9,8 @@ const NavbarActionBtnWithIcon = ({ icon, text, purpose, badge, onClick }) => {
     >
       {/* Icon and text */}
       <div>
-        {icon}
-        {text}
+        <span>{icon}</span>
+        <span>{text}</span>
       </div>
 
       {/* Badge */}

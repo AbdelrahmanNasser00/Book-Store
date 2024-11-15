@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { addProduct } from "../../store/CartSlice";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../api";

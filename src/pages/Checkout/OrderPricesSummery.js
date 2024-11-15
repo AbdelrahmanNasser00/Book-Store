@@ -10,11 +10,11 @@ const OrderPricesSummery = () => {
       </div>
       <div className="flex justify-between">
         <span className="text-sm">Shipping</span>
-        <span className="text-sm font-medium">150 EGP</span>
+        <span className="text-sm font-medium">100 EGP</span>
       </div>
       <div className="flex justify-between border-t pt-2">
         <span className="font-semibold">Total</span>
-        <span className="font-semibold text-indigo-600">{total + 150} EGP</span>
+        <span className="font-semibold text-indigo-600">{total + 100} EGP</span>
       </div>
     </div>
   );

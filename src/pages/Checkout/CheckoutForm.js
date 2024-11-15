@@ -46,7 +46,7 @@ const CheckoutForm = () => {
           </label>
           <select
             id="governorate"
-            className="max-h-24 w-full rounded-md border border-gray-300 p-2 focus:border-sky-500 focus:outline-none"
+            className="max-h-24 w-full rounded-md border border-gray-300 p-2 outline-none transition-all duration-200 focus:!border-indigo-600 focus:ring-4 focus:ring-indigo-600 focus:ring-opacity-20"
           >
             {egyptGovernorates.map((governorate) => (
               <option key={governorate} value={governorate}>
@@ -69,7 +69,7 @@ const CheckoutForm = () => {
           <textarea
             id="order-notes"
             placeholder="Notes about your order, e.g., special notes for delivery."
-            className="w-full rounded-md border border-gray-300 p-2 focus:border-sky-500 focus:outline-none"
+            className="w-full rounded-md border border-gray-300 p-2 outline-none transition-all duration-200 focus:!border-indigo-600 focus:ring-4 focus:ring-indigo-600 focus:ring-opacity-20"
             value={formData.notes}
             onChange={(e) => handleInputChange("notes", e.target.value)}
           />
