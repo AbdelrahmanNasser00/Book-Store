@@ -8,7 +8,6 @@ const SearchedBookCard = ({ book }) => {
     e.stopPropagation();
     navigate(`/product/${book.bookId}`, { state: book });
   };
-  console.log(book);
   return (
     <div
       key={book.id}

@@ -10,7 +10,6 @@ const UserSearch = () => {
   const { data, error, isLoading } = useSearchBooksQuery(searchTerm, {
     skip: !searchTerm,
   });
-  console.log(data.books);
   const books = data?.books;
   const debouncedHandleSearch = useMemo(
     () =>
