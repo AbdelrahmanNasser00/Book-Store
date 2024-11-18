@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../../shared/components/Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 import { CheckoutContextProvider } from "../../context/CheckoutContext";
 import OrderSummery from "./OrderSummery";
 import CheckoutForm from "./CheckoutForm";

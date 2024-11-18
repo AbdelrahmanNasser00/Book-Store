@@ -5,7 +5,7 @@ import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import { deleteReview, editReview } from "../../api";
+import { deleteReview, editReview } from "../api";
 import { useParams } from "react-router-dom";
 const ReviewCard = styled.div`
   display: flex;

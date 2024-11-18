@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import AddToCartBtn from "../AddToCartBtn";
-import TestBtn from "../TestBtn";
+// import AddToCartBtn from "../UI/AddToCartBtn";
+import TestBtn from "../UI/TestBtn";
 const SearchedBookCard = ({ book }) => {
   const navigate = useNavigate();
 

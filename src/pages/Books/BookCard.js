@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import AddToCartBtn from "../../shared/components/AddToCartBtn";
 import { addBookToWishlist, fetchBookDetails } from "../../api";
-import TestBtn from "../../shared/components/TestBtn";
+import TestBtn from "../../components/UI/TestBtn";
+import AddToCartBtn from "../../components/UI/AddToCartBtn";
 const BookCard = ({ book }) => {
   const defaultImage = "https://via.placeholder.com/300x400?text=No+Image";
   const navigate = useNavigate();

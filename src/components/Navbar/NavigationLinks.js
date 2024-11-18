@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import NavLinksBtn from "./NavLinksBtn";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../context/AuthContext";
-import { NavContext } from "../../../context/NavContext";
+import { AuthContext } from "../../context/AuthContext";
+import { NavContext } from "../../context/NavContext";
 import CloseIcon from "@mui/icons-material/Close";
 
 const NavigationLinks = () => {

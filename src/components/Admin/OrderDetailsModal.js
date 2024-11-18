@@ -7,16 +7,16 @@ const OrderDetailsModal = ({ order, onClose }) => {
         <h2 className="mb-4 text-xl font-semibold">Order Details</h2>
         <div className="text-left">
           <p>
-            <strong>Order ID:</strong> {order.id}
+            <strong>Order ID:</strong> {order._id}
           </p>
           <p>
-            <strong>Customer Name:</strong> {order.customerName}
+            <strong>Customer Name:</strong> {order.name}
           </p>
           <p>
-            <strong>Total Price:</strong> ${order.totalPrice}
+            <strong>Total Price:</strong> ${order.totalAmount}
           </p>
           <p>
-            <strong>Status:</strong> {order.status}
+            <strong>Status:</strong> {order.orderStatus}
           </p>
         </div>
         <button

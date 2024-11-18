@@ -1,6 +1,5 @@
 import React from "react";
-import darkLogo from "../../imgs/GitBook - Dark.svg";
-
+import darkLogo from "../../assets/imgs/GitBook - Dark.svg";
 const Logo = ({ width }) => {
   return (
     <div className="my-2 flex items-center justify-center">

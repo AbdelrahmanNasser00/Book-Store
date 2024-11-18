@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { StoreManagerContext } from "../../context/StoreManagerContext";
-import ManagerBooksTable from "../../shared/components/Admin/ManagerBooksTable";
-import Search from "../../shared/components/Admin/Search";
-import AddBookForm from "../../shared/components/Admin/AddBookForms";
+import ManagerBooksTable from "../../components/Admin/ManagerBooksTable";
+import Search from "../../components/Admin/Search";
+import AddBookForms from "../../components/Admin/AddBookForms";
 
 const StoreManager = () => {
   const {
@@ -32,7 +32,7 @@ const StoreManager = () => {
 
       {isSearchVisible && <Search />}
 
-      {(isAddBookVisible || bookToCatalog !== null) && <AddBookForm />}
+      {(isAddBookVisible || bookToCatalog !== null) && <AddBookForms />}
       <ManagerBooksTable />
     </div>
   );

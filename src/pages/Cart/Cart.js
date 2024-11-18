@@ -1,6 +1,6 @@
 import React from "react";
 import CartContainer from "./CartContainer";
-import Navbar from "../../shared/components/Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 
 const Cart = () => {
   return (

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import CheckoutInputField from "../../shared/components/CheckoutInputField";
+import CheckoutInputField from "./CheckoutInputField";
 import CheckoutContext from "../../context/CheckoutContext";
 
 const CheckoutForm = () => {

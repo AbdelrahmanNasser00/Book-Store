@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { StoreManagerContext } from "../../../context/StoreManagerContext";
-import { deleteBook } from "../../../api";
+import { StoreManagerContext } from "../../context/StoreManagerContext";
+import { deleteBook } from "../../api";
 import { Tooltip } from "@mui/material";
 const TableRow = ({ book }) => {
   const { setEditBookForm } = useContext(StoreManagerContext);

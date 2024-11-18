@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Review from "../../shared/components/Review";
+import Review from "../../components/Review";
 import { useParams } from "react-router-dom";
 import { fetchReviews } from "../../api";
 

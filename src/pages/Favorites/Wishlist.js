@@ -1,6 +1,6 @@
 import React from "react";
 import WishlistContainer from "./WishlistContainer";
-import Navbar from "../../shared/components/Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 
 const Wishlist = () => {
   return (

@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import Breadcrump from "../../shared/components/Breadcrumb";
+import Breadcrump from "../../components/UI/Breadcrumb";
 import { useDispatch, useSelector } from "react-redux";
 import BookCard from "./BookCard";
 import ReviewsContainer from "./ReviewsContainer";
 import ReviewForm from "./ReviewForm";
 import { addProduct } from "../../store/CartSlice";
-import Navbar from "../../shared/components/Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 
 const ProductPage = () => {
   const books = useSelector((state) => state.book.books);

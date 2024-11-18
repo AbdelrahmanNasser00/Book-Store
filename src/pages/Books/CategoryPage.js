@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import BookCard from "./BookCard";
-import Breadcrump from "../../shared/components/Breadcrumb";
+import Breadcrump from "../../components/UI/Breadcrumb";
 import { useSelector } from "react-redux";
-import Navbar from "../../shared/components/Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 const CategoryPage = () => {
   const books = useSelector((state) => state.book.books);
   const { category } = useParams();

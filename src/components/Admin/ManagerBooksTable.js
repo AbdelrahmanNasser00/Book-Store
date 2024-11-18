@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TableRow from "./TableRow";
-import { fetchBooks } from "../../../api";
+import { fetchBooks } from "../../api";
 
 const ManagerBooksTable = () => {
   const [books, setBooks] = useState([]);

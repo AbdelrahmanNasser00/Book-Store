@@ -6,8 +6,8 @@ import {
   MDBRow,
   MDBCol,
 } from "mdb-react-ui-kit";
-import { StoreManagerContext } from "../../../context/StoreManagerContext";
-import { addBook, updateBook } from "../../../api";
+import { StoreManagerContext } from "../../context/StoreManagerContext";
+import { addBook, updateBook } from "../../api";
 
 const AddBookForm = () => {
   const [name, setName] = useState("");

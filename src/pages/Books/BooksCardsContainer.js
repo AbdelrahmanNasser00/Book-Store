@@ -1,7 +1,7 @@
 import React from "react";
 import BookCard from "./BookCard";
-import Pagination from "../../shared/components/Pagination";
-import BookCardSkeleton from "../../shared/components/BookCardSkeleton";
+import Pagination from "../../components/UI/Pagination";
+import BookCardSkeleton from "../../components/UI/BookCardSkeleton";
 import UseFetchBooks from "../../hooks/useFetchBooks";
 import useFetchCart from "../../hooks/useFetchCart";
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import UserSearch from "./UserSearch";
 import Announcement from "./Announcement";
@@ -9,7 +9,7 @@ import HamburgerIcon from "./HamburgerIcon";
 import NavbarActionBtnWithIcon from "./NavbarActionBtnWithIcon";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Badge } from "@mui/material";
-import { NavContextProvider } from "../../../context/NavContext";
+import { NavContextProvider } from "../../context/NavContext";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {

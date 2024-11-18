@@ -8,7 +8,7 @@ import {
   MDBInputGroup,
 } from "mdb-react-ui-kit";
 import axios from "axios";
-import { StoreManagerContext } from "../../../context/StoreManagerContext";
+import { StoreManagerContext } from "../../context/StoreManagerContext";
 
 const Search = () => {
   const [query, setQuery] = useState("");
