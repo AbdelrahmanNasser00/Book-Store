@@ -12,7 +12,7 @@ const SearchedItems = ({ books }) => {
           View All
         </button>
       ) : (
-        <div className="h-full w-full p-4 text-sm font-medium hover:bg-gray-100">
+        <div className="h-full w-full p-4 text-sm font-medium">
           No products found
         </div>
       )}

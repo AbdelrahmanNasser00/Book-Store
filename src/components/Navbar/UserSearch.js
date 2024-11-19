@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import debounce from "lodash.debounce";
 import "../../shared/CSS/Navbar.css";
 import SearchedItems from "./SearchedItems";
@@ -7,30 +7,30 @@ import { useSearchBooksQuery } from "../../store/ApiSlice";
 
 const UserSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { data, error, isLoading } = useSearchBooksQuery(searchTerm, {
+  const { data, isFetching, error } = useSearchBooksQuery(searchTerm, {
     skip: searchTerm.length < 3,
   });
-  const [books, setBooks] = useState([]);
-  console.log(data?.books);
-  const debouncedHandleSearch = useMemo(
-    () =>
-      debounce((e) => {
-        setBooks([]);
-        setSearchTerm(e.target.value);
-      }, 800),
-    [],
+
+  const debouncedHandleSearch = useCallback(
+    debounce((e) => {
+      setSearchTerm(e.target.value);
+    }, 500),
+    [setSearchTerm],
   );
 
-  useEffect(() => {
-    if (data?.books) setBooks(data.books);
-    return () => debouncedHandleSearch.cancel();
-  }, [debouncedHandleSearch, data]);
+  const books = useMemo(() => {
+    if (isFetching || error) return [];
+    return data?.books || [];
+  }, [data, isFetching, error]);
 
   return (
     <div className="mb-2 flex w-full items-center justify-center lg:mx-3 lg:!mb-0 lg:max-w-md">
       <div className="relative w-full">
-        <SearchInput handleSearch={debouncedHandleSearch} />
-        {!isLoading && !error && searchTerm.length >= 3 && (
+        <SearchInput
+          handleSearch={debouncedHandleSearch}
+          isFetching={isFetching}
+        />
+        {!isFetching && searchTerm.length >= 3 && (
           <SearchedItems books={books} />
         )}
       </div>
