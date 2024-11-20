@@ -5,7 +5,7 @@ import { StoreManagerContextProvider } from "../../context/StoreManagerContext";
 import Orders from "./Orders";
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState("storeManager");
+  const [activeTab, setActiveTab] = useState("orders");
   const tabClasses = (tabName) =>
     `px-4 py-2 rounded-t-lg text-lg font-semibold cursor-pointer 
       ${

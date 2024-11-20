@@ -1,8 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
-
-const ProductsList = () => {
-  const { products } = useSelector((state) => state.cart);
+import bookImg from "../../assets/imgs/book.png";
+const ProductsList = ({ products }) => {
   return (
     <div className="w-full space-y-4">
       {products.map((product, index) => (
@@ -11,9 +9,9 @@ const ProductsList = () => {
           className="flex items-center justify-between rounded-lg bg-white p-4 shadow-md"
         >
           <img
-            src={product.image}
+            src={product.image || bookImg}
             alt={product.name}
-            className="mr-4 h-16 w-16 rounded-md object-cover"
+            className="mr-4 h-16 w-16 rounded-md bg-gray-200 object-cover"
           />
           <div className="flex-1">
             <h5 className="text-sm font-semibold">{product.name}</h5>

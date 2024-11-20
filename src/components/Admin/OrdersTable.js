@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import OrderDetailsModal from "./OrderDetailsModal";
 import UseFetchOrders from "../../hooks/useFetchOrders";
-import OrderStatus from "./OrderStatus";
-import OrderBody from "./OrderBody";
-import OrderHead from "./OrderHead";
+import OrderTableBody from "./OrderTableBody";
+import OrderTableHead from "./OrderTableHead";
 
 const OrdersTable = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -16,6 +15,7 @@ const OrdersTable = () => {
   const handleViewDetails = (order) => {
     setSelectedOrder(order);
   };
+  console.log(orders);
 
   const closeModal = () => {
     setSelectedOrder(null);
@@ -23,9 +23,9 @@ const OrdersTable = () => {
   return (
     <>
       <table className="min-w-full rounded-lg border border-gray-200 bg-white">
-        <OrderHead />
+        <OrderTableHead />
         {orders.map((order) => (
-          <OrderBody
+          <OrderTableBody
             key={order._id}
             order={order}
             handleViewDetails={handleViewDetails}
