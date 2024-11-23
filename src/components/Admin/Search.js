@@ -1,12 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  MDBInput,
-  MDBBtn,
-  MDBListGroup,
-  MDBListGroupItem,
-  MDBCardImage,
-  MDBInputGroup,
-} from "mdb-react-ui-kit";
 import axios from "axios";
 import { StoreManagerContext } from "../../context/StoreManagerContext";
 
@@ -17,10 +9,11 @@ const Search = () => {
     useContext(StoreManagerContext);
 
   useEffect(() => {
-    if (query.trim === "") {
+    if (query.trim() === "") {
       setResults([]);
       return;
     }
+
     const fetchBooks = async () => {
       try {
         const res = await axios.get(
@@ -55,38 +48,41 @@ const Search = () => {
   };
 
   return (
-    <div>
-      <MDBInputGroup>
-        <MDBInput
-          label="Search query"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-      </MDBInputGroup>
+    <div className="p-4">
+      <input
+        value={query}
+        placeholder="Search for book"
+        className="h-10 w-full rounded-md border border-gray-200 px-2 text-sm text-gray-700 placeholder-gray-400 outline-none transition-all duration-200 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600 focus:ring-opacity-20"
+        onChange={(e) => setQuery(e.target.value)}
+      />
 
       {results.length > 0 && (
-        <MDBListGroup className="mt-3">
+        <ul className="mt-3 space-y-4">
           {results.map((book) => (
-            <MDBListGroupItem
+            <li
               key={book.id}
-              className="d-flex justify-content-between align-items-center"
+              className="flex items-start items-center justify-between rounded-lg border border-gray-300 p-4 shadow-sm"
             >
-              <div className="d-flex">
-                <MDBCardImage
+              <div className="flex items-start">
+                <img
                   src={
                     book.volumeInfo.imageLinks?.thumbnail ||
                     "https://via.placeholder.com/128x192?text=No+Image"
                   }
                   alt={book.volumeInfo.title}
-                  style={{ width: "80px", marginRight: "10px" }}
+                  className="h-24 w-16 rounded object-cover shadow-sm"
                 />
-                <div>
-                  <h5>{book.volumeInfo.title}</h5>
-                  <p>{book.volumeInfo.authors?.join(", ")}</p>
-                  <p>
+                <div className="ml-4">
+                  <h5 className="text-lg font-semibold text-gray-800">
+                    {book.volumeInfo.title}
+                  </h5>
+                  <p className="text-sm text-gray-600">
+                    {book.volumeInfo.authors?.join(", ")}
+                  </p>
+                  <p className="text-sm text-gray-600">
                     ISBN: {book.volumeInfo.industryIdentifiers?.[0]?.identifier}
                   </p>
-                  <p>
+                  <p className="text-sm text-gray-600">
                     Suggested price:{" "}
                     {book.saleInfo.listPrice?.amount
                       ? `$${book.saleInfo.listPrice.amount}`
@@ -94,12 +90,15 @@ const Search = () => {
                   </p>
                 </div>
               </div>
-              <MDBBtn color="primary" onClick={() => handleAddToCatalog(book)}>
-                + Add to catalog
-              </MDBBtn>
-            </MDBListGroupItem>
+              <button
+                className="rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+                onClick={() => handleAddToCatalog(book)}
+              >
+                Add to database
+              </button>
+            </li>
           ))}
-        </MDBListGroup>
+        </ul>
       )}
     </div>
   );

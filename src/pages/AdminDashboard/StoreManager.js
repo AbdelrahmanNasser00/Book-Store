@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { StoreManagerContext } from "../../context/StoreManagerContext";
 import ManagerBooksTable from "../../components/Admin/ManagerBooksTable";
 import Search from "../../components/Admin/Search";
-import AddBookForms from "../../components/Admin/AddBookForms";
+import AddBookForm from "../../components/Admin/AddBookForm";
 
 const StoreManager = () => {
   const {
@@ -32,7 +32,7 @@ const StoreManager = () => {
 
       {isSearchVisible && <Search />}
 
-      {(isAddBookVisible || bookToCatalog !== null) && <AddBookForms />}
+      {(isAddBookVisible || bookToCatalog !== null) && <AddBookForm />}
       <ManagerBooksTable />
     </div>
   );
