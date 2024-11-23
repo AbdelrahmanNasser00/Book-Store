@@ -1,113 +1,132 @@
-// import React, { useContext, useState } from "react";
-// import { Form, Button, Alert } from "react-bootstrap";
-// import "../../shared/CSS/Login.css";
-// import { AuthContext } from "../../context/AuthContext";
-// import { useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-// const Register = () => {
-//   const [inputFirstName, setInputFirstName] = useState("");
-//   const [inputLastName, setInputLastName] = useState("");
-//   const [inputEmail, setInputEmail] = useState("");
-//   const [inputPassword, setInputPassword] = useState("");
-//   const [show, setShow] = useState(false);
-//   const [err, setError] = useState(null);
-//   const { register } = useContext(AuthContext);
-//   const navigate = useNavigate();
+const Register = () => {
+  const [inputFirstName, setInputFirstName] = useState("");
+  const [inputLastName, setInputLastName] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputPassword, setInputPassword] = useState("");
+  const [err, setError] = useState(null);
+  const { register } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-//     const inputs = {
-//       firstName: inputFirstName,
-//       lastName: inputLastName,
-//       mail: inputEmail,
-//       password: inputPassword,
-//     };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const inputs = {
+      firstName: inputFirstName,
+      lastName: inputLastName,
+      mail: inputEmail,
+      password: inputPassword,
+    };
 
-//     try {
-//       await register(inputs);
-//       navigate("/login");
-//     } catch (err) {
-//       console.log(err);
-//       setError(err.response.data);
-//     }
-//   };
+    try {
+      await register(inputs);
+      navigate("/login");
+    } catch (err) {
+      setError(err.response?.data?.message);
+    }
+  };
 
-//   return (
-//     <div className="sign-in__wrapper">
-//       {/* Overlay */}
-//       <div className="sign-in__backdrop"></div>
-//       {/* Form */}
-//       <Form className="shadow p-4 bg-white rounded" onSubmit={handleSubmit}>
-//         {/* Header */}
-//         <div className="h4 mb-2 text-center">Sign Up</div>
-//         {/* Alert */}
-//         {show ? (
-//           <Alert
-//             className="mb-2"
-//             variant="danger"
-//             onClose={() => setShow(false)}
-//             dismissible>
-//             Registration error. Please try again.
-//           </Alert>
-//         ) : (
-//           <div />
-//         )}
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+        <h2 className="mb-6 text-center text-2xl font-bold">Sign Up</h2>
+        <p className="mb-4 text-center text-gray-600">
+          Please enter your details to create an account!
+        </p>
 
-//         <Form.Group className="mb-2" controlId="username">
-//           <Form.Label>First Name</Form.Label>
-//           <Form.Control
-//             type="text"
-//             value={inputFirstName}
-//             placeholder="FirstName"
-//             name="FirstName"
-//             onChange={(e) => setInputFirstName(e.target.value)}
-//             required
-//           />
-//         </Form.Group>
-//         <Form.Group className="mb-2" controlId="username">
-//           <Form.Label>Last Name</Form.Label>
-//           <Form.Control
-//             type="text"
-//             value={inputLastName}
-//             placeholder="LastName"
-//             name="LastName"
-//             onChange={(e) => setInputLastName(e.target.value)}
-//             required
-//           />
-//         </Form.Group>
-//         <Form.Group className="mb-2" controlId="email">
-//           <Form.Label>Email address</Form.Label>
-//           <Form.Control
-//             type="email"
-//             value={inputEmail}
-//             placeholder="Enter email"
-//             name="email"
-//             onChange={(e) => setInputEmail(e.target.value)}
-//             required
-//           />
-//         </Form.Group>
-//         <Form.Group className="mb-2" controlId="password">
-//           <Form.Label>Password</Form.Label>
-//           <Form.Control
-//             type="password"
-//             value={inputPassword}
-//             placeholder="Password"
-//             name="password"
-//             onChange={(e) => setInputPassword(e.target.value)}
-//             required
-//           />
-//         </Form.Group>
-//         {/* Register Button */}
-//         <Button variant="primary" type="submit" className="w-100">
-//           Register
-//         </Button>
-//       </Form>
-//       {/* Footer */}
-//       <div className="w-100 mb-2 position-absolute bottom-0 start-50 translate-middle-x text-white text-center">
-//         Made by Hendrik C | &copy;2022
-//       </div>
-//     </div>
-//   );
-// };
+        {/* Show error message if there's an error */}
+        {err && <div className="mb-4 text-center text-red-500">{err}</div>}
 
-// export default Register;
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label
+              htmlFor="firstName"
+              className="block text-sm font-medium text-gray-700"
+            >
+              First Name
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              value={inputFirstName}
+              onChange={(e) => setInputFirstName(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="lastName"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="lastName"
+              value={inputLastName}
+              onChange={(e) => setInputLastName(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email address
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={inputEmail}
+              onChange={(e) => setInputEmail(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={inputPassword}
+              onChange={(e) => setInputPassword(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Register
+          </button>
+        </form>
+
+        <hr className="my-6" />
+
+        <div className="text-center">
+          <p className="text-gray-600">Already have an account?</p>
+          <a href="/login" className="text-indigo-600 hover:underline">
+            Log in here
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Register;

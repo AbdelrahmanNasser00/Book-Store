@@ -54,7 +54,7 @@ function App() {
         />
         <Route
           path="/register"
-          element={<AuthRoute>{/* <Register /> */}</AuthRoute>}
+          element={<AuthRoute>{<Register />}</AuthRoute>}
         />
         <Route
           path="/dashboard"

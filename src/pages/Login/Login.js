@@ -1,17 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBInput,
-  MDBIcon,
-  MDBCheckbox,
-} from "mdb-react-ui-kit";
 
 const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
@@ -34,76 +23,90 @@ const Login = () => {
   };
 
   return (
-    <MDBContainer fluid>
-      <MDBRow className="d-flex justify-content-center align-items-center h-100">
-        <MDBCol col="12">
-          <MDBCard
-            className="bg-white my-5 mx-auto"
-            style={{ borderRadius: "1rem", maxWidth: "500px" }}>
-            <MDBCardBody className="p-5 w-100 d-flex flex-column">
-              <h2 className="fw-bold mb-2 text-center">Sign In</h2>
-              <p className="text-muted mb-4 text-center">
-                Please enter your login and password!
-              </p>
-              {/* Show error message if there's an error */}
-              {err && <div className="text-danger text-center mb-4">{err}</div>}
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+        <h2 className="mb-6 text-center text-2xl font-bold">Sign In</h2>
+        <p className="mb-4 text-center text-gray-600">
+          Please enter your login and password!
+        </p>
 
-              <form onSubmit={handleSubmit}>
-                <MDBInput
-                  wrapperClass="mb-4 w-100"
-                  label="Email address"
-                  id="formControlEmail"
-                  type="email"
-                  size="lg"
-                  value={inputEmail}
-                  onChange={(e) => setInputEmail(e.target.value)}
-                  required
-                />
-                <MDBInput
-                  wrapperClass="mb-4 w-100"
-                  label="Password"
-                  id="formControlPassword"
-                  type="password"
-                  size="lg"
-                  value={inputPassword}
-                  onChange={(e) => setInputPassword(e.target.value)}
-                  required
-                />
+        {/* Show error message if there's an error */}
+        {err && <div className="mb-4 text-center text-red-500">{err}</div>}
 
-                <MDBCheckbox
-                  name="flexCheck"
-                  id="flexCheckDefault"
-                  className="mb-4"
-                  label="Remember password"
-                />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email address
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={inputEmail}
+              onChange={(e) => setInputEmail(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            />
+          </div>
 
-                <MDBBtn className="w-100" size="lg" type="submit">
-                  Login
-                </MDBBtn>
-              </form>
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={inputPassword}
+              onChange={(e) => setInputPassword(e.target.value)}
+              required
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            />
+          </div>
 
-              <hr className="my-4" />
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="remember"
+              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            />
+            <label
+              htmlFor="remember"
+              className="ml-2 block text-sm text-gray-900"
+            >
+              Remember password
+            </label>
+          </div>
 
-              <MDBBtn
-                className="mb-2 w-100"
-                size="lg"
-                style={{ backgroundColor: "#dd4b39" }}>
-                <MDBIcon fab icon="google" className="mx-2" />
-                Sign in with Google
-              </MDBBtn>
+          <button
+            type="submit"
+            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Login
+          </button>
+        </form>
 
-              <MDBBtn
-                className="mb-4 w-100"
-                size="lg"
-                style={{ backgroundColor: "#3b5998" }}>
-                <MDBIcon fab icon="facebook-f" className="mx-2" />
-                Sign in with Facebook
-              </MDBBtn>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+        <div className="mt-6 text-center">
+          <p className="text-gray-600">Don't have an account?</p>
+          <a href="/register" className="text-indigo-600 hover:underline">
+            Sign in here
+          </a>
+        </div>
+        <hr className="my-6" />
+
+        <button className="mb-4 flex w-full items-center justify-center rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+          Sign in with Google
+        </button>
+
+        <button className="flex w-full items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Sign in with Facebook
+        </button>
+      </div>
+    </div>
   );
 };
 
