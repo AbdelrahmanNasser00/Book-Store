@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "../api";
+import { loadOrders } from "../store/OrdersSlice";
 
-const UseFetchOrders = () => {
-  const [orders, setOrders] = useState([]);
-  const [pagination, setPagination] = useState(null);
+const useFetchOrders = () => {
+  const orders = useSelector((state) => state.orders.orders);
+  const pagination = useSelector((state) => state.orders.pagination);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -13,8 +14,7 @@ const UseFetchOrders = () => {
       setLoading(true);
       try {
         const response = await fetchOrders();
-        setOrders(response.data.orders.orders);
-        setPagination(response.data.orders.pagination);
+        dispatch(loadOrders(response.data.orders));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -26,4 +26,4 @@ const UseFetchOrders = () => {
   return { orders, pagination, loading, error };
 };
 
-export default UseFetchOrders;
+export default useFetchOrders;

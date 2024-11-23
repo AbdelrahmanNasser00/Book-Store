@@ -187,3 +187,19 @@ export const fetchOrders = async () => {
     return { error: true, ex };
   }
 };
+
+export const updateOrderStatus = async (orderId, orderStatus) => {
+  try {
+    return await apiClient.put(`/orders/${orderId}`, orderStatus);
+  } catch (ex) {
+    return { error: true, ex };
+  }
+};
+
+export const deleteOrder = async (orderId) => {
+  try {
+    return await apiClient.put(`/orders/${orderId}`);
+  } catch (ex) {
+    return { error: true, ex };
+  }
+};

@@ -185,10 +185,15 @@ const AddBookForm = () => {
           </small>
         </MDBCol>
       </MDBRow>
-
-      <MDBBtn type="submit" color="success">
-        Add
-      </MDBBtn>
+      {editBook ? (
+        <MDBBtn type="submit" color="success">
+          Update
+        </MDBBtn>
+      ) : (
+        <MDBBtn type="submit" color="success">
+          Add
+        </MDBBtn>
+      )}
     </form>
   );
 };

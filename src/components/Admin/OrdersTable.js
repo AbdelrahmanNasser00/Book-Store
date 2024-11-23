@@ -1,24 +1,23 @@
 import React, { useState } from "react";
 import OrderDetailsModal from "./OrderDetailsModal";
-import UseFetchOrders from "../../hooks/useFetchOrders";
+import useFetchOrders from "../../hooks/useFetchOrders";
 import OrderTableBody from "./OrderTableBody";
 import OrderTableHead from "./OrderTableHead";
 
 const OrdersTable = () => {
-  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedOrder, setSelectedOrder] = useState("");
   const {
     orders,
     pagination,
     loading: ordersLoading,
     error: ordersError,
-  } = UseFetchOrders();
+  } = useFetchOrders();
   const handleViewDetails = (order) => {
     setSelectedOrder(order);
   };
-  console.log(orders);
 
   const closeModal = () => {
-    setSelectedOrder(null);
+    setSelectedOrder("");
   };
   return (
     <>

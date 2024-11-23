@@ -9,17 +9,16 @@ const OrderDetailsStatus = ({
   handleSaveStatus,
   setIsEditingStatus,
 }) => {
-  const OrderStatus = ["Pending", "Shipped", "Completed", "Cancelled"];
-  const PaymentStatus = ["Pending", "Paid", "Failed"];
+  const OrderStatus = ["pending", "shipped", "completed", "canceled"];
+  const PaymentStatus = ["pending", "paid", "failed"];
   const statusOptions =
     OrderOrPaymentStatus === "Order Status" ? OrderStatus : PaymentStatus;
-  console.log(status);
   const statusColors = {
     "Order Status": {
       pending: "bg-yellow-200 text-yellow-800",
       shipped: "bg-blue-200 text-blue-800",
       completed: "bg-green-200 text-green-800",
-      cancelled: "bg-red-200 text-red-800",
+      canceled: "bg-red-200 text-red-800",
     },
     "Payment Status": {
       pending: "bg-yellow-200 text-yellow-800",
@@ -36,6 +35,7 @@ const OrderDetailsStatus = ({
       {isEditingStatus ? (
         <div className="flex items-center gap-2">
           <select
+            defaultValue={status}
             onChange={(e) => setStatus(e.target.value)}
             className="rounded-lg border border-gray-300 p-2"
           >

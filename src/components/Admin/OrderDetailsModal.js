@@ -1,23 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import OrderDetailsStatus from "./OrderDetailsStatus";
 import ProductsList from "../../pages/Checkout/ProductsList";
 import { Tooltip } from "@mui/material";
+import OrderInfo from "./OrderInfo";
+import useOrderDetails from "../../hooks/useOrderDetails";
+import { useDispatch } from "react-redux";
+import { updateOrder } from "../../store/OrdersSlice";
 
-const OrderDetailsModal = ({ order, onClose, onUpdateStatus }) => {
-  const [orderStatus, setOrderStatus] = useState(order.orderStatus);
-  const [isEditingOrderStatus, setIsEditingOrderStatus] = useState(false);
+const OrderDetailsModal = ({ order, onClose }) => {
+  const {
+    orderStatus,
+    setOrderStatus,
+    isEditingOrderStatus,
+    setIsEditingOrderStatus,
+    paymentStatus,
+    setPaymentStatus,
+    isEditingPaymentStatus,
+    setIsEditingPaymentStatus,
+    handleSaveStatus,
+  } = useOrderDetails(order);
+  const dispatch = useDispatch();
 
-  const [paymentStatus, setPaymentStatus] = useState(order.paymentStatus);
-  const [isEditingPaymentStatus, setIsEditingPaymentStatus] = useState(false);
-
-  const handleSaveOrderStatus = () => {
-    // onUpdateStatus(order._id, { type: "order", status: orderStatus });
-    setIsEditingOrderStatus(false);
-  };
-
-  const handleSavePaymentStatus = () => {
-    // onUpdateStatus(order._id, { type: "payment", status: paymentStatus });
-    setIsEditingPaymentStatus(false);
+  const handleSaveStatusWithDispatch = (type) => {
+    handleSaveStatus(type);
+    const updatedOrder = {
+      ...order,
+      orderStatus: type === "order" ? orderStatus : order.orderStatus,
+      paymentStatus: type === "payment" ? paymentStatus : order.paymentStatus,
+    };
+    dispatch(updateOrder(updatedOrder));
   };
 
   return (
@@ -28,57 +39,22 @@ const OrderDetailsModal = ({ order, onClose, onUpdateStatus }) => {
             Order Details
           </h2>
           <div className="space-y-4 border-t border-gray-200 pt-3 text-left">
-            <div>
-              <strong>Order ID:</strong>
-              <span className="ml-2 rounded-md bg-purple-600 bg-opacity-25 p-1 text-sm font-medium text-purple-600">
-                {order._id}
-              </span>
-            </div>
-            <div>
-              <strong>Customer Name:</strong>
-              <span className="ml-2 rounded-md bg-purple-600 bg-opacity-25 p-1 text-sm font-medium text-purple-600">
-                {order.name}
-              </span>
-            </div>
-            <div>
-              <strong>Customer Email:</strong>
-              <span className="ml-2 rounded-md bg-purple-600 bg-opacity-25 p-1 text-sm font-medium text-purple-600">
-                {order.email}
-              </span>
-            </div>
-            <div>
-              <strong>Delivery Address:</strong>
-              <span className="ml-2 rounded-md bg-purple-600 bg-opacity-25 p-1 text-sm font-medium text-purple-600">
-                {order.fullAddress}
-              </span>
-            </div>
-            <div>
-              <strong>Total Price:</strong>
-              <span className="ml-2 rounded-md bg-red-500 bg-opacity-25 p-1 text-sm font-medium text-red-600">
-                {order.totalAmount} EGP
-              </span>
-            </div>
-            <div>
-              <strong>Payment Method:</strong>
-              <span className="ml-2 rounded-md bg-green-500 bg-opacity-25 p-1 text-sm font-medium text-green-600">
-                {order.paymentMethod}
-              </span>
-            </div>
+            <OrderInfo order={order} />
             <OrderDetailsStatus
               OrderOrPaymentStatus="Order Status"
               isEditingStatus={isEditingOrderStatus}
               status={orderStatus}
               setStatus={setOrderStatus}
-              handleSaveStatus={handleSaveOrderStatus}
               setIsEditingStatus={setIsEditingOrderStatus}
+              handleSaveStatus={() => handleSaveStatusWithDispatch("order")}
             />
             <OrderDetailsStatus
               OrderOrPaymentStatus="Payment Status"
               isEditingStatus={isEditingPaymentStatus}
               status={paymentStatus}
               setStatus={setPaymentStatus}
-              handleSaveStatus={handleSavePaymentStatus}
               setIsEditingStatus={setIsEditingPaymentStatus}
+              handleSaveStatus={() => handleSaveStatusWithDispatch("payment")}
             />
           </div>
           <Tooltip arrow title="Close">
