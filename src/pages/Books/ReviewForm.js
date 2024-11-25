@@ -1,5 +1,4 @@
 import { Rating } from "@mui/material";
-import { MDBTextArea } from "mdb-react-ui-kit";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -8,10 +7,11 @@ import { submitReview } from "../../api";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: left;
-  align-items: start;
+  justify-content: center;
+  align-items: center;
   height: auto;
   box-sizing: border-box;
+  width: 100%;
   padding: 20px 0px 20px 0px;
 `;
 
@@ -21,8 +21,7 @@ const Wrapper = styled.div`
   border: 0.5px solid #eee;
   padding: 20px;
   width: 50%;
-  max-width: 1320px;
-  /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); */
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -40,11 +39,19 @@ const Label = styled.label`
   font-size: 16px;
 `;
 
+const TextArea = styled.textarea`
+  font-size: 14px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none; /* Prevent resizing */
+`;
+
 const SubmitBtn = styled.button`
   width: 100%;
   padding: 12px;
   font-size: 16px;
-  background-color: #4caf50; /* Primary blue color */
+  background-color: #4caf50; /* Primary green color */
   color: white;
   border: none;
   border-radius: 8px;
@@ -53,7 +60,7 @@ const SubmitBtn = styled.button`
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #45a049; /* Darker blue on hover */
+    background-color: #45a049; /* Darker green on hover */
     transform: scale(1.02); /* Slight zoom effect */
   }
 
@@ -82,36 +89,30 @@ const UserReview = () => {
   };
 
   return (
-    <div className="container">
-      <Container>
-        <Wrapper>
-          {/* Rating Section */}
-          <FormGroup>
-            <Label>Rating</Label>
-            <Rating
-              name="half-rating"
-              defaultValue={0}
-              precision={1}
-              size="large"
-              value={rating}
-              onChange={(event, value) => setRating(value)}
-            />
-          </FormGroup>
-          <FormGroup>
-            <MDBTextArea
-              label="Write your review"
-              rows={6}
-              style={{ fontSize: "14px" }}
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            />
-          </FormGroup>
-          <SubmitBtn color="primary" onClick={handleOnSubmitReview}>
-            Submit Review
-          </SubmitBtn>
-        </Wrapper>
-      </Container>
-    </div>
+    <Container>
+      <Wrapper>
+        <FormGroup>
+          <Label>Rating</Label>
+          <Rating
+            name="half-rating"
+            defaultValue={0}
+            precision={1}
+            size="large"
+            value={rating}
+            onChange={(event, value) => setRating(value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label>Write your review</Label>
+          <TextArea
+            rows={6}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
+        </FormGroup>
+        <SubmitBtn onClick={handleOnSubmitReview}>Submit Review</SubmitBtn>
+      </Wrapper>
+    </Container>
   );
 };
 
