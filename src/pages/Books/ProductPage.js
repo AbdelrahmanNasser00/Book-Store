@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import Breadcrump from "../../components/UI/Breadcrumb";
+import Breadcrumb from "../../components/UI/Breadcrumb";
 import { useDispatch, useSelector } from "react-redux";
 import BookCard from "./BookCard";
 import ReviewsContainer from "./ReviewsContainer";
@@ -16,15 +16,14 @@ const ProductPage = () => {
 
   const relatedProducts = useMemo(() => {
     if (book) {
-      console.log(book);
-      console.log(books);
       return books.filter(
         (b) => b.category === book.category && b.bookId !== book._id,
       );
     }
     return [];
   }, [book, books]);
-  const handleAddToCart = (e) => {
+
+  const handleAddToCart = () => {
     dispatch(addProduct({ ...book, quantity: 1 }));
   };
 
@@ -32,69 +31,80 @@ const ProductPage = () => {
     <>
       <Navbar />
       <div className="container mx-auto p-6">
-        <Breadcrump category={book.category} bookName={book.name} />
+        {/* Breadcrumb */}
+        <Breadcrumb category={book.category} bookName={book.name} />
 
-        {/* Product Detail */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="w-full">
+        {/* Product Details Section */}
+        <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
+          {/* Book Image */}
+          <div className="mx-auto flex w-full max-w-md justify-start">
             <img
               src={book.image}
               alt={book.name}
-              className="h-auto w-full rounded-lg shadow-md"
+              className="h-auto w-full rounded-lg object-cover shadow-lg"
             />
           </div>
-          <div className="space-y-4">
-            <h1 className="text-2xl font-bold text-gray-800">{book.name}</h1>
-            <p className="text-xl font-semibold text-orange-500">
+
+          {/* Book Information */}
+          <div className="space-y-6">
+            <h1 className="text-3xl font-bold text-gray-800">{book.name}</h1>
+            <p className="text-2xl font-semibold text-blue-600">
               {book.price} {book.currency}
             </p>
 
-            {/* CTA Buttons */}
-            <div className="space-x-3">
+            {/* Call-to-Action Buttons */}
+            <div className="flex flex-wrap items-center gap-4">
               <button
-                className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-orange-600"
+                className="rounded-lg bg-blue-500 px-6 py-2 font-medium text-white shadow transition hover:bg-blue-600"
                 onClick={handleAddToCart}
               >
-                Add to cart
+                Add to Cart
               </button>
-              <button className="rounded bg-black px-4 py-2 text-white hover:bg-gray-800">
-                Buy now
+              <button className="rounded-lg bg-gray-800 px-6 py-2 font-medium text-white shadow transition hover:bg-gray-900">
+                Buy Now
               </button>
-              <button className="rounded border border-orange-500 px-4 py-2 text-orange-500 hover:bg-orange-500 hover:text-white">
-                Add to wishlist
+              <button className="rounded-lg border border-blue-500 px-6 py-2 font-medium text-blue-500 shadow transition hover:bg-blue-500 hover:text-white">
+                Add to Wishlist
               </button>
             </div>
 
-            <p className="text-sm text-gray-600">
+            {/* Additional Details */}
+            <p className="text-sm text-gray-700">
               <strong>SKU:</strong> {book.sku}
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-700">
               <strong>Categories:</strong>{" "}
               {Array.isArray(book.category)
                 ? book.category.join(", ")
                 : book.category}
             </p>
-            <p className="text-sm text-gray-600">
-              {" "}
+            <p className="text-sm leading-relaxed text-gray-700">
               <strong>Description:</strong> {book.description}
             </p>
           </div>
         </div>
 
-        {/* Related books */}
-        <div className="mt-12">
-          <h2 className="mb-4 text-lg font-bold text-gray-800">
-            Related books
+        {/* Related Products Section */}
+        <div className="mt-16">
+          <h2 className="mb-6 text-2xl font-semibold text-gray-800">
+            Related Books
           </h2>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
-            {relatedProducts.map((relatedProduct, index) => (
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
+            {relatedProducts.map((relatedProduct) => (
               <BookCard book={relatedProduct} key={relatedProduct.bookId} />
             ))}
           </div>
         </div>
+
+        {/* Reviews Section */}
+        <div className="mt-16">
+          <h2 className="mb-6 text-2xl font-semibold text-gray-800">
+            Customer Reviews
+          </h2>
+          <ReviewForm />
+          <ReviewsContainer />
+        </div>
       </div>
-      <ReviewForm />
-      <ReviewsContainer />
     </>
   );
 };

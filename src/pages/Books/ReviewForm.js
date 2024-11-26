@@ -1,77 +1,7 @@
-import { Rating } from "@mui/material";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
 import { submitReview } from "../../api";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  box-sizing: border-box;
-  width: 100%;
-  padding: 20px 0px 20px 0px;
-`;
-
-const Wrapper = styled.div`
-  background-color: white;
-  border-radius: 12px;
-  border: 0.5px solid #eee;
-  padding: 20px;
-  width: 50%;
-  max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-`;
-
-const Label = styled.label`
-  margin-bottom: 10px;
-  font-weight: bold;
-  font-size: 16px;
-`;
-
-const TextArea = styled.textarea`
-  font-size: 14px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: none; /* Prevent resizing */
-`;
-
-const SubmitBtn = styled.button`
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  background-color: #4caf50; /* Primary green color */
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: #45a049; /* Darker green on hover */
-    transform: scale(1.02); /* Slight zoom effect */
-  }
-
-  &:focus {
-    outline: none; /* Remove focus outline */
-  }
-
-  &:active {
-    transform: scale(0.98); /* Slight shrink on click */
-  }
-`;
+import { Rating } from "@mui/material";
 
 const UserReview = () => {
   const [comment, setComment] = useState("");
@@ -83,16 +13,16 @@ const UserReview = () => {
       comment,
       rating,
     };
-    const response = await submitReview(id, reviewData);
+    await submitReview(id, reviewData);
     setRating(0);
     setComment("");
   };
 
   return (
-    <Container>
-      <Wrapper>
-        <FormGroup>
-          <Label>Rating</Label>
+    <div className="flex w-full flex-col items-center py-5">
+      <div className="flex w-full max-w-4xl flex-col gap-5 rounded-lg border border-gray-200 bg-white p-5">
+        <div className="mb-5 flex flex-col">
+          <label className="mb-2 text-lg font-bold">Rating</label>
           <Rating
             name="half-rating"
             defaultValue={0}
@@ -101,18 +31,24 @@ const UserReview = () => {
             value={rating}
             onChange={(event, value) => setRating(value)}
           />
-        </FormGroup>
-        <FormGroup>
-          <Label>Write your review</Label>
-          <TextArea
+        </div>
+        <div className="mb-5 flex flex-col">
+          <label className="mb-2 text-lg font-bold">Write your review</label>
+          <textarea
             rows={6}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
+            className="w-full rounded-md border border-gray-300 p-2 outline-none transition-all duration-200 focus:!border-indigo-600 focus:ring-4 focus:ring-indigo-600 focus:ring-opacity-20"
           />
-        </FormGroup>
-        <SubmitBtn onClick={handleOnSubmitReview}>Submit Review</SubmitBtn>
-      </Wrapper>
-    </Container>
+        </div>
+        <button
+          onClick={handleOnSubmitReview}
+          className="w-full rounded-lg bg-green-600 py-3 text-lg font-bold text-white transition duration-300 hover:bg-green-500 focus:outline-none active:scale-95"
+        >
+          Submit Review
+        </button>
+      </div>
+    </div>
   );
 };
 
