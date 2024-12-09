@@ -50,7 +50,7 @@ function App() {
   };
 
   if (loading) {
-    return <Spinner />; // Show spinner while loading
+    return <Spinner />;
   }
 
   return (

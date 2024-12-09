@@ -11,7 +11,7 @@ const NavigationLinks = () => {
   const navigate = useNavigate();
 
   const handleNavigate = (endpoint) => {
-    navigate(`/${endpoint}`);
+    navigate(`${endpoint}`);
     setOpenMenu(false);
   };
   const handleClose = () => {
@@ -19,14 +19,14 @@ const NavigationLinks = () => {
   };
 
   const navigationLinks = [
-    { text: "Home", path: "" },
-    { text: "Software Engineering", path: "software-engineering" },
-    { text: "Data Science", path: "data-science" },
-    { text: "Technology", path: "technology" },
-    { text: "Cybersecurity", path: "cybersecurity" },
-    { text: "Management", path: "management" },
-    { text: "About Us", path: "about-us" },
-    { text: "Contact", path: "contact" },
+    { text: "Home", path: "/" },
+    { text: "Software Engineering", path: "/software-engineering" },
+    { text: "Data Science", path: "/data-science" },
+    { text: "Technology", path: "/technology" },
+    { text: "Cybersecurity", path: "/cybersecurity" },
+    { text: "Management", path: "/management" },
+    { text: "About Us", path: "/about-us" },
+    { text: "Contact", path: "/contact" },
   ];
 
   return (
@@ -46,7 +46,7 @@ const NavigationLinks = () => {
           currentUser.userDetails.role === "admin" && (
             <NavLinksBtn
               text={"Dashboard"}
-              onClick={() => handleNavigate("dashboard")}
+              onClick={() => handleNavigate("/dashboard")}
             />
           )}
       </div>
@@ -77,7 +77,7 @@ const NavigationLinks = () => {
             currentUser.userDetails.role === "admin" && (
               <NavLinksBtn
                 text={"Dashboard"}
-                onClick={() => handleNavigate("dashboard")}
+                onClick={() => handleNavigate("/dashboard")}
               />
             )}
         </div>

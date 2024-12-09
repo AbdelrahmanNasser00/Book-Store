@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Badge } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -10,7 +10,10 @@ const NavbarActionsButtons = (props) => {
   const { currentUser, logout } = useContext(AuthContext);
   const { productQuantity, totalPrice } = props;
   const navigate = useNavigate();
-  const handleNavigate = (endpoint) => navigate(`/${endpoint}`);
+  const location = useLocation();
+  const handleNavigate = (endpoint) => {
+    if (location.pathname !== endpoint) navigate(`${endpoint}`);
+  };
   const handleLogout = async () => {
     try {
       await logout();
@@ -25,14 +28,14 @@ const NavbarActionsButtons = (props) => {
     <div className="hidden lg:flex lg:items-center">
       <NavbarActionBtnWithIcon
         icon={<FavoriteBorderIcon />}
-        onClick={() => handleNavigate("wishlist")}
+        onClick={() => handleNavigate("/wishlist")}
       />
       {!currentUser ||
         (currentUser === "guest" && (
           <NavbarActionBtnWithIcon
             icon={<PersonOutlineOutlinedIcon />}
             text={"Login/Register"}
-            onClick={() => handleNavigate("login")}
+            onClick={() => handleNavigate("/login")}
           />
         ))}
       {currentUser && currentUser !== "guest" && (
@@ -57,7 +60,7 @@ const NavbarActionsButtons = (props) => {
             {parseInt(totalPrice)} <span className="text-[10px]">EGP</span>
           </>
         }
-        onClick={() => handleNavigate("cart")}
+        onClick={() => handleNavigate("/cart")}
       />
     </div>
   );

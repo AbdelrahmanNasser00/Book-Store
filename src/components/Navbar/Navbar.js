@@ -10,14 +10,15 @@ import NavbarActionBtnWithIcon from "./NavbarActionBtnWithIcon";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Badge } from "@mui/material";
 import { NavContextProvider } from "../../context/NavContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const productQuantity = useSelector((state) => state.cart.quantity);
   const totalPrice = useSelector((state) => state.cart.total);
   const navigate = useNavigate();
+  const location = useLocation();
   const handleNavigate = () => {
-    navigate(`/cart`);
+    if (location.pathname !== "/cart") navigate(`/cart`);
   };
 
   return (
