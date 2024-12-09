@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -16,9 +16,20 @@ import Cart from "./pages/Cart/Cart";
 import Wishlist from "./pages/Favorites/Wishlist";
 import Checkout from "./pages/Checkout/Checkout";
 import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
+import Spinner from "./components/UI/Spinner";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const AdminRoute = ({ children }) => {
     if (
       currentUser &&
@@ -37,6 +48,10 @@ function App() {
     }
     return children;
   };
+
+  if (loading) {
+    return <Spinner />; // Show spinner while loading
+  }
 
   return (
     <Router>
