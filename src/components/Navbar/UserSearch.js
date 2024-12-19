@@ -24,7 +24,7 @@ const UserSearch = () => {
   }, [data, isFetching, error]);
 
   return (
-    <div className="mb-2 flex w-full items-center justify-center lg:mx-3 lg:!mb-0 lg:max-w-md">
+    <div className="mb-2 flex w-full items-center justify-center lg:mx-3 lg:!mb-0 lg:max-w-xl">
       <div className="relative w-full">
         <SearchInput
           handleSearch={debouncedHandleSearch}

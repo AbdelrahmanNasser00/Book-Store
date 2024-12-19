@@ -22,7 +22,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex w-full flex-col justify-center bg-navbar-color shadow-sm">
+    <header className="flex w-full flex-col justify-center border-b border-gray-200">
       <NavContextProvider>
         <Announcement />
         <div className="flex flex-col items-center transition-all ease-in">
