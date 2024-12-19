@@ -8,31 +8,24 @@ import useFetchCart from "../../hooks/useFetchCart";
 const BooksCardsContainer = () => {
   const { books, loading: booksLoading, error: booksError } = UseFetchBooks();
   const { cart, loading: cartLoading, error: cartError } = useFetchCart();
-  // if (booksError || booksLoading) return <BookCardSkeleton />;
+
   const renderSkeletons = (count) => {
     return Array(count)
       .fill(0)
       .map((_, index) => <BookCardSkeleton key={index} />);
   };
+
   const renderBooks = () =>
     books.map((book) => (
-      <div
-        key={book.bookId}
-        className="flex justify-center lg:max-h-96 lg:w-52"
-      >
+      <div key={book.bookId} className="flex justify-center">
         <BookCard book={book} />
       </div>
     ));
 
   return (
     <div className="my-5 flex min-h-screen flex-col items-center justify-start lg:my-1">
-      <div className="grid max-w-[1200px] auto-rows-min grid-cols-2 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:hidden lg:grid-cols-4">
+      <div className="grid auto-rows-min grid-cols-1 gap-2 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {booksError || booksLoading ? renderSkeletons(12) : renderBooks()}
-      </div>
-      <div className="hidden min-h-screen w-[1200px] justify-center shadow-sm lg:flex">
-        <div className="grid max-w-[1200px] auto-rows-min grid-cols-2 gap-2 bg-white p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {booksError || booksLoading ? renderSkeletons(12) : renderBooks()}
-        </div>
       </div>
     </div>
   );

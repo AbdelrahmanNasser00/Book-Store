@@ -20,10 +20,11 @@ const AddToCartBtn = ({ book }) => {
   };
   return (
     <div
-      className="flex h-10 w-14 cursor-pointer items-center justify-center rounded-md border border-gray-200 text-green-500 transition-all duration-300 hover:bg-green-500 hover:text-gray-200"
+      className="flex h-10 w-full cursor-pointer items-center justify-center rounded-md bg-indigo-500/20 font-medium text-indigo-500 transition-all duration-300 hover:bg-indigo-500 hover:text-indigo-200"
       onClick={handleAddToCart}
     >
       <AddShoppingCartOutlinedIcon style={{ fontSize: "1.2rem" }} />
+      <span className="mx-4">Add to cart</span>
     </div>
   );
 };

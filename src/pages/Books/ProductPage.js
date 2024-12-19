@@ -14,6 +14,8 @@ const ProductPage = () => {
   const location = useLocation();
   const { state: book } = location;
 
+  console.log(book);
+
   const relatedProducts = useMemo(() => {
     if (book) {
       return books.filter(
@@ -35,7 +37,7 @@ const ProductPage = () => {
         <Breadcrumb category={book.category} bookName={book.name} />
 
         {/* Product Details Section */}
-        <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:flex">
           {/* Book Image */}
           <div className="mx-auto flex w-full max-w-md justify-start">
             <img
