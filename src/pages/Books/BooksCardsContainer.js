@@ -24,7 +24,7 @@ const BooksCardsContainer = () => {
 
   return (
     <div className="my-5 flex min-h-screen flex-col items-center justify-start lg:my-1">
-      <div className="grid auto-rows-min grid-cols-1 gap-2 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid max-w-screen-xl auto-rows-min grid-cols-1 gap-2 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {booksError || booksLoading ? renderSkeletons(12) : renderBooks()}
       </div>
     </div>

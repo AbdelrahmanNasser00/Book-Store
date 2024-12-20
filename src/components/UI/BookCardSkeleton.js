@@ -2,7 +2,7 @@ import React from "react";
 
 const BookSkeleton = () => {
   return (
-    <div className="relative h-full w-80 animate-pulse cursor-pointer rounded-lg border border-solid border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg">
+    <div className="relative h-full w-72 animate-pulse cursor-pointer rounded-lg border border-solid border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg">
       {/* Book Image Placeholder */}
       <div className="relative overflow-hidden rounded-t-lg">
         <div className="flex h-80 w-full items-center justify-center border-b border-solid border-gray-300 bg-gray-300">
