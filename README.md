@@ -1,74 +1,142 @@
-# Getting Started with Create React App
+# 📚 Bookstore Website
+
+Welcome to the **Bookstore Website**, an e-commerce platform for browsing, searching, and purchasing books. This project is built with a modern web stack to deliver a seamless and responsive user experience.
 
 ## Note: Project is under development process.
 
 ## You can get Api from [here](https://github.com/Alaa-Eldeen22/bookstore-app).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+## 🌟 Features
 
-In the project directory, you can run:
+### User Features:
 
-### `npm start`
+- **Browse Books**: Explore a variety of books by categories, authors, or featured collections.
+- **Search**: Search books by name, author, or category.
+- **User Authentication**: Register and log in to manage your orders and favorites.
+- **Cart Management**: Add, remove, or update the quantity of books in your cart.
+- **Checkout**: Securely checkout with payment options.
+- **Book Reviews & Ratings**: Leave reviews and rate books.
+- **Favorites**: Save books to your favorites list for later viewing.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Admin Features:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Admin Dashboard**: Manage books, categories, and orders.
+- **CRUD Operations**: Add, edit, delete, and view book details.
+- **Order Management**: View and update order statuses.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠️ Tech Stack
 
-### `npm run build`
+### Frontend:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **React**: Component-based library for building the user interface.
+- **Redux Toolkit**: State management for global data (cart, user, etc.).
+- **React Router**: Routing for seamless navigation.
+- **Material-UI (MUI)**, **Tailwind CSS**, **Styled Components**: Modern design and styling solutions.
+- **Axios**: For API calls.
+- **ShadCN UI**: (Optional) Advanced UI components for improving design.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Backend:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Node.js**: Server-side runtime environment.
+- **Express.js**: Web framework for building RESTful APIs.
+- **MongoDB**: NoSQL database for data storage.
+- **JWT Authentication**: Secure token-based authentication.
 
-### `npm run eject`
+### Tools and Libraries:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **React Query/RTK Query**: Fetching and managing API data (optional upgrades).
+- **Git**: Version control.
+- **GitHub**: Code hosting and collaboration.
+- **Postman**: API testing.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🚀 Installation and Setup
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Prerequisites:
 
-## Learn More
+- **Node.js** (v16 or later)
+- **MongoDB** (local or cloud-based)
+- **Git**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Steps:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Clone the repository:
 
-### Code Splitting
+   ```bash
+   git clone https://github.com/your-username/bookstore.git
+   cd bookstore
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. Install dependencies:
 
-### Analyzing the Bundle Size
+   ```bash
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3. Set up the backend:
 
-### Making a Progressive Web App
+   - Navigate to the backend directory:
+     ```bash
+     cd backend
+     ```
+   - Create a `.env` file and configure the environment variables:
+     ```env
+     PORT=5000
+     MONGO_URI=your_mongodb_connection_string
+     JWT_SECRET=your_secret_key
+     ```
+   - Start the server:
+     ```bash
+     npm run start
+     ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+4. Set up the frontend:
 
-### Advanced Configuration
+   - Navigate to the frontend directory:
+     ```bash
+     cd frontend
+     ```
+   - Start the development server:
+     ```bash
+     npm start
+     ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+5. Open your browser and navigate to `http://localhost:3000` to view the application.
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 📂 Folder Structure
 
-### `npm run build` fails to minify
+```plaintext
+bookstore/
+├── backend/                # Backend API and server code
+│   ├── controllers/   # API controllers
+│   ├── models/        # Mongoose models
+│   ├── routes/        # API routes
+│   ├── utils/         # Utility functions
+│   └── server.js     # Entry point for backend
+├── frontend/               # React frontend
+│   ├── src/
+│   │   ├── components/ # Reusable components
+│   │   ├── pages/      # Page-level components
+│   │   ├── store/      # Redux store and slices
+│   └── App.js          # Entry point for frontend
+└── README.md              # Project documentation
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to fork the repository and submit pull requests.
+
+---
+
+## 📧 Contact
+
+For any inquiries or feedback, please contact `Abdo2652149@gmail.com`.
