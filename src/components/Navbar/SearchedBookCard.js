@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-// import AddToCartBtn from "../UI/AddToCartBtn";
+import AddToCartBtn from "../UI/AddToCartBtn";
 import TestBtn from "../UI/TestBtn";
 const SearchedBookCard = ({ book }) => {
   const navigate = useNavigate();
@@ -26,7 +26,8 @@ const SearchedBookCard = ({ book }) => {
         </div>
       </div>
       <div className="flex h-full items-center">
-        <TestBtn book={book} />
+        {/* <TestBtn book={book} /> */}
+        <AddToCartBtn book={book} />
       </div>
     </div>
   );
