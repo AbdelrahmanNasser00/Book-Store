@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Breadcrumb from "../../components/UI/Breadcrumb";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,11 +10,10 @@ import Navbar from "../../components/Navbar/Navbar";
 
 const ProductPage = () => {
   const books = useSelector((state) => state.book.books);
+  const [selectedReview, setSelectedReview] = useState(null);
   const dispatch = useDispatch();
   const location = useLocation();
   const { state: book } = location;
-
-  console.log(book);
 
   const relatedProducts = useMemo(() => {
     if (book) {
@@ -103,8 +102,11 @@ const ProductPage = () => {
           <h2 className="mb-6 text-2xl font-semibold text-gray-800">
             Customer Reviews
           </h2>
-          <ReviewForm />
-          <ReviewsContainer />
+          <ReviewForm
+            selectedReview={selectedReview}
+            onReset={() => setSelectedReview(null)}
+          />
+          <ReviewsContainer onEdit={(review) => setSelectedReview(review)} />
         </div>
       </div>
     </>

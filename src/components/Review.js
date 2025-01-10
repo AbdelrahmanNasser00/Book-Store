@@ -1,27 +1,32 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import { deleteReview, editReview } from "../api";
+import { deleteReview } from "../api";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import ConfirmationModal from "./ConfirmationModal";
 
-const Review = ({ review }) => {
+const Review = ({ review, onEdit }) => {
   const { id } = useParams();
+  const { currentUser } = useContext(AuthContext);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const userId = currentUser?.userDetails?.id;
+  const reviewUserId = review?.user?._id;
 
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      if (i <= rating) {
-        stars.push(
-          <StarRoundedIcon key={i} className="text-sm text-yellow-500" />,
-        );
-      } else {
-        stars.push(
-          <StarBorderRoundedIcon key={i} className="text-sm text-yellow-500" />,
-        );
-      }
+      stars.push(
+        i <= rating ? (
+          <StarRoundedIcon key={i} className="text-sm text-yellow-500" />
+        ) : (
+          <StarBorderRoundedIcon key={i} className="text-sm text-yellow-500" />
+        ),
+      );
     }
     return stars;
   };
@@ -29,21 +34,14 @@ const Review = ({ review }) => {
   const handleDeleteReview = async () => {
     try {
       await deleteReview(id);
+      setModalOpen(false); // Close modal after deletion
     } catch (err) {
-      console.error("Can't delete review", err);
-    }
-  };
-
-  const handleEditReview = async () => {
-    try {
-      await editReview(id);
-    } catch (err) {
-      console.error("Can't edit review", err);
+      console.error("Failed to delete review:", err);
     }
   };
 
   return (
-    <div className="flex max-h-[350px] flex-col overflow-hidden rounded-lg bg-white p-4 shadow-md">
+    <div className="flex max-h-[350px] max-w-[350px] flex-col overflow-hidden rounded-lg bg-white p-4 shadow-md">
       <div className="flex items-center justify-between pb-4">
         <div className="flex items-center">
           <AccountCircleRoundedIcon className="text-6xl text-gray-700" />
@@ -67,20 +65,28 @@ const Review = ({ review }) => {
       <p className="mb-4 text-sm leading-relaxed text-gray-700">
         {review.comment}
       </p>
-      <div className="flex justify-end space-x-2">
-        <button
-          className="flex items-center rounded-md border border-transparent bg-red-700 px-3 py-1 text-xs text-gray-200 transition duration-300 hover:border-red-700 hover:bg-white hover:text-red-700"
-          onClick={handleDeleteReview}
-        >
-          <DeleteRoundedIcon className="mr-1 text-sm" /> Remove
-        </button>
-        <button
-          className="flex items-center rounded-md border border-transparent bg-blue-500 px-3 py-1 text-xs text-gray-200 transition duration-300 hover:border-sky-800 hover:bg-white hover:text-blue-500"
-          onClick={handleEditReview}
-        >
-          <EditRoundedIcon className="mr-1 text-sm" /> Edit
-        </button>
-      </div>
+      {userId === reviewUserId && (
+        <div className="flex justify-end space-x-2">
+          <button
+            className="flex items-center rounded-md border border-transparent bg-red-700 px-3 py-1 text-xs text-gray-200 transition duration-300 hover:border-red-700 hover:bg-white hover:text-red-700"
+            onClick={() => setModalOpen(true)}
+          >
+            <DeleteRoundedIcon className="mr-1 text-sm" /> Remove
+          </button>
+          <button
+            className="flex items-center rounded-md border border-transparent bg-blue-500 px-3 py-1 text-xs text-gray-200 transition duration-300 hover:border-sky-800 hover:bg-white hover:text-blue-500"
+            onClick={() => onEdit(review)}
+          >
+            <EditRoundedIcon className="mr-1 text-sm" /> Edit
+          </button>
+        </div>
+      )}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        message="Are you sure you want to delete this review?"
+        onConfirm={handleDeleteReview}
+        onCancel={() => setModalOpen(false)}
+      />
     </div>
   );
 };

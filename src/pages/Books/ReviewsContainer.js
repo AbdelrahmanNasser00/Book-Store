@@ -16,6 +16,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* max-width: 350px; */
   grid-gap: 20px;
   padding: 20px;
   border-radius: 10px;
@@ -25,7 +26,7 @@ const ReviewsHeader = styled.h2`
   padding: 20px;
 `;
 
-const Reviews = () => {
+const ReviewsContainer = ({ onEdit }) => {
   const [reviews, setReviews] = useState([]);
   const { id } = useParams();
   useEffect(() => {
@@ -34,9 +35,6 @@ const Reviews = () => {
         const reviews = await fetchReviews(id);
         if (reviews) {
           setReviews(reviews.data.reviews);
-        } else {
-          console.error("Invalid reviews response", reviews);
-          setReviews([]);
         }
       } catch (error) {
         console.error("Failed to fetch books:", error);
@@ -51,11 +49,11 @@ const Reviews = () => {
       <ReviewsHeader> Customers Reviews</ReviewsHeader>
       <Wrapper>
         {reviews.map((review) => (
-          <Review key={review._id} review={review} />
+          <Review key={review._id} review={review} onEdit={onEdit} />
         ))}
       </Wrapper>
     </Container>
   );
 };
 
-export default Reviews;
+export default ReviewsContainer;
