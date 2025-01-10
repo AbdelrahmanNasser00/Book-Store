@@ -4,6 +4,8 @@ Welcome to the **Bookstore Website**, an e-commerce platform for browsing, searc
 
 ## Note: Project is under development process.
 
+## If you need to test project you can use this email (id:abdo@gmail.com,pass:123456) to login
+
 ## The Api developed by the best Backend Engineer [Alaa Eldeen](https://github.com/Alaa-Eldeen22), You can get Api from [here](https://github.com/Alaa-Eldeen22/bookstore-app).
 
 ---
@@ -37,7 +39,7 @@ Welcome to the **Bookstore Website**, an e-commerce platform for browsing, searc
 - **React Router**: Routing for seamless navigation.
 - **Material-UI (MUI)**, **Tailwind CSS**, **Styled Components**: Modern design and styling solutions.
 - **Axios**: For API calls.
-- **ShadCN UI**: (Optional) Advanced UI components for improving design.
+- **RTK Query**: Fetching,caching and managing API data.
 
 ### Backend:
 
@@ -48,7 +50,6 @@ Welcome to the **Bookstore Website**, an e-commerce platform for browsing, searc
 
 ### Tools and Libraries:
 
-- **React Query/RTK Query**: Fetching and managing API data (optional upgrades).
 - **Git**: Version control.
 - **GitHub**: Code hosting and collaboration.
 - **Postman**: API testing.
@@ -68,7 +69,7 @@ Welcome to the **Bookstore Website**, an e-commerce platform for browsing, searc
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/bookstore.git
+   git clone https://github.com/Alaa-Eldeen22/bookstore-app.git
    cd bookstore
    ```
 
@@ -82,24 +83,24 @@ Welcome to the **Bookstore Website**, an e-commerce platform for browsing, searc
 
    - Navigate to the backend directory:
      ```bash
-     cd backend
+     cd Book-Store-BackEnd
      ```
    - Create a `.env` file and configure the environment variables:
      ```env
-     PORT=5000
+     PORT=3000
      MONGO_URI=your_mongodb_connection_string
      JWT_SECRET=your_secret_key
      ```
    - Start the server:
      ```bash
-     npm run start
+     npm start
      ```
 
 4. Set up the frontend:
 
    - Navigate to the frontend directory:
      ```bash
-     cd frontend
+     cd Book-Store-FrontEnd
      ```
    - Start the development server:
      ```bash
