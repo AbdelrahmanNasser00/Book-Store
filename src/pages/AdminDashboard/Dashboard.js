@@ -27,7 +27,7 @@ const Dashboard = () => {
           className={tabClasses("storeManager")}
           onClick={() => setActiveTab("storeManager")}
         >
-          Store Manager
+          Products
         </button>
       </div>
       <div className="rounded-lg bg-white p-6 shadow-md">
