@@ -17,6 +17,7 @@ import Wishlist from "./pages/Favorites/Wishlist";
 import Checkout from "./pages/Checkout/Checkout";
 import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
 import Spinner from "./components/UI/Spinner";
+import { ScrollRestorationProvider } from "./context/ScrollRestoration";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -55,35 +56,37 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product/:id" element={<ProductPage />} />
-        <Route path="/:category" element={<CategoryPage />} />
-        <Route
-          path="/login"
-          element={
-            <AuthRoute>
-              <Login />
-            </AuthRoute>
-          }
-        />
-        <Route
-          path="/register"
-          element={<AuthRoute>{<Register />}</AuthRoute>}
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <AdminRoute>
-              <Dashboard />
-            </AdminRoute>
-          }
-        />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/checkout-success" element={<CheckoutSuccess />} />
-        <Route path="/checkout" element={<Checkout />} />
-      </Routes>
+      <ScrollRestorationProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/:category" element={<CategoryPage />} />
+          <Route
+            path="/login"
+            element={
+              <AuthRoute>
+                <Login />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={<AuthRoute>{<Register />}</AuthRoute>}
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <AdminRoute>
+                <Dashboard />
+              </AdminRoute>
+            }
+          />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/checkout-success" element={<CheckoutSuccess />} />
+          <Route path="/checkout" element={<Checkout />} />
+        </Routes>
+      </ScrollRestorationProvider>
     </Router>
   );
 }
