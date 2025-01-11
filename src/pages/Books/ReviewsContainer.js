@@ -20,6 +20,9 @@ const Wrapper = styled.div`
   grid-gap: 20px;
   padding: 20px;
   border-radius: 10px;
+  @media (max-width: 668px) {
+    padding: 0px;
+  }
 `;
 
 const ReviewsHeader = styled.h2`
