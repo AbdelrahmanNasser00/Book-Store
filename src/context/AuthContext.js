@@ -11,7 +11,7 @@ export const AuthContextProvider = ({ children }) => {
   const login = async (inputs) => {
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/auth/login",
+        "https://realtime-lecturing-server.onrender.com/api/auth/login",
         inputs,
       );
       const userDetails = res.data;
@@ -39,7 +39,10 @@ export const AuthContextProvider = ({ children }) => {
 
   const register = async (inputs) => {
     try {
-      await axios.post("http://localhost:8080/api/auth/register", inputs);
+      await axios.post(
+        "https://realtime-lecturing-server.onrender.com/api/auth/register",
+        inputs,
+      );
     } catch (err) {
       console.error("Regiteration failed", err);
       throw err;

@@ -11,7 +11,9 @@ const apiToken = () => {
 };
 
 export const apiClient = axios.create({
-  baseURL: "https://realtime-lecturing-server.onrender.com/api",
+  baseURL:
+    "https://realtime-lecturing-server.onrender.com/api" ||
+    "http://localhost:8080/api",
   timeout: 5000,
 });
 

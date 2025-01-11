@@ -8,7 +8,7 @@ const apiToken = () => {
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8080/api",
+    baseUrl: "https://realtime-lecturing-server.onrender.com/api",
     prepareHeaders: (headers) => {
       const token = apiToken();
       if (token) headers.set("Authorization", `Bearer ${token}`);
