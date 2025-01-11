@@ -1,13 +1,10 @@
 import React from "react";
 import BookCard from "./BookCard";
-import Pagination from "../../components/UI/Pagination";
 import BookCardSkeleton from "../../components/UI/BookCardSkeleton";
-import UseFetchBooks from "../../hooks/useFetchBooks";
-import useFetchCart from "../../hooks/useFetchCart";
+import useFetchBooks from "../../hooks/useFetchBooks";
 
 const BooksCardsContainer = () => {
-  const { books, loading: booksLoading, error: booksError } = UseFetchBooks();
-  const { cart, loading: cartLoading, error: cartError } = useFetchCart();
+  const { books, loading: booksLoading, error: booksError } = useFetchBooks();
 
   const renderSkeletons = (count) => {
     return Array(count)

@@ -11,8 +11,10 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Badge } from "@mui/material";
 import { NavContextProvider } from "../../context/NavContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import useFetchCart from "../../hooks/useFetchCart";
 
 const Navbar = () => {
+  const { cart, loading: cartLoading, error: cartError } = useFetchCart();
   const productQuantity = useSelector((state) => state.cart.quantity);
   const totalPrice = useSelector((state) => state.cart.total);
   const navigate = useNavigate();

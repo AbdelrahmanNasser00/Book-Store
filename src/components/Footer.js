@@ -42,7 +42,8 @@ const Footer = () => {
         <div className="mt-8 border-t border-gray-700 pt-8">
           <div className="flex flex-col items-center md:flex-row md:justify-between">
             <p className="text-center text-sm text-gray-400">
-              &copy; {currentYear} Abdelrahman. All Rights Reserved.
+              &copy; {currentYear} Abdelrahman and Alaa Eldeen. All Rights
+              Reserved.
             </p>
             <div className="flex gap-4 text-gray-600">
               <a
