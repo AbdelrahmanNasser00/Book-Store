@@ -5,6 +5,8 @@ import { addBookToWishlist, fetchBookDetails } from "../../api";
 import TestBtn from "../../components/UI/TestBtn";
 import AddToCartBtn from "../../components/UI/AddToCartBtn";
 import { Rating } from "@mui/material";
+import toast, { Toaster } from "react-hot-toast";
+
 const BookCard = ({ book }) => {
   const defaultImage = "https://via.placeholder.com/300x400?text=No+Image";
   const navigate = useNavigate();
@@ -19,9 +21,11 @@ const BookCard = ({ book }) => {
     }
   };
   const handleWishlist = async (bookId) => {
-    const response = await addBookToWishlist({ bookId: bookId });
-    if (response.err) {
-      console.log(response.err);
+    try {
+      const response = await addBookToWishlist(bookId);
+      toast.success("Book added to Favorites");
+    } catch (err) {
+      toast.error("Failed to add to wishlist");
     }
   };
 
@@ -75,6 +79,7 @@ const BookCard = ({ book }) => {
         </div>
         <AddToCartBtn book={book} />
       </div>
+      <Toaster />
     </div>
   );
 };

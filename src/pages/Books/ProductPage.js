@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Breadcrumb from "../../components/UI/Breadcrumb";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,13 +7,30 @@ import ReviewsContainer from "./ReviewsContainer";
 import ReviewForm from "./ReviewForm";
 import { addProduct } from "../../store/CartSlice";
 import Navbar from "../../components/Navbar/Navbar";
+import { fetchBooks } from "./../../api";
+import { loadBooks } from "../../store/BookSlice";
+import toast, { Toaster } from "react-hot-toast";
+import useFetchCart from "../../hooks/useFetchCart";
 
 const ProductPage = () => {
+  const { cart, loading: cartLoading, error: cartError } = useFetchCart();
   const books = useSelector((state) => state.book.books);
   const [selectedReview, setSelectedReview] = useState(null);
   const dispatch = useDispatch();
   const location = useLocation();
   const { state: book } = location;
+
+  useEffect(() => {
+    const getBooks = async () => {
+      try {
+        const response = await fetchBooks();
+        dispatch(loadBooks(response.data.books));
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    getBooks();
+  }, [dispatch]);
 
   const relatedProducts = useMemo(() => {
     if (book) {
@@ -26,6 +43,7 @@ const ProductPage = () => {
 
   const handleAddToCart = () => {
     dispatch(addProduct({ ...book, quantity: 1 }));
+    toast.success("Book added to cart");
   };
 
   return (
@@ -109,6 +127,7 @@ const ProductPage = () => {
           <ReviewsContainer onEdit={(review) => setSelectedReview(review)} />
         </div>
       </div>
+      <Toaster />
     </>
   );
 };
