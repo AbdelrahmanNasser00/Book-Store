@@ -8,7 +8,6 @@ import { AuthContext } from "../../context/AuthContext";
 import { Badge } from "@mui/material";
 
 const MobileNav = ({ productQuantity }) => {
-  console.log(productQuantity);
   const { currentUser, logout } = useContext(AuthContext);
   const handleLogout = async () => {
     try {

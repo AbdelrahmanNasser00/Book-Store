@@ -6,7 +6,7 @@ const NavLinksBtn = (props) => {
   const isActive = location.pathname === `${path}`;
   return (
     <div
-      className={`mt-1 flex w-full cursor-pointer px-3 ${isActive ? "border-b-2 border-indigo-500 font-semibold text-indigo-500" : "text-gray-500"} justify-start border-b lg:block lg:w-fit`}
+      className={`mt-1 flex w-full cursor-pointer px-3 ${isActive ? "border-b-2 border-indigo-500 font-semibold text-indigo-500" : "text-gray-500"} justify-start lg:block lg:w-fit`}
     >
       <a
         href={path}

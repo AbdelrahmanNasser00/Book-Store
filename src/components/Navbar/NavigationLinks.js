@@ -36,7 +36,7 @@ const NavigationLinks = () => {
         {currentUser &&
           currentUser !== "guest" &&
           currentUser.userDetails.role === "admin" && (
-            <NavLinksBtn text={"Dashboard"} />
+            <NavLinksBtn text={"Dashboard"} path={"/dashboard"} />
           )}
       </div>
 
@@ -63,7 +63,7 @@ const NavigationLinks = () => {
           {currentUser &&
             currentUser !== "guest" &&
             currentUser.userDetails.role === "admin" && (
-              <NavLinksBtn text={"Dashboard"} />
+              <NavLinksBtn text={"Dashboard"} path={"/dashboard"} />
             )}
         </div>
       </div>
