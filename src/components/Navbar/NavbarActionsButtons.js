@@ -6,9 +6,8 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import NavbarActionBtnWithIcon from "./NavbarActionBtnWithIcon";
 import { AuthContext } from "../../context/AuthContext";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-const NavbarActionsButtons = (props) => {
+const NavbarActionsButtons = ({ productQuantity, totalPrice }) => {
   const { currentUser, logout } = useContext(AuthContext);
-  const { productQuantity, totalPrice } = props;
   const navigate = useNavigate();
   const location = useLocation();
   const handleNavigate = (endpoint) => {
@@ -25,7 +24,7 @@ const NavbarActionsButtons = (props) => {
   };
 
   return (
-    <div className="hidden lg:flex lg:items-center">
+    <div className="flex items-center">
       <NavbarActionBtnWithIcon
         icon={<FavoriteBorderIcon />}
         onClick={() => handleNavigate("/wishlist")}
@@ -45,14 +44,13 @@ const NavbarActionsButtons = (props) => {
           onClick={handleLogout}
         />
       )}
-
       <NavbarActionBtnWithIcon
         icon={<ShoppingBagOutlinedIcon />}
         badge={
           <Badge
             badgeContent={productQuantity}
+            showZero
             color="primary"
-            style={{ padding: "5px", fontSize: "1px" }}
           ></Badge>
         }
         text={

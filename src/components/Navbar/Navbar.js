@@ -5,53 +5,26 @@ import Announcement from "./Announcement";
 import Logo from "./Logo";
 import NavbarActionsButtons from "./NavbarActionsButtons";
 import NavigationLinks from "./NavigationLinks";
-import HamburgerIcon from "./HamburgerIcon";
-import NavbarActionBtnWithIcon from "./NavbarActionBtnWithIcon";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Badge } from "@mui/material";
 import { NavContextProvider } from "../../context/NavContext";
-import { useLocation, useNavigate } from "react-router-dom";
 import useFetchCart from "../../hooks/useFetchCart";
+import NavbarActionsButtonsMobile from "./NavbarActionsButtonsMobile";
+import MobileNav from "./MobileNav";
 
 const Navbar = () => {
   const { cart, loading: cartLoading, error: cartError } = useFetchCart();
   const productQuantity = useSelector((state) => state.cart.quantity);
   const totalPrice = useSelector((state) => state.cart.total);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const handleNavigate = () => {
-    if (location.pathname !== "/cart") navigate(`/cart`);
-  };
 
   return (
     <header className="flex w-full flex-col justify-center border-b border-gray-200">
       <NavContextProvider>
         <Announcement />
         <div className="flex flex-col items-center transition-all ease-in">
-          <div className="flex w-full flex-col justify-center px-4 lg:flex-row">
-            {/* Logo and Hamburger Icon in mobile mode */}
-            <div className="my-3 flex items-center justify-between lg:hidden">
-              <HamburgerIcon />
-              <Logo width={9} />
-              <NavbarActionBtnWithIcon
-                icon={<ShoppingCartOutlinedIcon />}
-                onClick={() => handleNavigate()}
-                badge={
-                  <Badge
-                    badgeContent={productQuantity || 0}
-                    color="primary"
-                    style={{ padding: "5px" }}
-                  ></Badge>
-                }
-                text={
-                  <>
-                    {parseInt(totalPrice)}{" "}
-                    <span className="text-[10px]">EGP</span>
-                  </>
-                }
-              />
-            </div>
-            <div className="hidden lg:block">
+          {/* Mobile and Tablets */}
+          <NavbarActionsButtonsMobile productQuantity={productQuantity} />
+          {/* Desktop */}
+          <div className="hidden flex-col justify-center px-4 lg:flex lg:w-full lg:flex-row">
+            <div className="lg:block">
               <Logo width={10} />
             </div>
             <UserSearch />
@@ -63,6 +36,7 @@ const Navbar = () => {
           <NavigationLinks />
         </div>
       </NavContextProvider>
+      <MobileNav productQuantity={productQuantity} />
     </header>
   );
 };

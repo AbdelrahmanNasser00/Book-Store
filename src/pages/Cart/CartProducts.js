@@ -50,7 +50,7 @@ const CartProducts = () => {
               <IconButton
                 color="default"
                 size="small"
-                sx={{ maxWidth: "fit-content", maxHeight: "fit-content" }}
+                sx={{ width: "fit-content", height: "fit-content" }}
                 onClick={() => deleteCartItem(product)}
               >
                 <CloseIcon sx={{ fontSize: "1rem" }} />

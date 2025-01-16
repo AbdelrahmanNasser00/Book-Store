@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import NavLinksBtn from "./NavLinksBtn";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { NavContext } from "../../context/NavContext";
 import CloseIcon from "@mui/icons-material/Close";
@@ -8,12 +7,6 @@ import CloseIcon from "@mui/icons-material/Close";
 const NavigationLinks = () => {
   const { currentUser } = useContext(AuthContext);
   const { openMenu, setOpenMenu } = useContext(NavContext);
-  const navigate = useNavigate();
-
-  const handleNavigate = (endpoint) => {
-    navigate(`${endpoint}`);
-    setOpenMenu(false);
-  };
   const handleClose = () => {
     setOpenMenu(false);
   };
@@ -37,22 +30,18 @@ const NavigationLinks = () => {
             key={index}
             text={link.text}
             path={link.path}
-            onClick={() => handleNavigate(link.path)}
             purpose={link.path}
           />
         ))}
         {currentUser &&
           currentUser !== "guest" &&
           currentUser.userDetails.role === "admin" && (
-            <NavLinksBtn
-              text={"Dashboard"}
-              onClick={() => handleNavigate("/dashboard")}
-            />
+            <NavLinksBtn text={"Dashboard"} />
           )}
       </div>
 
       <div
-        className={`absolute left-0 top-0 z-10 min-h-screen w-1/2 transform shadow-md transition-transform duration-300 ease-in-out ${
+        className={`fixed left-0 top-0 z-10 min-h-screen w-1/2 transform shadow-md transition-transform duration-300 ease-in-out md:w-1/3 ${
           openMenu ? "translate-x-0" : "-translate-x-full"
         } lg:hidden`}
       >
@@ -68,17 +57,13 @@ const NavigationLinks = () => {
               key={index}
               text={link.text}
               path={link.path}
-              onClick={() => handleNavigate(link.path)}
               purpose={link.path}
             />
           ))}
           {currentUser &&
             currentUser !== "guest" &&
             currentUser.userDetails.role === "admin" && (
-              <NavLinksBtn
-                text={"Dashboard"}
-                onClick={() => handleNavigate("/dashboard")}
-              />
+              <NavLinksBtn text={"Dashboard"} />
             )}
         </div>
       </div>
