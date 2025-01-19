@@ -22,7 +22,7 @@ const CategoryPage = () => {
   return (
     <>
       <Navbar />
-      <section className="container mx-auto min-h-96 px-4 py-8">
+      <section className="container mx-auto min-h-screen px-4 py-8">
         {/* Breadcrumb */}
         <Breadcrumb category={category} bookName={""} />
 
