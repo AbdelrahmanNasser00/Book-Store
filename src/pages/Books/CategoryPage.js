@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar/Navbar";
 import useFetchBooks from "../../hooks/useFetchBooks";
 import { toLower } from "lodash";
+import Footer from "../../components/Footer";
 
 const CategoryPage = () => {
   const { books, loading: booksLoading, error: booksError } = useFetchBooks();
@@ -21,7 +22,7 @@ const CategoryPage = () => {
   return (
     <>
       <Navbar />
-      <section className="container mx-auto px-4 py-8">
+      <section className="container mx-auto min-h-96 px-4 py-8">
         {/* Breadcrumb */}
         <Breadcrumb category={category} bookName={""} />
 
@@ -57,6 +58,7 @@ const CategoryPage = () => {
           )}
         </div>
       </section>
+      <Footer />
     </>
   );
 };
