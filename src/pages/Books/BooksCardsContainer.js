@@ -14,8 +14,9 @@ const BooksCardsContainer = () => {
   const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
 
   const totalPages = Math.ceil(books.length / booksPerPage);
-  const handlePageChange = (event, value) => {
+  const handlePageChange = (value) => {
     setCurrentPage(value);
+    window.scroll(0, 500);
   };
 
   // Book cards skeleton
