@@ -56,7 +56,7 @@ const BookCard = ({ book }) => {
       </div>
 
       <div className="flex h-auto flex-col justify-between rounded-lg bg-white p-4 pb-2">
-        <p className="line-clamp-1 text-base font-semibold capitalize tracking-wide text-gray-600">
+        <p className="line-clamp-1 text-sm font-semibold capitalize tracking-wide text-gray-600">
           {book.name}
         </p>
         <div className="mt-3 lg:flex">
