@@ -6,24 +6,19 @@ import Pagination from "@mui/material/Pagination";
 
 const BooksCardsContainer = () => {
   const { books, loading: booksLoading, error: booksError } = useFetchBooks();
-
-  // Pagination state
+  // Pagination logic
   const [currentPage, setCurrentPage] = useState(1);
-  const booksPerPage = 8; // Number of books per page
-
-  // Calculate the current books to display
+  const booksPerPage = 8;
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
 
-  // Determine the total number of pages
   const totalPages = Math.ceil(books.length / booksPerPage);
-
-  // Handler for page changes
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
 
+  // Book cards skeleton
   const renderSkeletons = (count) => {
     return Array(count)
       .fill(0)
@@ -39,7 +34,6 @@ const BooksCardsContainer = () => {
 
   return (
     <div className="my-5 flex min-h-screen flex-col items-center justify-start lg:my-1">
-      {/* Books Grid */}
       <div className="grid max-w-screen-xl auto-rows-min grid-cols-1 gap-2 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {booksError || booksLoading
           ? renderSkeletons(booksPerPage)

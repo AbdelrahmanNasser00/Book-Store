@@ -29,7 +29,7 @@ const ReviewForm = ({ selectedReview, onReset }) => {
   };
 
   return (
-    <div className="flex w-full flex-col items-center py-5">
+    <div className="flex w-full flex-col items-start py-5">
       <div className="flex w-full max-w-4xl flex-col gap-5 rounded-lg border border-gray-200 bg-white p-5">
         <div className="mb-5 flex flex-col">
           <label className="mb-2 text-lg font-bold">Rating</label>
