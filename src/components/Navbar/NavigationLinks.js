@@ -17,9 +17,6 @@ const NavigationLinks = () => {
     { text: "Data Science", path: "/data-science" },
     { text: "Technology", path: "/technology" },
     { text: "Cybersecurity", path: "/cybersecurity" },
-    { text: "Management", path: "/management" },
-    { text: "About Us", path: "/about-us" },
-    { text: "Contact", path: "/contact" },
   ];
 
   return (

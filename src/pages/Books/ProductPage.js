@@ -49,14 +49,14 @@ const ProductPage = () => {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto p-6">
+      <div className="container mx-auto max-w-7xl p-6">
         {/* Breadcrumb */}
         <Breadcrumb category={book.category} bookName={book.name} />
 
         {/* Product Details Section */}
         <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:flex">
           {/* Book Image */}
-          <div className="mx-auto flex w-full max-w-md justify-start">
+          <div className="flex w-full max-w-md justify-start">
             <img
               src={book.image}
               alt={book.name}

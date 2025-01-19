@@ -16,21 +16,10 @@ import Cart from "./pages/Cart/Cart";
 import Wishlist from "./pages/Favorites/Wishlist";
 import Checkout from "./pages/Checkout/Checkout";
 import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
-import Spinner from "./components/UI/Spinner";
 import { ScrollRestorationProvider } from "./context/ScrollRestoration";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 800);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const AdminRoute = ({ children }) => {
     if (
       currentUser &&
@@ -49,10 +38,6 @@ function App() {
     }
     return children;
   };
-
-  if (loading) {
-    return <Spinner />;
-  }
 
   return (
     <Router>

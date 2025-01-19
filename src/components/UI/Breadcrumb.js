@@ -1,18 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
-const Breadcrump = ({ category, bookName }) => {
+import HomeIcon from "@mui/icons-material/Home";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
+const Breadcrumb = ({ category, bookName }) => {
   return (
-    <nav className="text-sm text-gray-600 mb-6">
-      <Link to="/" className="hover:text-orange-500">
+    <nav className="mb-6 flex items-center text-sm text-gray-600">
+      <HomeIcon className="mr-2 text-gray-500" />
+      <a href="/" className="cursor-pointer hover:text-indigo-500">
         Home
-      </Link>
-      {" / "}
-      <Link to={`/${category}`} className="hover:text-orange-500">
+      </a>
+      <ChevronRightIcon className="mx-2 text-gray-500" />
+      <a href={`/${category}`} className="cursor-pointer hover:text-indigo-500">
         {category}
-      </Link>
-      {/* {" / "} */}
-      <span className="font-bold">{" / " + bookName}</span>
+      </a>
+      <ChevronRightIcon className="mx-2 text-gray-500" />
+      <span className="font-bold">{bookName}</span>
     </nav>
   );
 };
-export default Breadcrump;
+
+export default Breadcrumb;
