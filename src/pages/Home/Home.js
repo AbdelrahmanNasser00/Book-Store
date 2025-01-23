@@ -5,6 +5,8 @@ import Navbar from "../../components/Navbar/Navbar";
 import Carousel2 from "../../components/UI/Carousel2";
 import Spinner from "../../components/UI/Spinner";
 import ProductsFilter from "../../components/UI/ProductsFilter";
+import DealOfDay from "../../components/UI/DealOfDay";
+import CarouselContainer from "../../components/UI/Carousel";
 const Home = () => {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("");
@@ -23,9 +25,10 @@ const Home = () => {
   return (
     <div className="min-h-screen w-full">
       <Navbar />
-      <Carousel2 />
-      {/* <CarouselContainer /> */}
+      {/* <Carousel2 /> */}
+      <CarouselContainer />
       <ProductsFilter filter={filter} setFilter={setFilter} />
+      <DealOfDay />
       <BooksCardsContainer filter={filter} />
       <Footer />
     </div>
