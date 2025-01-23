@@ -10,7 +10,7 @@ import image4 from "../../assets/imgs/CarouselImage3.svg";
 const Carousel2 = () => {
   return (
     <section className="flex flex-col items-center justify-center">
-      <div className="mx-25 w-full overflow-hidden rounded-md border border-slate-200 shadow-lg">
+      <div className="mx-25 mt-10 max-w-screen-xl overflow-hidden rounded-md border border-gray-200 shadow-lg">
         <Swiper
           spaceBetween={30}
           slidesPerView={1}

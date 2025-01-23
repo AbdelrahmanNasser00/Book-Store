@@ -2,7 +2,6 @@ import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import BookCard from "./BookCard";
 import Breadcrumb from "../../components/UI/Breadcrumb";
-import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar/Navbar";
 import useFetchBooks from "../../hooks/useFetchBooks";
 import { toLower } from "lodash";

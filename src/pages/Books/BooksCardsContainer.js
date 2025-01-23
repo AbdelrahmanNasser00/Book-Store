@@ -1,30 +1,49 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import BookCard from "./BookCard";
 import BookCardSkeleton from "../../components/UI/BookCardSkeleton";
 import useFetchBooks from "../../hooks/useFetchBooks";
 import Pagination from "@mui/material/Pagination";
 
-const BooksCardsContainer = () => {
+const BooksCardsContainer = ({ filter }) => {
   const { books, loading: booksLoading, error: booksError } = useFetchBooks();
-  // Pagination logic
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 8;
+
+  // Memoized sorting and pagination logic
+  const processedBooks = useMemo(() => {
+    let sortedBooks = [...books];
+
+    switch (filter) {
+      case "priceLowToHigh":
+        sortedBooks.sort((a, b) => a.price - b.price);
+        break;
+      case "priceHighToLow":
+        sortedBooks.sort((a, b) => b.price - a.price);
+        break;
+      default:
+        break;
+    }
+
+    return sortedBooks;
+  }, [books, filter]);
+
+  // Pagination calculations
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
+  const currentBooks = processedBooks.slice(indexOfFirstBook, indexOfLastBook);
 
-  const totalPages = Math.ceil(books.length / booksPerPage);
+  const totalPages = Math.ceil(processedBooks.length / booksPerPage);
+
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
-    window.scroll(0, 500);
+    window.scrollTo(0, 500);
   };
 
   // Book cards skeleton
-  const renderSkeletons = (count) => {
-    return Array(count)
+  const renderSkeletons = (count) =>
+    Array(count)
       .fill(0)
       .map((_, index) => <BookCardSkeleton key={index} />);
-  };
 
   const renderBooks = () =>
     currentBooks.map((book) => (
