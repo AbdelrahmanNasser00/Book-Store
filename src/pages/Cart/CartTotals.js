@@ -13,7 +13,7 @@ const CartTotals = () => {
   const { total } = useSelector((state) => state.cart);
   const cart = useSelector((state) => state.cart.products);
   return (
-    <div className="max-h-fit rounded-lg bg-gray-100 p-8 text-lg font-medium leading-7 text-gray-900">
+    <div className="h-fit rounded-lg bg-gray-100 p-8 text-lg font-medium leading-7 text-gray-900">
       <h5>Order summary</h5>
       <div className="mt-8">
         <div className="flex flex-row items-center justify-between">
