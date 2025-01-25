@@ -140,9 +140,9 @@ export const removeCartItem = async (bookId) => {
   }
 };
 
-export const updateCartItem = async (bookId, updatedData) => {
+export const updateCartItem = async (updatedData) => {
   try {
-    return await apiClient.put(`/cart`, { bookId, ...updatedData });
+    return await apiClient.put(`/cart`, updatedData);
   } catch (ex) {
     return { error: true, ex };
   }
