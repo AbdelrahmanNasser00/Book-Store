@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Carousel2 from "../../components/UI/Carousel2";
 import Spinner from "../../components/UI/Spinner";
 import ProductsFilter from "../../components/UI/ProductsFilter";
-import DealOfDay from "../../components/UI/DealOfDay";
+import DealOfDayAndFilter from "../../components/UI/DealOfDayAndFilter";
 import CarouselContainer from "../../components/UI/Carousel";
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -27,8 +27,8 @@ const Home = () => {
       <Navbar />
       {/* <Carousel2 /> */}
       <CarouselContainer />
-      <ProductsFilter filter={filter} setFilter={setFilter} />
-      <DealOfDay />
+      {/* <ProductsFilter /> */}
+      <DealOfDayAndFilter filter={filter} setFilter={setFilter} />
       <BooksCardsContainer filter={filter} />
       <Footer />
     </div>

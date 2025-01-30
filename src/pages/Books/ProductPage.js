@@ -15,6 +15,7 @@ import useFetchCart from "../../hooks/useFetchCart";
 const ProductPage = () => {
   const { cart, loading: cartLoading, error: cartError } = useFetchCart();
   const books = useSelector((state) => state.book.books);
+  console.log(books);
   const [selectedReview, setSelectedReview] = useState(null);
   const dispatch = useDispatch();
   const location = useLocation();
@@ -51,7 +52,7 @@ const ProductPage = () => {
       <Navbar />
       <div className="container mx-auto max-w-7xl p-6">
         {/* Breadcrumb */}
-        <Breadcrumb category={book.category} bookName={book.name} />
+        <Breadcrumb category={book.category} bookName={book.title} />
 
         {/* Product Details Section */}
         <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:flex">
@@ -86,11 +87,6 @@ const ProductPage = () => {
                 Add to Wishlist
               </button>
             </div>
-
-            {/* Additional Details */}
-            <p className="text-sm text-gray-700">
-              <strong>SKU:</strong> {book.sku}
-            </p>
             <p className="text-sm text-gray-700">
               <strong>Categories:</strong>{" "}
               {Array.isArray(book.category)
