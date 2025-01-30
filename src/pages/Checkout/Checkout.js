@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { CheckoutContextProvider } from "../../context/CheckoutContext";
 import OrderSummery from "./OrderSummery";
 import CheckoutForm from "./CheckoutForm";
+import Footer from "../../components/Footer";
 
 const Checkout = () => {
   return (
@@ -14,6 +15,7 @@ const Checkout = () => {
           <OrderSummery />
         </div>
       </div>
+      <Footer />
     </CheckoutContextProvider>
   );
 };

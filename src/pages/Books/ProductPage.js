@@ -11,6 +11,7 @@ import useFetchCart from "../../hooks/useFetchCart";
 import ReviewSection from "./ReviewSection";
 import RelatedProductsSection from "./RelatedProductsSection";
 import { AuthContext } from "../../context/AuthContext";
+import Footer from "../../components/Footer";
 
 const ProductPage = () => {
   const { cart, loading: cartLoading, error: cartError } = useFetchCart();
@@ -126,6 +127,7 @@ const ProductPage = () => {
         {/* Reviews Section */}
         <ReviewSection />
       </div>
+      <Footer />
       <Toaster />
     </>
   );
