@@ -17,7 +17,7 @@ const CartProducts = () => {
 
   return (
     <CartContainer>
-      {products.map((product) => (
+      {products.map((product, index) => (
         <CartItemCard key={product.bookId}>
           <ProductImage src={product.image} alt={product.name} />
           <Productdetails>

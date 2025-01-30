@@ -1,22 +1,21 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Breadcrumb from "../../components/UI/Breadcrumb";
 import { useDispatch, useSelector } from "react-redux";
-import BookCard from "./BookCard";
-import ReviewsContainer from "./ReviewsContainer";
-import ReviewForm from "./ReviewForm";
 import { addProduct } from "../../store/CartSlice";
 import Navbar from "../../components/Navbar/Navbar";
-import { fetchBooks } from "./../../api";
+import { addToCart, fetchBooks } from "./../../api";
 import { loadBooks } from "../../store/BookSlice";
 import toast, { Toaster } from "react-hot-toast";
 import useFetchCart from "../../hooks/useFetchCart";
+import ReviewSection from "./ReviewSection";
+import RelatedProductsSection from "./RelatedProductsSection";
+import { AuthContext } from "../../context/AuthContext";
 
 const ProductPage = () => {
   const { cart, loading: cartLoading, error: cartError } = useFetchCart();
+  const { currentUser } = useContext(AuthContext);
   const books = useSelector((state) => state.book.books);
-  console.log(books);
-  const [selectedReview, setSelectedReview] = useState(null);
   const dispatch = useDispatch();
   const location = useLocation();
   const { state: book } = location;
@@ -42,9 +41,28 @@ const ProductPage = () => {
     return [];
   }, [book, books]);
 
-  const handleAddToCart = () => {
-    dispatch(addProduct({ ...book, quantity: 1 }));
-    toast.success("Book added to cart");
+  const handleAddToCart = async () => {
+    try {
+      if (currentUser !== "guest") {
+        await addToCart({ bookId: book._id, quantity: 1 }, currentUser);
+      }
+      dispatch(addProduct({ ...book, quantity: 1 }));
+      toast.success("Book added to cart");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const handleBuyNow = async () => {
+    try {
+      if (currentUser !== "guest") {
+        await addToCart({ bookId: book._id, quantity: 1 }, currentUser);
+      }
+      dispatch(addProduct({ ...book, quantity: 1 }));
+      toast.success("Book added to cart");
+      window.location.href = "/checkout";
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -69,7 +87,7 @@ const ProductPage = () => {
           <div className="space-y-6">
             <h1 className="text-3xl font-bold text-gray-800">{book.name}</h1>
             <p className="text-2xl font-semibold text-blue-600">
-              {book.price} {book.currency}
+              {book.price} EGP
             </p>
 
             {/* Call-to-Action Buttons */}
@@ -80,7 +98,10 @@ const ProductPage = () => {
               >
                 Add to Cart
               </button>
-              <button className="rounded-lg bg-gray-800 px-6 py-2 font-medium text-white shadow transition hover:bg-gray-900">
+              <button
+                onClick={handleBuyNow}
+                className="rounded-lg bg-gray-800 px-6 py-2 font-medium text-white shadow transition hover:bg-gray-900"
+              >
                 Buy Now
               </button>
               <button className="rounded-lg border border-blue-500 px-6 py-2 font-medium text-blue-500 shadow transition hover:bg-blue-500 hover:text-white">
@@ -100,28 +121,10 @@ const ProductPage = () => {
         </div>
 
         {/* Related Products Section */}
-        <div className="mt-16">
-          <h2 className="mb-6 text-2xl font-semibold text-gray-800">
-            Related Books
-          </h2>
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
-            {relatedProducts.map((relatedProduct) => (
-              <BookCard book={relatedProduct} key={relatedProduct.bookId} />
-            ))}
-          </div>
-        </div>
+        <RelatedProductsSection relatedProducts={relatedProducts} />
 
         {/* Reviews Section */}
-        <div className="mt-16">
-          <h2 className="mb-6 text-2xl font-semibold text-gray-800">
-            Customer Reviews
-          </h2>
-          <ReviewForm
-            selectedReview={selectedReview}
-            onReset={() => setSelectedReview(null)}
-          />
-          <ReviewsContainer onEdit={(review) => setSelectedReview(review)} />
-        </div>
+        <ReviewSection />
       </div>
       <Toaster />
     </>
