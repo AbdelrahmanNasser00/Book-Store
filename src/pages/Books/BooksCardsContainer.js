@@ -66,8 +66,9 @@ const BooksCardsContainer = ({ filter }) => {
             page={currentPage}
             onChange={handlePageChange}
             color="primary"
-            size="large"
-            variant="outlined"
+            size="medium"
+            variant="text"
+            shape="rounded"
           />
         </div>
       )}
