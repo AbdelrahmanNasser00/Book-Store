@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { addBookToWishlist, fetchBookDetails } from "../../api";
-import TestBtn from "../../components/UI/TestBtn";
 import AddToCartBtn from "../../components/UI/AddToCartBtn";
 import { Rating } from "@mui/material";
-import toast, { Toaster } from "react-hot-toast";
+import { useToast } from "../../context/ToastContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const BookCard = ({ book }) => {
   const defaultImage = "https://via.placeholder.com/300x400?text=No+Image";
+  const { currentUser } = useContext(AuthContext);
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const handleProductpage = async (e) => {
     e.stopPropagation();
@@ -20,11 +22,18 @@ const BookCard = ({ book }) => {
     }
   };
   const handleWishlist = async (bookId) => {
+    if (currentUser === "guest") {
+      window.location.href = "/login";
+    }
     try {
       const response = await addBookToWishlist(bookId);
-      toast.success("Book added to Favorites");
+      if (response.error) {
+        throw new response.error();
+      } else {
+        showToast("Book added to wishlist");
+      }
     } catch (err) {
-      toast.error("Failed to add to wishlist");
+      showToast("Failed to add book to wishlist", "Fail");
     }
   };
 
@@ -78,7 +87,6 @@ const BookCard = ({ book }) => {
         </div>
         <AddToCartBtn book={book} />
       </div>
-      <Toaster />
     </div>
   );
 };

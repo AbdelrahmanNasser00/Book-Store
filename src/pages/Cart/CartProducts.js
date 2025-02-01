@@ -14,11 +14,10 @@ const CartProducts = () => {
   const { deleteCartItem } = UseDeleteCartItem(currentUser);
   const { updateProductQuantity } = useUpdateCartQuantity(currentUser);
   const { products } = useSelector((state) => state.cart);
-
   return (
     <CartContainer>
       {products.map((product, index) => (
-        <CartItemCard key={product.bookId}>
+        <CartItemCard key={product._id}>
           <ProductImage src={product.image} alt={product.name} />
           <Productdetails>
             <ProductName>{product.name}</ProductName>

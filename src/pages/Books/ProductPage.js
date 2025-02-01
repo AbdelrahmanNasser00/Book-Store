@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import Breadcrumb from "../../components/UI/Breadcrumb";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,15 +6,16 @@ import { addProduct } from "../../store/CartSlice";
 import Navbar from "../../components/Navbar/Navbar";
 import { addToCart, fetchBooks } from "./../../api";
 import { loadBooks } from "../../store/BookSlice";
-import toast, { Toaster } from "react-hot-toast";
 import useFetchCart from "../../hooks/useFetchCart";
 import ReviewSection from "./ReviewSection";
 import RelatedProductsSection from "./RelatedProductsSection";
 import { AuthContext } from "../../context/AuthContext";
 import Footer from "../../components/Footer";
+import { useToast } from "../../context/ToastContext";
 
 const ProductPage = () => {
   const { cart, loading: cartLoading, error: cartError } = useFetchCart();
+  const { showToast } = useToast();
   const { currentUser } = useContext(AuthContext);
   const books = useSelector((state) => state.book.books);
   const dispatch = useDispatch();
@@ -45,24 +46,32 @@ const ProductPage = () => {
   const handleAddToCart = async () => {
     try {
       if (currentUser !== "guest") {
-        await addToCart({ bookId: book._id, quantity: 1 }, currentUser);
+        const response = await addToCart(
+          { bookId: book._id, quantity: 1 },
+          currentUser,
+        );
+        if (response.error) throw new response.error();
       }
       dispatch(addProduct({ ...book, quantity: 1 }));
-      toast.success("Book added to cart");
+      showToast("Book added to cart");
     } catch (err) {
-      console.error(err);
+      showToast("Failed to add book to cart", "fail");
     }
   };
   const handleBuyNow = async () => {
     try {
       if (currentUser !== "guest") {
-        await addToCart({ bookId: book._id, quantity: 1 }, currentUser);
+        const response = await addToCart(
+          { bookId: book._id, quantity: 1 },
+          currentUser,
+        );
+        if (response.error) throw new response.error();
       }
       dispatch(addProduct({ ...book, quantity: 1 }));
-      toast.success("Book added to cart");
+      showToast("Book added to cart");
       window.location.href = "/checkout";
     } catch (err) {
-      console.error(err);
+      showToast("Failed to add book to cart", "fail");
     }
   };
 
@@ -128,7 +137,6 @@ const ProductPage = () => {
         <ReviewSection />
       </div>
       <Footer />
-      <Toaster />
     </>
   );
 };

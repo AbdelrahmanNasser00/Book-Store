@@ -4,21 +4,28 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../api";
 import { AuthContext } from "../../context/AuthContext";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
-import toast, { Toaster } from "react-hot-toast";
+import { useToast } from "../../context/ToastContext";
 
 const AddToCartBtn = ({ book }) => {
   const { currentUser } = useContext(AuthContext);
+  const { showToast } = useToast();
   const dispatch = useDispatch();
   const handleAddToCart = async (e) => {
     e.stopPropagation();
     try {
       if (currentUser !== "guest") {
-        await addToCart({ bookId: book.bookId, quantity: 1 }, currentUser);
+        const res = await addToCart(
+          { bookId: book.bookId, quantity: 1 },
+          currentUser,
+        );
+        if (res.error) {
+          throw new res.error();
+        }
       }
       dispatch(addProduct({ ...book, quantity: 1 }));
-      toast.success("Book added to cart");
+      showToast("Book added to cart");
     } catch (err) {
-      console.error(err);
+      showToast("Failed to add book to cart", "fail");
     }
   };
   return (
@@ -32,7 +39,6 @@ const AddToCartBtn = ({ book }) => {
         </div>
         <span className="px-1 text-xs">Add to cart</span>
       </button>
-      <Toaster />
     </>
   );
 };

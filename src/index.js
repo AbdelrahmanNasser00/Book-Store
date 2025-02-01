@@ -7,16 +7,19 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { AuthContextProvider } from "./context/AuthContext";
 import { WishlistContextProvider } from "./context/WishlistContext";
+import { ToastProvider } from "./context/ToastContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <AuthContextProvider>
-        <WishlistContextProvider>
-          <App />
-        </WishlistContextProvider>
-      </AuthContextProvider>
+      <ToastProvider>
+        <AuthContextProvider>
+          <WishlistContextProvider>
+            <App />
+          </WishlistContextProvider>
+        </AuthContextProvider>
+      </ToastProvider>
     </Provider>
   </React.StrictMode>,
 );
