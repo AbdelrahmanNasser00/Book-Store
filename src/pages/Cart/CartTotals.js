@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import ProceedToCheckoutButton from "../Checkout/ProceedToCheckoutButton";
+import { useCart } from "../../hooks/useCart";
 
 const InfoText = styled.p`
   margin-top: 15px;
@@ -10,8 +10,7 @@ const InfoText = styled.p`
 `;
 
 const CartTotals = () => {
-  const { total } = useSelector((state) => state.cart);
-  const cart = useSelector((state) => state.cart.products);
+  const { total } = useCart();
   return (
     <div className="h-fit rounded-lg bg-gray-100 p-8 text-lg font-medium leading-7 text-gray-900">
       <h5>Order summary</h5>

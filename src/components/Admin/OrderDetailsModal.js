@@ -3,9 +3,7 @@ import OrderDetailsStatus from "./OrderDetailsStatus";
 import ProductsList from "../../pages/Checkout/ProductsList";
 import { Tooltip } from "@mui/material";
 import OrderInfo from "./OrderInfo";
-import useOrderDetails from "../../hooks/useOrderDetails";
-import { useDispatch } from "react-redux";
-import { updateOrder } from "../../store/OrdersSlice";
+import useUpdateOrderDetails from "../../hooks/useUpdateOrderDetails";
 
 const OrderDetailsModal = ({ order, onClose }) => {
   const {
@@ -18,17 +16,10 @@ const OrderDetailsModal = ({ order, onClose }) => {
     isEditingPaymentStatus,
     setIsEditingPaymentStatus,
     handleSaveStatus,
-  } = useOrderDetails(order);
-  const dispatch = useDispatch();
+  } = useUpdateOrderDetails(order);
 
   const handleSaveStatusWithDispatch = (type) => {
     handleSaveStatus(type);
-    const updatedOrder = {
-      ...order,
-      orderStatus: type === "order" ? orderStatus : order.orderStatus,
-      paymentStatus: type === "payment" ? paymentStatus : order.paymentStatus,
-    };
-    dispatch(updateOrder(updatedOrder));
   };
 
   return (

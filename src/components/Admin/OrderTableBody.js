@@ -1,5 +1,6 @@
 import { Tooltip } from "@mui/material";
 import React from "react";
+import { useOrders } from "../../hooks/useOrders";
 const statusColors = {
   "Order Status": {
     pending: "bg-yellow-200 text-yellow-800",
@@ -14,10 +15,15 @@ const statusColors = {
   },
 };
 const OrderTableBody = ({ order, handleViewDetails }) => {
+  const { deleteOrder } = useOrders();
   const orderStatusColor =
     statusColors["Order Status"][order.orderStatus.toLowerCase()] || "";
   const paymentStatusColor =
     statusColors["Payment Status"][order.paymentStatus.toLowerCase()] || "";
+
+  const handleDeleteOrder = (orderId) => {
+    deleteOrder(orderId);
+  };
 
   return (
     <tbody>
@@ -50,7 +56,10 @@ const OrderTableBody = ({ order, handleViewDetails }) => {
 
         <td className="border-b border-gray-200 text-center">
           <Tooltip arrow title="Delete" placement="left">
-            <button className="rounded-lg bg-red-600 p-1 text-sm text-white shadow-md hover:bg-red-700">
+            <button
+              className="rounded-lg bg-red-600 p-1 text-sm text-white shadow-md hover:bg-red-700"
+              onClick={() => handleDeleteOrder(order._id)}
+            >
               Delete
             </button>
           </Tooltip>

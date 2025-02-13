@@ -1,8 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Review from "../../components/Review";
 import { useParams } from "react-router-dom";
-import { fetchReviews } from "../../api";
+import { useBooks } from "../../hooks/useBooks";
+
+const ReviewsContainer = ({ onEdit }) => {
+  const { bookReviews, fetchReviews } = useBooks();
+  const { id } = useParams();
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchReviews(id);
+    };
+    fetchData();
+  }, [id, fetchReviews]);
+
+  return (
+    <Container>
+      <ReviewsHeader> Customers Reviews</ReviewsHeader>
+      <Wrapper>
+        {bookReviews.map((review) => (
+          <Review key={review._id} review={review} onEdit={onEdit} />
+        ))}
+      </Wrapper>
+    </Container>
+  );
+};
+
+export default ReviewsContainer;
 
 const Container = styled.div`
   display: flex;
@@ -28,35 +52,3 @@ const Wrapper = styled.div`
 const ReviewsHeader = styled.h2`
   padding: 20px;
 `;
-
-const ReviewsContainer = ({ onEdit }) => {
-  const [reviews, setReviews] = useState([]);
-  const { id } = useParams();
-  useEffect(() => {
-    const getReviews = async () => {
-      try {
-        const reviews = await fetchReviews(id);
-        if (reviews) {
-          setReviews(reviews.data.reviews);
-        }
-      } catch (error) {
-        console.error("Failed to fetch books:", error);
-        setReviews([]);
-      }
-    };
-    getReviews();
-  }, [id]);
-
-  return (
-    <Container>
-      <ReviewsHeader> Customers Reviews</ReviewsHeader>
-      <Wrapper>
-        {reviews.map((review) => (
-          <Review key={review._id} review={review} onEdit={onEdit} />
-        ))}
-      </Wrapper>
-    </Container>
-  );
-};
-
-export default ReviewsContainer;

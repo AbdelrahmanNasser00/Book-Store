@@ -1,19 +1,18 @@
 import { useContext, useState } from "react";
 import { StoreManagerContext } from "../../context/StoreManagerContext";
-import { deleteBook } from "../../api";
 import { Tooltip } from "@mui/material";
 import ConfirmationModal from "../ConfirmationModal";
+import { useBooks } from "../../hooks/useBooks";
 const TableRow = ({ book }) => {
+  const { deleteBook } = useBooks();
   const { setEditBookForm } = useContext(StoreManagerContext);
   const [isModalOpen, setModalOpen] = useState(false);
-
   const handleEditBook = () => {
     setEditBookForm(book);
   };
   const handleDeleteBook = async () => {
     try {
       await deleteBook(book.bookId);
-      window.location.reload();
     } catch (error) {
       console.log(error);
     }

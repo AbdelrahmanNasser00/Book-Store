@@ -1,23 +1,38 @@
 import React, { useContext } from "react";
 import { IconButton, Tooltip } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import { AuthContext } from "../../context/AuthContext";
-import useFetchCart from "../../hooks/useFetchCart";
-import UseDeleteCartItem from "../../hooks/useDeleteCartItem";
-import useUpdateCartQuantity from "../../hooks/useUpdateCartQuantity";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { useCart } from "../../hooks/useCart";
+import { removeGuestProduct, updateGuestQuantity } from "../../store/CartSlice";
+import CloseIcon from "@mui/icons-material/Close";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import styled from "styled-components";
+
 const CartProducts = () => {
   const { currentUser } = useContext(AuthContext);
-  const { cart, loading, error } = useFetchCart();
-  const { deleteCartItem } = UseDeleteCartItem(currentUser);
-  const { updateProductQuantity } = useUpdateCartQuantity(currentUser);
-  const { products } = useSelector((state) => state.cart);
+  const { cartItems, updateItem, removeItem } = useCart();
+  const dispatch = useDispatch();
+
+  const handleDeleteProduct = async (product) => {
+    if (currentUser === "guest") {
+      dispatch(removeGuestProduct(product));
+    } else {
+      await removeItem(product.bookId);
+    }
+  };
+
+  const handleUpdateQuantity = async (product, newQuantity) => {
+    if (currentUser === "guest")
+      dispatch(
+        updateGuestQuantity({ bookId: product.bookId, quantity: newQuantity }),
+      );
+    else await updateItem({ bookId: product.bookId, quantity: newQuantity });
+  };
+
   return (
     <CartContainer>
-      {products.map((product, index) => (
-        <CartItemCard key={product._id}>
+      {cartItems.map((product, index) => (
+        <CartItemCard key={product.bookId}>
           <ProductImage src={product.image} alt={product.name} />
           <Productdetails>
             <ProductName>{product.name}</ProductName>
@@ -27,7 +42,7 @@ const CartProducts = () => {
             <QuantitySelector
               value={product.quantity}
               onChange={(e) =>
-                updateProductQuantity(product, Number(e.target.value))
+                handleUpdateQuantity(product, Number(e.target.value))
               }
             >
               {[...Array(10).keys()].map((_, i) => (
@@ -50,7 +65,7 @@ const CartProducts = () => {
                 color="default"
                 size="small"
                 sx={{ width: "fit-content", height: "fit-content" }}
-                onClick={() => deleteCartItem(product)}
+                onClick={() => handleDeleteProduct(product)}
               >
                 <CloseIcon sx={{ fontSize: "1rem" }} />
               </IconButton>

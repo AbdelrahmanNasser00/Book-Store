@@ -1,20 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import TableRow from "./TableRow";
-import { fetchBooks } from "../../api";
+import { useBooks } from "../../hooks/useBooks";
 
 const ManagerBooksTable = () => {
-  const [books, setBooks] = useState([]);
+  const { books, getBooks } = useBooks();
   useEffect(() => {
-    const getBooks = async () => {
-      const response = await fetchBooks();
-      if (response.error) {
-        console.log(response.error);
-      } else {
-        setBooks(response.data.books);
-      }
-    };
     getBooks();
-  }, []);
+  }, [getBooks]);
 
   return (
     <table className="min-w-full rounded-lg border border-gray-200 bg-white">
@@ -32,7 +24,7 @@ const ManagerBooksTable = () => {
         </tr>
       </thead>
       <tbody className="table-group-divider table-divider-color overflow-x-auto">
-        {books.map((book) => (
+        {books.map((book, index) => (
           <TableRow key={book.bookId} book={book} />
         ))}
       </tbody>

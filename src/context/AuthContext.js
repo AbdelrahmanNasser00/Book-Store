@@ -1,58 +1,47 @@
-import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { addToCart } from "../api";
+import { useCart } from "../hooks/useCart";
+import {
+  loginApi,
+  registerApi,
+  setUserData,
+  getUserData,
+  removeUserData,
+} from "../services/auth";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || "guest",
-  );
+  const { addItem } = useCart();
+  const [currentUser, setCurrentUser] = useState(getUserData() || "guest");
+
   const login = async (inputs) => {
     try {
-      const res = await axios.post(
-        "https://realtime-lecturing-server.onrender.com/api/auth/login",
-        inputs,
-      );
-      const userDetails = res.data;
-      setCurrentUser(userDetails);
-      await processGuestCart(userDetails);
+      const response = await loginApi(inputs);
+      // const userDetails = response;
+
+      setCurrentUser(response);
+      setUserData(response);
+
+      await processGuestCart(response);
     } catch (err) {
       console.error("Login failed:", err);
       throw err;
     }
   };
-  const processGuestCart = async (userDetails) => {
-    const guestCart = JSON.parse(localStorage.getItem("guestCart"));
-    if (guestCart && guestCart.quantity > 0) {
-      const promises = guestCart.products.map((product) =>
-        addToCart(
-          { bookId: product.bookId, quantity: product.quantity },
-          userDetails,
-        ),
-      );
-      await Promise.all(promises);
-      console.log("Guest cart items added to user's cart:", guestCart.products);
-      localStorage.removeItem("guestCart");
-    }
-  };
 
   const register = async (inputs) => {
     try {
-      await axios.post(
-        "https://realtime-lecturing-server.onrender.com/api/auth/register",
-        inputs,
-      );
+      await registerApi(inputs);
     } catch (err) {
-      console.error("Regiteration failed", err);
+      console.error("Registration failed:", err);
       throw err;
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     try {
       setCurrentUser("guest");
-      localStorage.removeItem("user");
+      removeUserData();
       localStorage.removeItem("guestCart");
     } catch (err) {
       console.error("Logout failed:", err);
@@ -60,12 +49,19 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem("user", JSON.stringify(currentUser));
-    } else {
-      localStorage.removeItem("user");
+  const processGuestCart = async (userDetails) => {
+    const guestCart = JSON.parse(localStorage.getItem("guestCart"));
+    if (guestCart && guestCart.quantity > 0) {
+      const promises = guestCart.products.map((product) =>
+        addItem({ bookId: product.bookId, quantity: product.quantity }),
+      );
+      await Promise.all(promises);
+      localStorage.removeItem("guestCart");
     }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
 
   return (

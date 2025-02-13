@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { updateOrderStatus } from "../api";
+import { useOrders } from "./useOrders";
 
 const useOrderDetails = (order) => {
   const [orderStatus, setOrderStatus] = useState(order?.orderStatus);
   const [isEditingOrderStatus, setIsEditingOrderStatus] = useState(false);
-
   const [paymentStatus, setPaymentStatus] = useState(order?.paymentStatus);
   const [isEditingPaymentStatus, setIsEditingPaymentStatus] = useState(false);
 
+  const { updateOrderStatus } = useOrders();
+
   const handleSaveStatus = async (type) => {
     try {
-      const response = await updateOrderStatus(order?._id, {
+      await updateOrderStatus(order?._id, {
         paymentStatus: paymentStatus || order?.paymentStatus,
         orderStatus: orderStatus || order?.orderStatus,
       });

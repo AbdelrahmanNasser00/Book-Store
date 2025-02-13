@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const apiToken = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-  return user?.userDetails?.token || "";
+  return user?.token || "";
 };
 
 export const apiSlice = createApi({

@@ -1,9 +1,12 @@
 import React from "react";
 import bookImg from "../../assets/imgs/book.png";
-const ProductsList = ({ products }) => {
+import { useCart } from "../../hooks/useCart";
+const ProductsList = () => {
+  const { cartItems } = useCart();
+
   return (
     <div className="w-full space-y-4">
-      {products.map((product, index) => (
+      {cartItems.map((product, index) => (
         <div
           key={index}
           className="flex items-center justify-between rounded-lg bg-white p-4 shadow-md"
@@ -12,6 +15,7 @@ const ProductsList = ({ products }) => {
             src={product.image || bookImg}
             alt={product.name}
             className="mr-4 h-16 w-16 rounded-md bg-gray-200 object-cover"
+            loading="lazy"
           />
           <div className="flex-1">
             <h5 className="text-sm font-semibold">{product.name}</h5>

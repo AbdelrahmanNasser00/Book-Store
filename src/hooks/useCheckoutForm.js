@@ -1,23 +1,26 @@
 import { useContext, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { cashOnDeliveryPayment, debitCreditPayment } from "../api";
+import { useOrders } from "./useOrders";
+import { useCart } from "./useCart";
 
 const useCheckoutForm = () => {
-  const { products } = useSelector((state) => state.cart);
+  const { cartItems } = useCart();
   const { currentUser } = useContext(AuthContext);
   const [paymentOption, setPaymentOption] = useState("cashOnDelivery");
   const navigate = useNavigate();
+  const { createCashOrder, createCreditOrder } = useOrders();
+  const [error, setError] = useState(null);
 
   const cart = useMemo(
     () =>
-      products.map((product) => ({
+      cartItems.map((product) => ({
         bookId: product.bookId,
         quantity: product.quantity,
       })),
-    [products],
+    [cartItems],
   );
+
   const [formData, setFormData] = useState({
     name: "",
     fullAddress: "",
@@ -35,15 +38,18 @@ const useCheckoutForm = () => {
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
+
   const handleSubmit = async () => {
     if (currentUser === "guest") {
       return navigate("/login");
     }
+
+    setError(null);
     let response;
 
     if (paymentOption === "cashOnDelivery") {
       try {
-        response = await cashOnDeliveryPayment(formData);
+        response = await createCashOrder(formData);
         if (
           !response.error &&
           response.status >= 200 &&
@@ -58,7 +64,7 @@ const useCheckoutForm = () => {
       }
     } else if (paymentOption === "debitCreditCard") {
       try {
-        response = await debitCreditPayment(formData);
+        response = await createCreditOrder(formData);
         if (response.data.url) {
           window.location.href = response.data.url;
         } else {
@@ -69,12 +75,14 @@ const useCheckoutForm = () => {
       }
     }
   };
+
   return {
     formData,
     handleInputChange,
     handleSubmit,
     paymentOption,
     handlePaymentChange,
+    error,
   };
 };
 

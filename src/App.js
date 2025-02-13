@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -13,7 +13,7 @@ import { AuthContext } from "./context/AuthContext";
 import ProductPage from "./pages/Books/ProductPage";
 import CategoryPage from "./pages/Books/CategoryPage";
 import Cart from "./pages/Cart/Cart";
-import Wishlist from "./pages/Favorites/Wishlist";
+import Wishlist from "./pages/Wishlist/Wishlist";
 import Checkout from "./pages/Checkout/Checkout";
 import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
 import { ScrollRestorationProvider } from "./context/ScrollRestoration";
@@ -24,7 +24,7 @@ function App() {
     if (
       currentUser &&
       currentUser !== "guest" &&
-      currentUser?.userDetails?.role === "admin"
+      currentUser?.role === "admin"
     ) {
       return children;
     } else {

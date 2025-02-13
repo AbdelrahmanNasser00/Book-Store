@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StoreManagerContext } from "../../context/StoreManagerContext";
-import { addBook, updateBook } from "../../api";
 import AddBookInput from "./AddBookInput";
+import { useBooks } from "../../hooks/useBooks";
 
 const AddBookForm = () => {
+  const { addBook, editBook: updateBook } = useBooks();
+
   const [name, setName] = useState("");
   const [authors, setAuthors] = useState("");
   const [category, setCategory] = useState("");

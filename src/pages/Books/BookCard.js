@@ -1,40 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { addBookToWishlist, fetchBookDetails } from "../../api";
 import AddToCartBtn from "../../components/UI/AddToCartBtn";
 import { Rating } from "@mui/material";
-import { useToast } from "../../context/ToastContext";
 import { AuthContext } from "../../context/AuthContext";
+import { useBooks } from "../../hooks/useBooks";
+import { useWishlist } from "../../hooks/useWishlist";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const BookCard = ({ book }) => {
   const defaultImage = "https://via.placeholder.com/300x400?text=No+Image";
   const { currentUser } = useContext(AuthContext);
-  const { showToast } = useToast();
+  const { clearBook } = useBooks();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const navigate = useNavigate();
-  const handleProductpage = async (e) => {
+
+  const inWishlist = useMemo(() => {
+    return isInWishlist(book.bookId);
+  }, [book.bookId, isInWishlist]);
+
+  const handleProductpage = (e) => {
     e.stopPropagation();
-    const response = await fetchBookDetails(book.bookId);
-    if (response.err) {
-      console.log(response.err);
-    } else {
-      navigate(`/product/${book.bookId}`, { state: response.data.book });
-    }
+    clearBook();
+    navigate(`/product/${book.bookId}`, { state: book.bookId });
   };
   const handleWishlist = async (bookId) => {
     if (currentUser === "guest") {
       window.location.href = "/login";
     }
-    try {
-      const response = await addBookToWishlist(bookId);
-      if (response.error) {
-        throw new response.error();
-      } else {
-        showToast("Book added to wishlist");
-      }
-    } catch (err) {
-      showToast("Failed to add book to wishlist", "Fail");
-    }
+    if (inWishlist) await removeFromWishlist(bookId);
+    else await addToWishlist(book.bookId);
   };
 
   return (
@@ -49,17 +44,18 @@ const BookCard = ({ book }) => {
             className="h-60 object-cover shadow-lg transition-all duration-300 hover:scale-105"
             src={book.image || defaultImage}
             alt="Book Cover"
+            loading="lazy"
           />
         </div>
 
         <div
-          className="absolute right-3 top-3 rounded-full bg-indigo-500/20 p-2 text-indigo-500 transition-all duration-300 ease-in-out hover:bg-indigo-500 hover:text-indigo-200"
+          className={`absolute ${inWishlist ? "bg-indigo-500 text-gray-100 hover:text-indigo-200" : "bg-indigo-500/20 text-indigo-500"} right-3 top-3 rounded-full p-2 transition-all duration-300 ease-in-out hover:bg-indigo-500 hover:text-indigo-200`}
           onClick={(e) => {
             e.stopPropagation();
             handleWishlist(book.bookId);
           }}
         >
-          <FavoriteBorderOutlinedIcon />
+          {inWishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </div>
       </div>
 

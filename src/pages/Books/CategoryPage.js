@@ -1,15 +1,27 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import BookCard from "./BookCard";
 import Breadcrumb from "../../components/UI/Breadcrumb";
 import Navbar from "../../components/Navbar/Navbar";
-import useFetchBooks from "../../hooks/useFetchBooks";
 import { toLower } from "lodash";
 import Footer from "../../components/Footer";
+import { useBooks } from "../../hooks/useBooks";
 
 const CategoryPage = () => {
-  const { books, loading: booksLoading, error: booksError } = useFetchBooks();
+  const {
+    books,
+    getBooks,
+    loading: booksLoading,
+    error: booksError,
+  } = useBooks();
   const { category } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getBooks();
+    };
+    fetchData();
+  }, [getBooks]);
 
   const filteredBooks = useMemo(() => {
     if (books) {

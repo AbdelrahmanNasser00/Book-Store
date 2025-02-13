@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import { useCart } from "../../hooks/useCart";
 
 const OrderPricesSummery = () => {
-  const { total } = useSelector((state) => state.cart);
+  const { total } = useCart();
   return (
     <div className="w-full space-y-2 rounded-lg bg-white p-4 shadow-md">
       <div className="flex justify-between">

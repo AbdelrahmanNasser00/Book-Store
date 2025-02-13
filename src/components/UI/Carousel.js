@@ -55,6 +55,7 @@ const CarouselItem = ({ item }) => {
           className="h-full w-full rounded-lg object-cover md:h-auto"
           src={item.image}
           alt={item.name}
+          loading="lazy"
         />
       </div>
       {item.name && item.description ? (

@@ -1,26 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import BookCard from "../Books/BookCard";
 import Breadcrumb from "../../components/UI/Breadcrumb";
 import Footer from "../../components/Footer";
-import { fetchWishlist } from "../../api";
+import { useWishlist } from "../../hooks/useWishlist";
 
 const WishlistContainer = () => {
-  const [wishlist, setWishlist] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const getWishlist = async () => {
-      try {
-        const res = await fetchWishlist();
-        setWishlist(res.data.wishlist);
-      } catch (ex) {
-        console.error(ex);
-      } finally {
-        setLoading(false);
-      }
-    };
-    getWishlist();
-  }, []);
+  const { wishlist, loading } = useWishlist();
 
   return (
     <>

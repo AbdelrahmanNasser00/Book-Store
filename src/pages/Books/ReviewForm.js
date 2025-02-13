@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { editReview, submitReview } from "../../api";
 import { Rating } from "@mui/material";
+import { useBooks } from "../../hooks/useBooks";
 
 const ReviewForm = ({ selectedReview, onReset }) => {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   const { id } = useParams();
+  const { createReview, updateReview } = useBooks();
 
   useEffect(() => {
     if (selectedReview) {
@@ -21,11 +22,13 @@ const ReviewForm = ({ selectedReview, onReset }) => {
       rating,
     };
     if (selectedReview) {
-      await editReview(id, reviewData);
-    } else await submitReview(id, reviewData);
-    window.location.reload();
+      await updateReview(id, reviewData);
+    } else {
+      await createReview(id, reviewData);
+    }
     setRating(0);
     setComment("");
+    onReset();
   };
 
   return (

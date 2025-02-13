@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
-import { addProduct } from "../../store/CartSlice";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../api";
 import { AuthContext } from "../../context/AuthContext";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import { useToast } from "../../context/ToastContext";
+import { useCart } from "../../hooks/useCart";
+import { addGuestProduct } from "../../store/CartSlice";
 
 const AddToCartBtn = ({ book }) => {
+  const { addItem } = useCart();
   const { currentUser } = useContext(AuthContext);
   const { showToast } = useToast();
   const dispatch = useDispatch();
@@ -14,15 +15,9 @@ const AddToCartBtn = ({ book }) => {
     e.stopPropagation();
     try {
       if (currentUser !== "guest") {
-        const res = await addToCart(
-          { bookId: book.bookId, quantity: 1 },
-          currentUser,
-        );
-        if (res.error) {
-          throw new res.error();
-        }
+        await addItem({ bookId: book.bookId, quantity: 1 });
       }
-      dispatch(addProduct({ ...book, quantity: 1 }));
+      dispatch(addGuestProduct({ ...book, quantity: 1 }));
       showToast("Book added to cart");
     } catch (err) {
       showToast("Failed to add book to cart", "fail");

@@ -1,13 +1,21 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import BookCard from "./BookCard";
 import BookCardSkeleton from "../../components/UI/BookCardSkeleton";
-import useFetchBooks from "../../hooks/useFetchBooks";
 import Pagination from "@mui/material/Pagination";
+import { useBooks } from "../../hooks/useBooks";
+import { debounce } from "lodash";
 
 const BooksCardsContainer = ({ filter }) => {
-  const { books, loading: booksLoading, error: booksError } = useFetchBooks();
+  const { books, loading, error, getBooks } = useBooks();
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 8;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getBooks();
+    };
+    fetchData();
+  }, [getBooks]);
 
   // Memoized sorting and pagination logic
   const processedBooks = useMemo(() => {
@@ -23,7 +31,7 @@ const BooksCardsContainer = ({ filter }) => {
       default:
         break;
     }
-
+    setCurrentPage(1);
     return sortedBooks;
   }, [books, filter]);
 
@@ -31,13 +39,12 @@ const BooksCardsContainer = ({ filter }) => {
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = processedBooks.slice(indexOfFirstBook, indexOfLastBook);
-
   const totalPages = Math.ceil(processedBooks.length / booksPerPage);
 
-  const handlePageChange = (event, value) => {
+  const handlePageChange = debounce((event, value) => {
     setCurrentPage(value);
-    window.scrollTo(0, 500);
-  };
+    window.scrollTo({ top: 500, behavior: "smooth" });
+  }, 300);
 
   // Book cards skeleton
   const renderSkeletons = (count) =>
@@ -55,11 +62,9 @@ const BooksCardsContainer = ({ filter }) => {
   return (
     <div className="my-5 flex flex-col items-center justify-start lg:my-1">
       <div className="grid max-w-screen-xl auto-rows-min grid-cols-1 gap-2 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {booksError || booksLoading
-          ? renderSkeletons(booksPerPage)
-          : renderBooks()}
+        {error || loading ? renderSkeletons(booksPerPage) : renderBooks()}
       </div>
-      {!booksLoading && !booksError && (
+      {!loading && !error && (
         <div className="mt-6">
           <Pagination
             count={totalPages}

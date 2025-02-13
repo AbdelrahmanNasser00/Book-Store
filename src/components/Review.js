@@ -4,17 +4,18 @@ import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import { deleteReview } from "../api";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import ConfirmationModal from "./ConfirmationModal";
+import { useBooks } from "../hooks/useBooks";
 
 const Review = ({ review, onEdit }) => {
   const { id } = useParams();
   const { currentUser } = useContext(AuthContext);
   const [isModalOpen, setModalOpen] = useState(false);
+  const { deleteReview } = useBooks();
 
-  const userId = currentUser?.userDetails?.id;
+  const userId = currentUser?.id;
   const reviewUserId = review?.user?._id;
 
   const renderStars = (rating) => {
@@ -33,8 +34,8 @@ const Review = ({ review, onEdit }) => {
 
   const handleDeleteReview = async () => {
     try {
-      await deleteReview(id);
-      setModalOpen(false); // Close modal after deletion
+      await deleteReview(id, review._id);
+      setModalOpen(false);
     } catch (err) {
       console.error("Failed to delete review:", err);
     }

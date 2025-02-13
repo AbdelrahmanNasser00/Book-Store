@@ -6,8 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { AuthContextProvider } from "./context/AuthContext";
-import { WishlistContextProvider } from "./context/WishlistContext";
 import { ToastProvider } from "./context/ToastContext";
+import { CartProvider } from "./context/CartContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -15,9 +15,9 @@ root.render(
     <Provider store={store}>
       <ToastProvider>
         <AuthContextProvider>
-          <WishlistContextProvider>
+          <CartProvider>
             <App />
-          </WishlistContextProvider>
+          </CartProvider>
         </AuthContextProvider>
       </ToastProvider>
     </Provider>

@@ -1,135 +1,108 @@
 import React, { useContext, useEffect, useMemo } from "react";
+import { useToast } from "../../context/ToastContext";
+import { useBooks } from "../../hooks/useBooks";
+import { AuthContext } from "../../context/AuthContext";
 import { useLocation } from "react-router-dom";
 import Breadcrumb from "../../components/UI/Breadcrumb";
-import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../store/CartSlice";
 import Navbar from "../../components/Navbar/Navbar";
-import { addToCart, fetchBooks } from "./../../api";
-import { loadBooks } from "../../store/BookSlice";
-import useFetchCart from "../../hooks/useFetchCart";
 import ReviewSection from "./ReviewSection";
 import RelatedProductsSection from "./RelatedProductsSection";
-import { AuthContext } from "../../context/AuthContext";
 import Footer from "../../components/Footer";
-import { useToast } from "../../context/ToastContext";
+import BookImage from "./BookImage";
+import BookInfo from "./BookInfo";
+import { useCart } from "../../hooks/useCart";
+import { addGuestProduct } from "../../store/CartSlice";
+import { useDispatch } from "react-redux";
 
 const ProductPage = () => {
-  const { cart, loading: cartLoading, error: cartError } = useFetchCart();
-  const { showToast } = useToast();
-  const { currentUser } = useContext(AuthContext);
-  const books = useSelector((state) => state.book.books);
-  const dispatch = useDispatch();
   const location = useLocation();
-  const { state: book } = location;
+  const { showToast } = useToast();
+  const dispatch = useDispatch();
+  const { currentUser } = useContext(AuthContext);
+  const bookId = location.state;
+  const { books, selectedBook, loading, error, getBooks, getBookById } =
+    useBooks();
+  const { addItem } = useCart();
 
   useEffect(() => {
-    const getBooks = async () => {
-      try {
-        const response = await fetchBooks();
-        dispatch(loadBooks(response.data.books));
-      } catch (err) {
-        console.log(err.message);
-      }
+    const fetchData = async () => {
+      await Promise.all([getBookById(bookId), getBooks()]);
     };
-    getBooks();
-  }, [dispatch]);
+    fetchData();
+  }, [getBooks, bookId, getBookById]);
 
   const relatedProducts = useMemo(() => {
-    if (book) {
-      return books.filter(
-        (b) => b.category === book.category && b.bookId !== book._id,
-      );
+    if (selectedBook) {
+      return books
+        .filter(
+          (b) =>
+            b.category === selectedBook.category &&
+            b.bookId !== selectedBook._id,
+        )
+        .slice(0, 6);
     }
+
     return [];
-  }, [book, books]);
+  }, [selectedBook, books]);
 
   const handleAddToCart = async () => {
     try {
       if (currentUser !== "guest") {
-        const response = await addToCart(
-          { bookId: book._id, quantity: 1 },
-          currentUser,
-        );
-        if (response.error) throw new response.error();
+        await addItem({ bookId: selectedBook._id, quantity: 1 });
       }
-      dispatch(addProduct({ ...book, quantity: 1 }));
+      dispatch(addGuestProduct({ ...selectedBook, quantity: 1 }));
       showToast("Book added to cart");
     } catch (err) {
       showToast("Failed to add book to cart", "fail");
     }
   };
+
   const handleBuyNow = async () => {
     try {
       if (currentUser !== "guest") {
-        const response = await addToCart(
-          { bookId: book._id, quantity: 1 },
-          currentUser,
-        );
-        if (response.error) throw new response.error();
+        await addItem({ bookId: selectedBook._id, quantity: 1 });
       }
-      dispatch(addProduct({ ...book, quantity: 1 }));
+      dispatch(addGuestProduct({ ...selectedBook, quantity: 1 }));
       showToast("Book added to cart");
       window.location.href = "/checkout";
     } catch (err) {
       showToast("Failed to add book to cart", "fail");
     }
   };
+  if (loading) {
+    return (
+      <div className="m-auto flex h-screen w-full max-w-md items-center justify-center">
+        <div className="loader h-12 w-12 animate-spin rounded-full border-t-4 border-gray-400"></div>
+      </div>
+    );
+  }
 
   return (
     <>
       <Navbar />
       <div className="container mx-auto max-w-7xl p-6">
         {/* Breadcrumb */}
-        <Breadcrumb category={book.category} bookName={book.title} />
+        <Breadcrumb
+          category={selectedBook?.category}
+          bookName={selectedBook?.title}
+        />
 
         {/* Product Details Section */}
         <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:flex">
           {/* Book Image */}
-          <div className="flex w-full max-w-md justify-start">
-            <img
-              src={book.image}
-              alt={book.name}
-              className="h-auto w-full rounded-lg object-cover shadow-lg"
-            />
-          </div>
+          <BookImage
+            loading={loading}
+            error={error}
+            selectedBook={selectedBook}
+          />
 
           {/* Book Information */}
-          <div className="space-y-6">
-            <h1 className="text-3xl font-bold text-gray-800">{book.name}</h1>
-            <p className="text-2xl font-semibold text-blue-600">
-              {book.price} EGP
-            </p>
-
-            {/* Call-to-Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4">
-              <button
-                className="rounded-lg bg-blue-500 px-6 py-2 font-medium text-white shadow transition hover:bg-blue-600"
-                onClick={handleAddToCart}
-              >
-                Add to Cart
-              </button>
-              <button
-                onClick={handleBuyNow}
-                className="rounded-lg bg-gray-800 px-6 py-2 font-medium text-white shadow transition hover:bg-gray-900"
-              >
-                Buy Now
-              </button>
-              <button className="rounded-lg border border-blue-500 px-6 py-2 font-medium text-blue-500 shadow transition hover:bg-blue-500 hover:text-white">
-                Add to Wishlist
-              </button>
-            </div>
-            <p className="text-sm text-gray-700">
-              <strong>Categories:</strong>{" "}
-              {Array.isArray(book.category)
-                ? book.category.join(", ")
-                : book.category}
-            </p>
-            <p className="text-sm leading-relaxed text-gray-700">
-              <strong>Description:</strong> {book.description}
-            </p>
-          </div>
+          <BookInfo
+            selectedBook={selectedBook}
+            handleAddToCart={handleAddToCart}
+            handleBuyNow={handleBuyNow}
+          />
         </div>
-
         {/* Related Products Section */}
         <RelatedProductsSection relatedProducts={relatedProducts} />
 
