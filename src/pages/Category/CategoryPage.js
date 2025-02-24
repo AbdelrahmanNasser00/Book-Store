@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import Breadcrumb from "../../components/UI/Breadcrumb";
 import { toLower } from "lodash";
 import { useBooks } from "../../hooks/useBooks";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import BookCard from "../../components/Books/BookCard";
+import NotFound from "../../components/NotFound";
 
 const CategoryPage = () => {
   const {
@@ -15,6 +16,13 @@ const CategoryPage = () => {
     error: booksError,
   } = useBooks();
   const { category } = useParams();
+
+  const validCategories = [
+    "software-engineering",
+    "data-science",
+    "technology",
+    "cybersecurity",
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +37,10 @@ const CategoryPage = () => {
     }
     return [];
   }, [books, category]);
+
+  if (!validCategories.includes(category)) {
+    return <NotFound />;
+  }
 
   return (
     <>

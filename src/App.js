@@ -17,6 +17,7 @@ import CheckoutSuccess from "./components/Checkout/CheckoutSuccess";
 import { ScrollRestorationProvider } from "./context/ScrollRestoration";
 import ProductPage from "./pages/Product/ProductPage";
 import CategoryPage from "./pages/Category/CategoryPage";
+import NotFound from "./components/NotFound";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -70,6 +71,7 @@ function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </ScrollRestorationProvider>
     </Router>
