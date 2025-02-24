@@ -1,8 +1,8 @@
 import React from "react";
-import BookCard from "../Books/BookCard";
 import Breadcrumb from "../../components/UI/Breadcrumb";
 import Footer from "../../components/Footer";
 import { useWishlist } from "../../hooks/useWishlist";
+import BookCard from "../../components/Books/BookCard";
 
 const WishlistContainer = () => {
   const { wishlist, loading } = useWishlist();

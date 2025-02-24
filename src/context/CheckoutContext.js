@@ -7,9 +7,13 @@ export const CheckoutContextProvider = ({ children }) => {
   const {
     formData,
     handleInputChange,
-    handleSubmit,
+    handleFormSubmit,
     paymentOption,
     handlePaymentChange,
+    error,
+    register,
+    errors,
+    isValid,
   } = useCheckoutForm();
 
   return (
@@ -17,9 +21,13 @@ export const CheckoutContextProvider = ({ children }) => {
       value={{
         formData,
         handleInputChange,
-        handleSubmit,
+        handleFormSubmit,
         paymentOption,
         handlePaymentChange,
+        error,
+        register,
+        errors,
+        isValid,
       }}
     >
       {children}

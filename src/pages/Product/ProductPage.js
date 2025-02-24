@@ -3,16 +3,17 @@ import { useToast } from "../../context/ToastContext";
 import { useBooks } from "../../hooks/useBooks";
 import { AuthContext } from "../../context/AuthContext";
 import { useLocation } from "react-router-dom";
-import Breadcrumb from "../../components/UI/Breadcrumb";
-import Navbar from "../../components/Navbar/Navbar";
-import ReviewSection from "./ReviewSection";
-import RelatedProductsSection from "./RelatedProductsSection";
-import Footer from "../../components/Footer";
-import BookImage from "./BookImage";
-import BookInfo from "./BookInfo";
+
 import { useCart } from "../../hooks/useCart";
 import { addGuestProduct } from "../../store/CartSlice";
 import { useDispatch } from "react-redux";
+import Navbar from "../../components/Navbar/Navbar";
+import Breadcrumb from "../../components/UI/Breadcrumb";
+import BookImage from "../../components/Books/BookImage";
+import BookInfo from "../../components/Books/BookInfo";
+import RelatedProductsSection from "../../components/Product/RelatedProductsSection";
+import ReviewSection from "../../components/Product/ReviewSection";
+import Footer from "../../components/Footer";
 
 const ProductPage = () => {
   const location = useLocation();

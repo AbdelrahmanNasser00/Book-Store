@@ -1,6 +1,6 @@
 import React from "react";
 import OrderDetailsStatus from "./OrderDetailsStatus";
-import ProductsList from "../../pages/Checkout/ProductsList";
+import ProductsList from "../Checkout/ProductsList";
 import { Tooltip } from "@mui/material";
 import OrderInfo from "./OrderInfo";
 import useUpdateOrderDetails from "../../hooks/useUpdateOrderDetails";

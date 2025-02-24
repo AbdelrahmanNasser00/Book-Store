@@ -1,5 +1,5 @@
 import React from "react";
-import CartContainer from "./CartContainer";
+import CartContainer from "../../components/Cart/CartContainer";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer";
 

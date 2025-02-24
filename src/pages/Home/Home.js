@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import BooksCardsContainer from "../Books/BooksCardsContainer";
-import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 // import Spinner from "../../components/UI/Spinner";
 import DealOfDayAndFilter from "../../components/UI/DealOfDayAndFilter";
 import CarouselContainer from "../../components/UI/Carousel";
+import BooksCardsContainer from "../../components/Books/BooksCardsContainer";
+import Footer from "../../components/Footer";
 const Home = () => {
   // const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("");

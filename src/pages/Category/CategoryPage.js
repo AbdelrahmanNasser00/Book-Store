@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import BookCard from "./BookCard";
 import Breadcrumb from "../../components/UI/Breadcrumb";
-import Navbar from "../../components/Navbar/Navbar";
 import { toLower } from "lodash";
-import Footer from "../../components/Footer";
 import { useBooks } from "../../hooks/useBooks";
+import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar/Navbar";
+import BookCard from "../../components/Books/BookCard";
 
 const CategoryPage = () => {
   const {

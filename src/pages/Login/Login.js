@@ -1,24 +1,35 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { loginSchema } from "../../utils/Schemas/loginSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const Login = () => {
-  const [inputEmail, setInputEmail] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
   const [err, setError] = useState(null);
-
-  const { login } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const inputs = { mail: inputEmail, password: inputPassword };
+  useEffect(() => {
+    if (user) {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(loginSchema) });
+
+  const onSubmit = async (data) => {
+    const inputs = { mail: data.email, password: data.password };
 
     try {
       await login(inputs);
       navigate("/", { replace: true });
     } catch (err) {
-      setError(err.response?.data?.message);
+      setError(err.response?.data?.message || "Login failed. Try again.");
     }
   };
 
@@ -29,11 +40,7 @@ const Login = () => {
         <p className="mb-4 text-center text-gray-600">
           Please enter your login and password!
         </p>
-
-        {/* Show error message if there's an error */}
-        {err && <div className="mb-4 text-center text-red-500">{err}</div>}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label
               htmlFor="email"
@@ -44,11 +51,15 @@ const Login = () => {
             <input
               type="email"
               id="email"
-              value={inputEmail}
-              onChange={(e) => setInputEmail(e.target.value)}
-              required
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              {...register("email")}
+              aria-invalid={errors.email ? "true" : "false"}
+              className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none sm:text-sm ${errors.email ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"} `}
             />
+            {errors.email && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.email.message}
+              </p>
+            )}
           </div>
 
           <div>
@@ -61,11 +72,15 @@ const Login = () => {
             <input
               type="password"
               id="password"
-              value={inputPassword}
-              onChange={(e) => setInputPassword(e.target.value)}
-              required
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              {...register("password")}
+              aria-invalid={errors.password ? "true" : "false"}
+              className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none sm:text-sm ${errors.password ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"} `}
             />
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
           <div className="flex items-center">
@@ -88,6 +103,10 @@ const Login = () => {
           >
             Login
           </button>
+
+          {err && (
+            <p className="mt-2 text-center text-sm text-red-600">{err}</p>
+          )}
         </form>
 
         <div className="mt-6 text-center">

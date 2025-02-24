@@ -3,6 +3,9 @@ import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useOrders } from "./useOrders";
 import { useCart } from "./useCart";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { checkoutSchema } from "../utils/Schemas/checkoutSchema";
 
 const useCheckoutForm = () => {
   const { cartItems } = useCart();
@@ -21,25 +24,41 @@ const useCheckoutForm = () => {
     [cartItems],
   );
 
-  const [formData, setFormData] = useState({
-    name: "",
-    fullAddress: "",
-    email: "",
-    phoneNumber: "",
-    governorate: "Cairo",
-    notes: "",
-    cart,
+  const {
+    register,
+    formState: { errors, isValid },
+    setValue,
+    watch,
+    trigger,
+  } = useForm({
+    resolver: yupResolver(checkoutSchema),
+    defaultValues: {
+      name: "",
+      fullAddress: "",
+      email: "",
+      phoneNumber: "",
+      governorate: "Cairo",
+      notes: "",
+    },
+    mode: "onChange",
   });
+
+  const formData = watch();
 
   const handlePaymentChange = (value) => {
     setPaymentOption(value);
   };
 
   const handleInputChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setValue(field, value);
   };
 
-  const handleSubmit = async () => {
+  const handleFormSubmit = async () => {
+    const isFormValid = await trigger();
+    if (!isFormValid) {
+      return;
+    }
+
     if (currentUser === "guest") {
       return navigate("/login");
     }
@@ -47,9 +66,14 @@ const useCheckoutForm = () => {
     setError(null);
     let response;
 
+    const orderData = {
+      ...formData,
+      cart,
+    };
+
     if (paymentOption === "cashOnDelivery") {
       try {
-        response = await createCashOrder(formData);
+        response = await createCashOrder(orderData);
         if (
           !response.error &&
           response.status >= 200 &&
@@ -61,10 +85,11 @@ const useCheckoutForm = () => {
         }
       } catch (error) {
         console.error("Error during cash on delivery payment:", error);
+        setError(error.message);
       }
     } else if (paymentOption === "debitCreditCard") {
       try {
-        response = await createCreditOrder(formData);
+        response = await createCreditOrder(orderData);
         if (response.data.url) {
           window.location.href = response.data.url;
         } else {
@@ -72,6 +97,7 @@ const useCheckoutForm = () => {
         }
       } catch (error) {
         console.error("Error during debit/credit payment:", error);
+        setError(error.message);
       }
     }
   };
@@ -79,10 +105,13 @@ const useCheckoutForm = () => {
   return {
     formData,
     handleInputChange,
-    handleSubmit,
+    handleFormSubmit,
     paymentOption,
     handlePaymentChange,
     error,
+    register,
+    errors,
+    isValid,
   };
 };
 
