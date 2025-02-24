@@ -7,6 +7,7 @@ const SearchedBookCard = ({ book }) => {
     e.stopPropagation();
     navigate(`/product/${book.bookId}`, { state: book });
   };
+  console.log(book);
   return (
     <div
       key={book.id}
@@ -16,11 +17,11 @@ const SearchedBookCard = ({ book }) => {
       <div className="flex">
         <img
           src={book.image}
-          alt={book.title}
+          alt={book.name}
           className="mr-3 max-h-28 max-w-16"
         />
         <div>
-          <h3 className="text-sm text-gray-800">{book.title}</h3>
+          <h3 className="text-sm text-gray-800">{book.name}</h3>
           <p className="text-sm text-gray-600">price: {book.price}LE</p>
         </div>
       </div>

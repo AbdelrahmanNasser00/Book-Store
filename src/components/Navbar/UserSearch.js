@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import debounce from "lodash.debounce";
 import "../../shared/CSS/Navbar.css";
 import SearchedItems from "./SearchedItems";
@@ -11,12 +11,11 @@ const UserSearch = () => {
     skip: searchTerm.length < 3,
   });
 
-  const debouncedHandleSearch = useCallback(
-    debounce((e) => {
+  const debouncedHandleSearch = useMemo(() => {
+    return debounce((e) => {
       setSearchTerm(e.target.value);
-    }, 500),
-    [setSearchTerm],
-  );
+    }, 500);
+  }, []);
 
   const books = useMemo(() => {
     if (isFetching || error) return [];

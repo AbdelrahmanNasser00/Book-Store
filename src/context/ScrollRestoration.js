@@ -7,8 +7,14 @@ export const ScrollRestorationProvider = ({ children }) => {
   const scrollPositions = useRef({});
 
   useEffect(() => {
+    const currentPath = location.pathname;
+
     return () => {
-      scrollPositions.current[location.pathname] = window.scrollY;
+      const scrollY = window.scrollY;
+      scrollPositions.current = {
+        ...scrollPositions.current,
+        [currentPath]: scrollY,
+      };
     };
   }, [location]);
 
@@ -16,6 +22,7 @@ export const ScrollRestorationProvider = ({ children }) => {
     const savedScrollPosition = scrollPositions.current[location.pathname] || 0;
     window.scrollTo(0, savedScrollPosition);
   }, [location]);
+
   return (
     <ScrollRestorationContext.Provider value={{}}>
       {children}
