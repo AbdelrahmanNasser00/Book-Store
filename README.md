@@ -4,14 +4,14 @@ Welcome to the **Bookstore Website**, an e-commerce platform for browsing, searc
 
 ## Table of Contents
 
-- [Purpose](#purpose)
-- [Live Demo](#live-demo)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Project Structure](#project-structure)
-- [Installation and Setup](#installation-and-setup)
-- [Contributing](#contributing)
-- [Contact](#contact)
+- [Purpose](#-purpose)
+- [Live Demo](#-live-demo)
+- [Features](#-features)
+- [Technologies Used](#-technologies-used)
+- [Project Structure](#-project-structure)
+- [Installation and Setup](#-installation-and-setup)
+- [Contributing](#-contributing)
+- [Contact](#-contact)
 
 ## 📌 Purpose
 
@@ -85,6 +85,59 @@ frontend/
 ├── package.json      # Project dependencies and scripts
 └── vite.config.js    # Vite configuration
 ```
+
+## 🚀 Installation and Setup
+
+### Prerequisites:
+
+- **Node.js** (v16 or later)
+- **MongoDB** (local or cloud-based)
+- **Git**
+
+### Steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Alaa-Eldeen22/bookstore-app.git
+   cd bookstore
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Set up the backend:
+
+   - Navigate to the backend directory:
+     ```bash
+     cd Book-Store-BackEnd
+     ```
+   - Create a `.env` file and configure the environment variables:
+     ```env
+     PORT=3000
+     MONGO_URI=your_mongodb_connection_string
+     JWT_SECRET=your_secret_key
+     ```
+   - Start the server:
+     ```bash
+     npm start
+     ```
+
+4. Set up the frontend:
+
+   - Navigate to the frontend directory:
+     ```bash
+     cd Book-Store-FrontEnd
+     ```
+   - Start the development server:
+     ```bash
+     npm start
+     ```
+
+5. Open your browser and navigate to `http://localhost:3000` to view the application.
 
 ---
 
