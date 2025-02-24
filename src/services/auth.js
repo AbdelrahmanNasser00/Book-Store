@@ -5,7 +5,6 @@ const authApi = createApiEndpoint("/auth");
 export const loginApi = async (credentials) => {
   try {
     const response = await authApi.post("/login", credentials);
-    // console.log(response.data);
     return response.data.userDetails;
   } catch (error) {
     throw error;

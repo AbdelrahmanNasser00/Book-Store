@@ -17,11 +17,8 @@ export const AuthContextProvider = ({ children }) => {
   const login = async (inputs) => {
     try {
       const response = await loginApi(inputs);
-      // const userDetails = response;
-
       setCurrentUser(response);
       setUserData(response);
-
       await processGuestCart(response);
     } catch (err) {
       console.error("Login failed:", err);
