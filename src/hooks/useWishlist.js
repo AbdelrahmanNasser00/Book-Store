@@ -1,4 +1,4 @@
-import { useState, useCallback, useContext, useEffect } from "react";
+import { useState, useCallback, useContext } from "react";
 import { useToast } from "../context/ToastContext";
 
 import { AuthContext } from "../context/AuthContext";
@@ -32,11 +32,11 @@ export const useWishlist = () => {
     }
   }, [currentUser, showToast]);
 
-  useEffect(() => {
-    if (currentUser !== "guest") {
-      getWishlist();
-    }
-  }, [currentUser, getWishlist]);
+  // useEffect(() => {
+  //   if (currentUser !== "guest") {
+  //     getWishlist();
+  //   }
+  // }, [currentUser, getWishlist]);
 
   const addToWishlist = useCallback(
     async (bookId) => {
