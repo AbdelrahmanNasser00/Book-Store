@@ -126,7 +126,6 @@ export const BookSlice = createSlice({
     loading: false,
     error: null,
     reviews: [],
-    lastUpdated: null,
   },
   reducers: {
     clearError: (state) => {

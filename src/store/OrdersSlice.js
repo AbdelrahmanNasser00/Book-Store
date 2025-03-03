@@ -75,7 +75,6 @@ export const OrderSlice = createSlice({
     orders: [],
     loading: false,
     error: null,
-    lastUpdated: null,
   },
   reducers: {
     clearError: (state) => {

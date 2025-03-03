@@ -7,12 +7,10 @@ import {
   clearCartApi,
 } from "../services/cart";
 
-// Helper function to save cart to localStorage
 const saveCartToLocalStorage = (state) => {
   localStorage.setItem("guestCart", JSON.stringify(state));
 };
 
-// Load initial state from localStorage for guest users
 const loadInitialState = () => {
   const savedCart = JSON.parse(localStorage.getItem("guestCart"));
   return {
